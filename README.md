@@ -24,6 +24,27 @@ We highly recommend using the [Blockbuilder Bookmarklet](http://bl.ocks.org/enja
 
 ## SVG Graphics
 
+Reference links:
+
+ * [Scalable Vector Graphics - Wikipedia](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics)
+ * [SVG Element Reference - MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element)
+ * [SVG Paths Tutorial - MDN](https://developer.mozilla.org/en/docs/Web/SVG/Tutorial/Paths)
+
+Code examples:
+
+<table>
+  <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/098af28142c664535cdf624d09dd90a8">
+        SVG Basics
+      </a><br>
+      <a href="http://bl.ocks.org/curran/098af28142c664535cdf624d09dd90a8">
+        <img src="http://bl.ocks.org/curran/raw/098af28142c664535cdf624d09dd90a8/thumbnail.png">
+      </a>
+    </td>
+  </tr>
+</table>
+
 ## D3 Selections
 
 ## The Margin Convention
