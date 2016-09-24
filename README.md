@@ -8,3 +8,11 @@ Code examples and references for the course "D3.js in Motion"
 ## D3 Selections
 
 ## The Margin Convention
+
+# Working with Data
+
+## Loading and Parsing Data
+
+## Scales
+
+## Axes
