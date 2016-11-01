@@ -18,7 +18,49 @@ Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS
  * [blockbuilder.org/search](http://blockbuilder.org/search)
  * [Bar Chart Example](http://bl.ocks.org/mbostock/3885304)
  
+# Some Examples to Inspire
 
+ * [bl.ocks.org/curran](http://bl.ocks.org/curran)
+ * [Horizontal Bar Chart](http://bl.ocks.org/curran/8ac62d283a7aa6e95de8)
+ * [Religions Bar Chart](http://bl.ocks.org/curran/4df29e2f8c6e20ed2baf)
+ * [Colored Bar Chart](http://bl.ocks.org/curran/fea34ca9b3b8886e3ab8)
+ * [Splitting a Rectangle](http://bl.ocks.org/curran/ab098389dd80e4a6eb58)
+ * [Grouped Bars](http://bl.ocks.org/curran/d4e2b2854f25429a06aa)
+ * [Stacked Bars](http://bl.ocks.org/curran/805413fb3b2efaada1ce)
+ * [Religions of Largest 20 Countries](http://bl.ocks.org/curran/0d2cc6698cad72a48027b8de0ebb417d)
+ * [Circle Area Chart](http://bl.ocks.org/curran/f1d48313521289e52d71)
+ * [Scatter Plot](http://bl.ocks.org/curran/9e04ccfebeb84bcdc76c)
+ * [World City Explorer](http://bl.ocks.org/curran/752b97cef3f880a813ab)
+ * [Colored Circle Area Chart](http://bl.ocks.org/curran/36933d70fa4e43027910)
+ * [Religions Pie Chart](http://bl.ocks.org/curran/1c23d9c7070deb6f8488)
+ * [Religions Donut Chart](http://bl.ocks.org/curran/8f7f5a72faff9ecc5088)
+ * [Polar Area Diagram](http://bl.ocks.org/curran/94f1376b946c9d217014)
+ * [Polar Area Small Multiples](http://bl.ocks.org/curran/40d5e61963abf20da067)
+ * [Pie Chart Small Multiples](http://bl.ocks.org/curran/be3744cfe1b318bf4035)
+ * [Donut Chart Small Multiples](http://bl.ocks.org/curran/11b02f8917fac66d6fe5)
+ * [Sized Pie Charts](http://bl.ocks.org/curran/e025a50dbaae7186e516)
+ * [Sized Donut Charts](http://bl.ocks.org/curran/d0a42741ce0cf6cdc3ab)
+ * [World Population Line Chart](http://bl.ocks.org/curran/e05c76ab9450cbc214ac)
+ * [Standalone Line Chart](http://bl.ocks.org/curran/60b40877ef898f19aeb8)
+ * [Multi-Line Chart of Largest Countries](http://bl.ocks.org/curran/b1014a71757ce72444e1)
+ * [Stacked Area Chart](http://bl.ocks.org/curran/9eea6a43904b1a158e92)
+ * [Mortality](http://bl.ocks.org/curran/6284affc05bdeb7dfc9e)
+ * [Map & Globe](http://bl.ocks.org/curran/01aa2685f083b6c1b9fb)
+ * [Cross Country Trip](http://bl.ocks.org/curran/96823ad84b0415536980b1cbf57b1dcc)
+ * [Linked Scatter Plot and Bar Chart](http://bl.ocks.org/curran/f4041cac02f19ee460dfe8b709dc24e7)
+ * [World Countries Hierarchy](http://bl.ocks.org/curran/1dd7ab046a4ed32380b21e81a38447aa)
+ * [Global Migration in 2015](http://bl.ocks.org/curran/8c5bb1e0dd8ea98695d28c8a0ccfc533)
+ * [Crossfilter & Chiasm](http://bl.ocks.org/curran/87d038562333a7ad4a64)
+ * [Moon](http://bl.ocks.org/curran/843bc0b590678a83e1838e5d357a4cf6)
+ * [Moon Calendar](http://bl.ocks.org/curran/27420ce88227892d000c3988a5b06c8c)
+ * [Interactive Scatter Plot](http://bl.ocks.org/curran/9938078a93a4ba380a0e)
+ * [Density-based Ticks](http://bl.ocks.org/curran/779f2db53e1e365e98d4)
+ * [Periodex](http://bl.ocks.org/curran/f4e96f9f761c71ee83aa810179fcdc03)
+ * [Tree Fractal with SVG](http://bl.ocks.org/curran/36163af1a01d41d0cd18bf6397bae774)
+ 
+ 
+ 
+ 
 
 
 
