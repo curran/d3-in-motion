@@ -1,5 +1,26 @@
 # d3-in-motion
-Code examples and references for the course "D3.js in Motion"
+Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS)
+
+# D3 Overview
+
+ * [D3 Paper](http://vis.stanford.edu/papers/d3) ([PDF](http://vis.stanford.edu/files/2011-D3-InfoVis.pdf))
+ * [Most Popular GitHub Repositories](https://github.com/search?utf8=%C3%A2%C2%9C%C2%93&q=stars%3A%3E1&type=Repositories&ref=searchresults)
+ * [d3js.org](https://d3js.org/)
+ * [D3 Wiki Home](https://github.com/d3/d3/wiki)
+ * [D3 Gallery](https://github.com/d3/d3/wiki/Gallery)
+ * [bl.ocks.org/mbostock](http://bl.ocks.org/mbostock)
+ * [D3 index.js](https://github.com/d3/d3/blob/master/index.js)
+ * [D3 API Documentation](https://github.com/d3/d3/blob/master/API.md)
+ * [D3 4.0 Migration Guide](https://github.com/d3/d3/blob/master/CHANGES.md)
+ * [D3 Mailing List](https://groups.google.com/forum/#!forum/d3-js)
+ * [D3 StackOverflow](http://stackoverflow.com/questions/tagged/d3.js)
+ * [blockbuilder.org](http://blockbuilder.org)
+ * [blockbuilder.org/search](http://blockbuilder.org/search)
+ * [Bar Chart Example](http://bl.ocks.org/mbostock/3885304)
+ 
+
+
+
 
 # The Vocabulary of D3
 
