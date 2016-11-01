@@ -58,7 +58,23 @@ Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS
  * [Periodex](http://bl.ocks.org/curran/f4e96f9f761c71ee83aa810179fcdc03)
  * [Tree Fractal with SVG](http://bl.ocks.org/curran/36163af1a01d41d0cd18bf6397bae774)
  
+ # Getting Started with Bl.ocks.org and Blockbuilder
  
+  * [bl.ocks.org](http://bl.ocks.org/)
+  * [Force-Directed Graph](http://bl.ocks.org/mbostock/4062045)
+  * [Force-Directed Graph Gist](https://gist.github.com/mbostock/4062045)
+  * [live-server](https://www.npmjs.com/package/live-server)
+  * [Mike Bostock’s Blocks](http://bl.ocks.org/mbostock)
+  * [Elijah Meeks’s Blocks](http://bl.ocks.org/emeeks)
+  * [Ian Johnson’s Blocks](http://bl.ocks.org/enjalot)
+  * [About Blockbuilder](http://blockbuilder.org/about)
+  * [fresh block](http://blockbuilder.org/)
+  * [Blockbuilder Bookmarklet](http://bl.ocks.org/enjalot/c0e1634fb919c37575b8)
+  * [HTML Starter](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
+  * [HTML Starter in Blockbuilder](http://blockbuilder.org/curran/30488e66d2ed50eaea82d4d012bf64a2)
+  * [Hello D3](http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
+  * [Hello D3 in Blockbuilder](http://blockbuilder.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
+  * [Hello D3 Gist](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
  
  
 
