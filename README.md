@@ -70,32 +70,11 @@ Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS
  * [About Blockbuilder](http://blockbuilder.org/about)
  * [fresh block](http://blockbuilder.org/)
  * [Blockbuilder Bookmarklet](http://bl.ocks.org/enjalot/c0e1634fb919c37575b8)
- * [HTML Starter](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
+ * [HTML Starter (Block)](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [HTML Starter in Blockbuilder](http://blockbuilder.org/curran/30488e66d2ed50eaea82d4d012bf64a2)
- * [Hello D3](http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
+ * [Hello D3 (Block)](http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [Hello D3 in Blockbuilder](http://blockbuilder.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [Hello D3 Gist](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
- 
-<table>
-  <tr>
-    <td>
-      <a href="http://bl.ocks.org/curran/30488e66d2ed50eaea82d4d012bf64a2">
-        HTML Starter
-      </a><br>
-      <a href="http://bl.ocks.org/curran/30488e66d2ed50eaea82d4d012bf64a2">
-        <img src="http://bl.ocks.org/curran/raw/30488e66d2ed50eaea82d4d012bf64a2/thumbnail.png">
-      </a>
-    </td>
-    <td>
-      <a href="http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8">
-        Hello D3
-      </a><br>
-      <a href="http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8">
-        <img src="http://bl.ocks.org/curran/raw/67f34930b103acb08c8d3d779c9ff4c8/thumbnail.png">
-      </a>
-    </td>
-  </tr>
-</table>
 
 # Building a Basic Bar Chart
 
@@ -111,7 +90,7 @@ Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS
    * [selection.data([data[, key]])](https://github.com/d3/d3-selection#selection_data)
    * [selection.enter()](https://github.com/d3/d3-selection#selection_enter)
    * [selection.merge(other)](https://github.com/d3/d3-selection#selection_merge)
- * [Hello D3 with Data](http://bl.ocks.org/curran/d3f2271e133cd42ec2115cbd2e4520bd)
+ * [Hello D3 with Data (Block)](http://bl.ocks.org/curran/d3f2271e133cd42ec2115cbd2e4520bd)
 
 # The Vocabulary of D3
 
