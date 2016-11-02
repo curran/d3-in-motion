@@ -75,7 +75,22 @@ Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS
  * [Hello D3](http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [Hello D3 in Blockbuilder](http://blockbuilder.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [Hello D3 Gist](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
- 
+
+# Building a Basic Bar Chart
+
+ * [Countries and dependencies by population (Wikipedia)](https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population#Countries_and_dependencies_by_population)
+ * [Horizontal Bar Chart](http://bl.ocks.org/curran/8ac62d283a7aa6e95de8)
+ * [d3-selection](https://github.com/d3/d3-selection)
+   * [d3.select(selector)](https://github.com/d3/d3-selection#select)
+   * [selection.append(type)](https://github.com/d3/d3-selection#selection_append)
+   * [selection.text([value])](https://github.com/d3/d3-selection#selection_text)
+   * [selection.attr(name[, value])](https://github.com/d3/d3-selection#selection_attr)
+   * [selection.style(name[, value[, priority]])](https://github.com/d3/d3-selection#selection_style)
+   * [d3.selectAll(selector)](https://github.com/d3/d3-selection#selectAll)
+   * [selection.data([data[, key]])](https://github.com/d3/d3-selection#selection_data)
+   * [selection.enter()](https://github.com/d3/d3-selection#selection_enter)
+   * [selection.merge(other)](https://github.com/d3/d3-selection#selection_merge)
+ * [Hello D3 with Data](http://bl.ocks.org/curran/d3f2271e133cd42ec2115cbd2e4520bd)
 
 # The Vocabulary of D3
 
