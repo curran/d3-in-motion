@@ -75,6 +75,27 @@ Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS
  * [Hello D3](http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [Hello D3 in Blockbuilder](http://blockbuilder.org/curran/67f34930b103acb08c8d3d779c9ff4c8)
  * [Hello D3 Gist](https://gist.github.com/curran/67f34930b103acb08c8d3d779c9ff4c8)
+ 
+<table>
+  <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/30488e66d2ed50eaea82d4d012bf64a2">
+        HTML Starter
+      </a><br>
+      <a href="http://bl.ocks.org/curran/30488e66d2ed50eaea82d4d012bf64a2">
+        <img src="http://bl.ocks.org/curran/raw/30488e66d2ed50eaea82d4d012bf64a2/thumbnail.png">
+      </a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8">
+        Hello D3
+      </a><br>
+      <a href="http://bl.ocks.org/curran/67f34930b103acb08c8d3d779c9ff4c8">
+        <img src="http://bl.ocks.org/curran/raw/67f34930b103acb08c8d3d779c9ff4c8/thumbnail.png">
+      </a>
+    </td>
+  </tr>
+</table>
 
 # Building a Basic Bar Chart
 
