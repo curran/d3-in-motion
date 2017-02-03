@@ -4,6 +4,7 @@
   "description": "Code examples and references for the course \"D3.js in Motion\".",
   "main": "index.js",
   "scripts": {
+    "start": "example-viewer",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +29,6 @@
   },
   "homepage": "https://github.com/curran/d3-in-motion#readme",
   "dependencies": {
-    "example-viewer": "0.0.1"
+    "example-viewer": "0.0.4"
   }
 }
