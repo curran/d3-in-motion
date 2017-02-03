@@ -10,11 +10,24 @@
     "type": "git",
     "url": "git+https://github.com/curran/d3-in-motion.git"
   },
-  "keywords": ["chart", "d3js", "data", "dataviz", "html5", "programming", "teaching", "visualization", "web" ],
+  "keywords": [
+    "chart",
+    "d3js",
+    "data",
+    "dataviz",
+    "html5",
+    "programming",
+    "teaching",
+    "visualization",
+    "web"
+  ],
   "author": "Curran Kelleher",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/curran/d3-in-motion/issues"
   },
-  "homepage": "https://github.com/curran/d3-in-motion#readme"
+  "homepage": "https://github.com/curran/d3-in-motion#readme",
+  "dependencies": {
+    "example-viewer": "0.0.1"
+  }
 }
