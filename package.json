@@ -1,0 +1,20 @@
+{
+  "name": "d3-in-motion",
+  "version": "0.0.1",
+  "description": "Code examples and references for the course \"D3.js in Motion\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curran/d3-in-motion.git"
+  },
+  "keywords": ["chart", "d3js", "data", "dataviz", "html5", "programming", "teaching", "visualization", "web" ],
+  "author": "Curran Kelleher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/curran/d3-in-motion/issues"
+  },
+  "homepage": "https://github.com/curran/d3-in-motion#readme"
+}
