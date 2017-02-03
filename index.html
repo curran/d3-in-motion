@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Example Viewer</title>
+
+    <!-- For offline development (first run fetchLibs.sh) -->
+    <!--
+    <script src="/libs/d3.min.js"></script>
+    <script src="/libs/codemirror.min.js"></script>
+    <script src="/libs/javascript.min.js"></script>
+    <script src="/libs/css.min.js"></script>
+    <script src="/libs/xml.min.js"></script>
+    <script src="/libs/htmlmixed.min.js"></script>
+    <link rel="stylesheet" href="/libs/codemirror.min.css">
+    <script src="/libs/inlet.min.js"></script>
+    <link rel="stylesheet" href="/libs/inlet.css">
+    -->
+    
+    <!-- For cloud hosting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/mode/htmlmixed/htmlmixed.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.23.0/codemirror.min.css">
+    <script src="https://enjalot.github.io/Inlet/inlet.min.js"></script>
+    <link rel="stylesheet" href="https://enjalot.github.io/Inlet/inlet.css">
+
+    <style>
+
+      body {
+        margin: 0px;
+        font-family: Sans-Serif;
+      }
+
+      .CodeMirror {
+        font-size: 3rem;
+        height: auto;
+      }
+
+      /* Adds a shadow effect. Inspired by Material Design "Cards". */
+      .shadow {
+        box-shadow: 1px 1px 4px grey;
+      }
+
+      .header {
+        margin: 16px;
+        font-size: 3rem;
+      }
+      .header-breadcrumbs {
+        color: #999;
+      }
+      .header-title {
+        font-size: 2em;
+      }
+
+      .runner {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        background-color: white;
+        z-index: 3; /* CodeMirror's z-index is 2. */
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        pointer-events: none;
+        z-index: 4; /* Above everything else. */
+      }
+
+    </style>
+  </head>
+  <body>
+    <script>
+(function (){
+
+  main();
+
+  function main(){
+
+    var store = Store([
+          "htmlFetch", // When the HTML content is fetched from the server.
+          "htmlChange", // When the HTML content is changed.
+          "save", // When a save was requested.
+          "saved", // After a save occurred.
+          "navigate", // When a navigation was requested.
+          "navigated", // After navigation occurred (after a route change).
+          "next", // When the user wants to go to the next example.
+          "previous" // When the user wants to go to the previous example.
+        ]),
+        body = d3.select("body");
+
+    Header(store, body);
+    Editor(store, body);
+    Runner(store, body);
+    Overlay(store, body);
+
+    Server(store)
+    Keyboard(store);
+    Router(store);
+    Navigator(store);
+  }
+
+  // A Redux-inspired store that uses d3.dispatch.
+  function Store(actions){
+    var dispatch = d3.dispatch.apply(null, actions),
+        state = {};
+
+    actions.forEach(function (type){
+      dispatch.on(type + ".getState", function (arg){
+        var newState = {};
+        newState[type] = arg;
+        state = Object.assign(state, newState);
+      });
+    });
+
+    return {
+      dispatch: dispatch,
+      getState: function (){ return state; }
+    };
+  }
+
+  // User interface component for the header text (top left).
+  function Header(store, selection){
+    var header = selection.append("div").attr("class", "header"),
+        breadcrumbs = header.append("div").attr("class", "header-breadcrumbs"),
+        title = header.append("div").attr("class", "header-title");
+
+    store.dispatch.on("navigated.header", function (params){
+      breadcrumbs.text([
+        "Unit " + params.unit,
+        "Module " + params.module,
+        "Example " + params.example
+      ].join(" / "));
+    });
+
+    store.dispatch.on("htmlChange.header", function (html){
+      title.text(html.match(/title>(.*?)</)[1]);
+    });
+  }
+
+
+  // User interface component for the code editor.
+  function Editor(store, selection){
+    var code = selection.append("div").attr("class", "shadow"),
+        editor = CodeMirror(code.node(), {
+          lineNumbers: false,
+          mode: "htmlmixed"
+        });
+
+    // Inlet provides the interactive sliders and color pickers.
+    Inlet(editor);
+
+    editor.on("change", function (editor, change){
+      if(change.origin === "setValue") return;
+      store.dispatch.call("htmlChange", null, editor.getValue());
+    });
+
+    store.dispatch.on("htmlFetch.editor", function (html){
+      editor.setValue(html);
+    });
+  }
+
+
+  // User interface component for the running example (top right).
+  function Runner(store, selection){
+    var iframe = selection.append("iframe").attr("class", "shadow runner")
+      .attr("width", "960") // 960 X 500 is standard for bl.ocks.org.
+      .attr("height", "500")
+      .attr("marginwidth", "0") // Have no margin to match with bl.ocks.org.
+      .attr("marginheight", "0")
+      .attr("frameborder", "0px")
+      .attr("scrolling", "no");
+
+    store.dispatch.on("htmlChange.runner", function (html){
+      iframe.attr("srcdoc", html);
+    });
+  }
+
+  
+  // User interface component for the notification overlay (displays "Saved!").
+  function Overlay(store, selection){
+    var div = selection.append("div").attr("class", "overlay"),
+        svg = div.append("svg");
+
+    function notify(message){
+      var width = div.node().clientWidth,
+          height = div.node().clientHeight;
+      svg
+          .attr("width", width)
+          .attr("height", height)
+        .append("text")
+          .attr("x", width / 2)
+          .attr("y", height / 2)
+          .attr("text-anchor", "middle")
+          .attr("alignment-baseline", "middle")
+          .style("text-shadow", "0px 0px 5px white")
+          .attr("font-size", "20em")
+          .attr("opacity", 1)
+          .text(message)
+        .transition().duration(700).ease(d3.easeLinear)
+          .attr("font-size", "23em")
+          .attr("opacity", 0)
+          .remove();
+    }
+    
+    store.dispatch.on("saved.overlay", notify);
+  }
+
+
+  // Deals with interactions between the browser and server.
+  function Server(store){
+
+    store.dispatch.on("navigated.server", function (params){
+      var url = [
+        "units",
+        "unit-" + params.unit,
+        "module-" + params.module,
+        "example-" + params.example,
+        "index.html"
+      ].join("/");
+
+      d3.request(url).get(function (xhr){
+        var html = xhr.responseText;
+        store.dispatch.call("htmlFetch", null, html);
+        store.dispatch.call("htmlChange", null, html);
+      });
+    });
+
+    store.dispatch.on("save.server", function (){
+      var state = store.getState(),
+          data = Object.assign({ html: state.htmlChange }, state.navigated);
+      d3.request("save")
+        .header("Content-Type", "application/json")
+        .post(JSON.stringify(data), function (xhr){
+          store.dispatch.call("saved", null, xhr.responseText);
+        });
+    });
+  }
+
+
+  // Translates global keyboard events into dispatched actions.
+  function Keyboard(store){
+    window.addEventListener("keydown", function (e){
+
+      var CTRL = e.ctrlKey,
+          S = e.which === 83,
+          RIGHT = e.which === 39,
+          LEFT = e.which === 37;
+
+      if(CTRL && S){ store.dispatch.call("save"); e.preventDefault(); }
+      if(CTRL && RIGHT){ store.dispatch.call("next"); }
+      if(CTRL && LEFT){ store.dispatch.call("previous"); }
+    });
+  }
+
+
+  // Deals with the route, kept in the fragment identifier.
+  function Router(store){
+    var defaultParams = { unit: 1, module: 1, example: 1 };
+
+    window.addEventListener("hashchange", navigate);
+    navigate();
+
+    store.dispatch.on("navigate", function (params){
+      location.hash = encodeHash(params);
+    });
+
+    function navigate(){
+      var params = parseHash();
+      if(params){
+        store.dispatch.call("navigated", null, params);
+      } else {
+        location.hash = encodeHash(defaultParams);
+      }
+    }
+
+    function parseHash(){
+      var path = location.hash.substr(1).split("/");
+      if(path.length === 3){
+        return {
+          unit: +path[0],
+          module: +path[1],
+          example: +path[2]
+        };
+      }
+      return null;
+    }
+
+    function encodeHash(params){
+      return "#" + params.unit + "/" + params.module + "/" + params.example;
+    }
+  }
+
+
+  // Translates "next" and "previous" actions into "navigate" actions.
+  function Navigator(store){
+
+    store.dispatch.on("next", go(1));
+    store.dispatch.on("previous", go(-1));
+
+    function go(increment){
+      return function (){
+        var navigated = store.getState().navigated;
+        store.dispatch.call("navigate", null, Object.assign(navigated, {
+          example: navigated.example + increment
+        }));
+      }
+    }
+  }
+}());
+    </script>
+  </body>
+</html>
