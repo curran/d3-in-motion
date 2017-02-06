@@ -84,9 +84,37 @@
     <script>
 (function (){
 
+  // The main entry point for the application.
   (function main(){
 
-    // Redux actions.
+    // Set up Redux.
+    var actions = Actions(),
+        reducer = Reducer(),
+        store = Redux.createStore(reducer, Redux.applyMiddleware(ReduxThunk.default));
+
+    // Initialize application components.
+    var router = Router(store.dispatch, actions),
+        editor = Editor(store.dispatch, actions),
+        header = Header(),
+        runner = Runner(),
+        notifier = Notifier();
+    Keyboard(store.dispatch, actions);
+
+    // Re-render the application when state changes.
+    store.subscribe(function (){
+      var state = store.getState();
+      d3.select("body")
+        .call(header, state)
+        .call(editor, state)
+        .call(runner, state)
+        .call(notifier, state);
+      router(state);
+    });
+  }());
+
+
+  // Redux action creators.
+  function Actions(){
     var actions = {
 
       // After navigation occurred (after a route change).
@@ -134,9 +162,13 @@
         return { type: "SAVED", message: message, time: Date.now() };
       }
     };
+    return actions;
+  }
 
-    // The Redux reducer.
-    var reducer = function (state, action){
+
+  // The Redux reducer.
+  function Reducer(){
+    return function (state, action){
       state = state || {};
       switch (action.type) {
         case "NAVIGATED": return Object.assign(state, { params: action.params });
@@ -146,9 +178,9 @@
         case "SAVED": return Object.assign(state, { notify: action });
         default: return state;
       }
-    }
+    };
 
-    // Goes to the next or previous state (used in reducer).
+    // Goes to the next or previous example.
     function go(state, increment){
       return Object.assign(state, {
         params: Object.assign(state.params, {
@@ -156,38 +188,11 @@
         })
       });
     }
-
-    // The Redux store.
-    var store = Redux.createStore(reducer, Redux.applyMiddleware(ReduxThunk.default));
-
-    // Smart components.
-    var router = Router(store, actions),
-        editor = Editor(store, actions),
-        keyboard = Keyboard(store, actions);
-
-    // Dumb components.
-    var header = Header(),
-        runner = Runner(),
-        notifier = Notifier();
-
-    // Respond to changes in state.
-    store.subscribe(function (){
-
-      // Render user interface components.
-      d3.select("body").datum(store.getState())
-        .call(header)
-        .call(editor)
-        .call(runner)
-        .call(notifier);
-
-      // Update the route if a navigation occurred.
-      router();
-    });
-  }());
+  }
 
 
   // Deals with the route, kept in the fragment identifier.
-  function Router(store, actions){
+  function Router(dispatch, actions){
     var defaultParams = { unit: 1, module: 1, example: 1 };
 
     navigate();
@@ -195,8 +200,8 @@
     function navigate(){
       var params = parseHash();
       if(params){
-        store.dispatch(actions.navigated(params));
-        store.dispatch(actions.fetchHtml());
+        dispatch(actions.navigated(params));
+        dispatch(actions.fetchHtml());
       } else {
         location.hash = encodeHash(defaultParams);
       }
@@ -214,8 +219,8 @@
       return "#" + params.unit + "/" + params.module + "/" + params.example;
     }
 
-    return function (){
-      var newHash = encodeHash(store.getState().params);
+    return function (state){
+      var newHash = encodeHash(state.params);
       if(location.hash != newHash){
         location.hash = newHash;
       }
@@ -225,81 +230,77 @@
 
   // User interface component for the header text (top left).
   function Header(){
-    return function (selection){
-      selection.each(function (state){
-        var header = d3.select(this).selectAll(".header").data([1]);
-        var headerEnter = header.enter().append("div").attr("class", "header");
-        headerEnter.append("div").attr("class", "header-breadcrumbs");
-        headerEnter.append("div").attr("class", "header-title");
-        header = header.merge(headerEnter);
+    return function (selection, state){
+      var header = selection.selectAll(".header").data([1]);
+      var headerEnter = header.enter().append("div").attr("class", "header");
+      headerEnter.append("div").attr("class", "header-breadcrumbs");
+      headerEnter.append("div").attr("class", "header-title");
+      header = header.merge(headerEnter);
 
-        if(state.params){
-          header.select(".header-breadcrumbs")
-            .text([
-              "Unit " + state.params.unit,
-              "Module " + state.params.module,
-              "Example " + state.params.example
-            ].join(" / "));
-        }
+      if(state.params){
+        header.select(".header-breadcrumbs")
+          .text([
+            "Unit " + state.params.unit,
+            "Module " + state.params.module,
+            "Example " + state.params.example
+          ].join(" / "));
+      }
 
-        if(state.html){
-          header.select(".header-title")
-            .text(state.html.match(/title>(.*?)</)[1]);
-        }
-      });
+      if(state.html){
+        header.select(".header-title")
+          .text(state.html.match(/title>(.*?)</)[1]);
+      }
     }
   }
 
 
   // User interface component for the code editor.
-  function Editor(store, actions){
+  function Editor(dispatch, actions){
     var codemirror = d3.local();
-    return function (selection){
-      selection.each(function (state){
-        var editor = d3.select(this).selectAll(".editor").data([1]);
-        editor = editor.merge(
-          editor.enter().append("div")
-            .attr("class", "editor shadow")
-            .each(function (){
-              var cm = CodeMirror(this, {
-                lineNumbers: false,
-                mode: "htmlmixed"
-              });
+    return function (selection, state){
+      var editor = selection.selectAll(".editor").data([1]);
+      editor = editor.merge(
+        editor.enter().append("div")
+          .attr("class", "editor shadow")
+          .each(function (){
+            var cm = CodeMirror(this, {
+              lineNumbers: false,
+              mode: "htmlmixed"
+            });
 
-              // Inlet provides the interactive sliders and color pickers.
-              Inlet(cm);
+            // Inlet provides the interactive sliders and color pickers.
+            Inlet(cm);
 
-              cm.on("change", function (editor, change){
-                if(change.origin === "setValue") return;
-                store.dispatch(actions.changeHtml(cm.getValue()));
-              });
+            cm.on("change", function (editor, change){
+              if(change.origin === "setValue") return;
+              dispatch(actions.changeHtml(cm.getValue()));
+            });
 
-              codemirror.set(this, cm);
-            }));
+            codemirror.set(this, cm);
+          }));
 
-        if(state.html){
-          editor.each(function (){
-            var cm = codemirror.get(this);
-            if(cm.getValue() !== state.html){
-              cm.setValue(state.html);
-            }
-          });
-        }
-      });
+      if(state.html){
+        editor.each(function (){
+          var cm = codemirror.get(this);
+          if(cm.getValue() !== state.html){
+            cm.setValue(state.html);
+          }
+        });
+      }
     };
   }
 
 
   // Translates global keyboard events into dispatched actions.
-  function Keyboard(store, actions){
+  function Keyboard(dispatch, actions){
     window.addEventListener("keydown", function (e){
       var CTRL = e.ctrlKey,
           S = e.which === 83,
           RIGHT = e.which === 39,
           LEFT = e.which === 37;
-      if(CTRL && S){ store.dispatch(actions.save()); e.preventDefault(); }
-      if(CTRL && RIGHT){ store.dispatch(actions.next()); }
-      if(CTRL && LEFT){ store.dispatch(actions.previous()); }
+      if(CTRL && S){ dispatch(actions.save()); e.preventDefault(); }
+      if(CTRL && RIGHT){ dispatch(actions.next()); }
+      if(CTRL && LEFT){ dispatch(actions.previous()); }
     });
   }
 
@@ -333,20 +334,18 @@
       }
     }, 1000 / framesPerSecond);
 
-    return function (selection){
-      selection.each(function (state){
-        root = d3.select(this);
-        root.selectAll(".runner").data(buffers)
-          .enter().append("iframe")
-            .attr("class", "shadow runner")
-            .attr("width", "960") // 960 X 500 is standard for bl.ocks.org.
-            .attr("height", "500")
-            .attr("marginwidth", "0") // Have no margin to match with bl.ocks.org.
-            .attr("marginheight", "0")
-            .attr("frameborder", "0px")
-            .attr("scrolling", "no");
-        currentHtml = state.html;
-      });
+    return function (selection, state){
+      root = selection;
+      root.selectAll(".runner").data(buffers)
+        .enter().append("iframe")
+          .attr("class", "shadow runner")
+          .attr("width", "960") // 960 X 500 is standard for bl.ocks.org.
+          .attr("height", "500")
+          .attr("marginwidth", "0") // Have no margin to match with bl.ocks.org.
+          .attr("marginheight", "0")
+          .attr("frameborder", "0px")
+          .attr("scrolling", "no");
+      currentHtml = state.html;
     };
   }
 
@@ -354,38 +353,35 @@
   // User interface component for the notification overlay (displays "Saved!").
   function Notifier(){
     var previousTime = 0;
-    return function (selection){
-      selection.each(function (state){
+    return function (selection, state){
+      selection.selectAll(".overlay").data([1])
+        .enter().append("div").attr("class", "overlay")
+        .append("svg");
 
-        d3.select(this).selectAll(".overlay").data([1])
-          .enter().append("div").attr("class", "overlay")
-          .append("svg");
+      if(state.notify && state.notify.time !== previousTime){
+        var div = selection.select(".overlay").node(),
+            width = div.clientWidth,
+            height = div.clientHeight;
 
-        if(state.notify && state.notify.time !== previousTime){
-          var div = d3.select(this).select(".overlay").node(),
-              width = div.clientWidth,
-              height = div.clientHeight;
+        d3.select(div).select("svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("text")
+            .attr("x", width / 2)
+            .attr("y", height / 2)
+            .attr("text-anchor", "middle")
+            .attr("alignment-baseline", "middle")
+            .style("text-shadow", "0px 0px 5px white")
+            .attr("font-size", "20em")
+            .attr("opacity", 1)
+            .text(state.notify.message)
+          .transition().duration(700).ease(d3.easeLinear)
+            .attr("font-size", "23em")
+            .attr("opacity", 0)
+            .remove();
 
-          d3.select(div).select("svg")
-              .attr("width", width)
-              .attr("height", height)
-            .append("text")
-              .attr("x", width / 2)
-              .attr("y", height / 2)
-              .attr("text-anchor", "middle")
-              .attr("alignment-baseline", "middle")
-              .style("text-shadow", "0px 0px 5px white")
-              .attr("font-size", "20em")
-              .attr("opacity", 1)
-              .text(state.notify.message)
-            .transition().duration(700).ease(d3.easeLinear)
-              .attr("font-size", "23em")
-              .attr("opacity", 0)
-              .remove();
-
-          previousTime = state.notify.time;
-        }
-      });
+        previousTime = state.notify.time;
+      }
     };
   }
 }());
