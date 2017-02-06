@@ -1,6 +1,8 @@
 # d3-in-motion
 Code examples and references for the course "D3.js in Motion". (WORK IN PROGRESS)
 
+Uses the [example-viewer](https://github.com/curran/example-viewer) package.
+
 # D3 Overview
 
  * [D3 Paper](http://vis.stanford.edu/papers/d3) ([PDF](http://vis.stanford.edu/files/2011-D3-InfoVis.pdf))
