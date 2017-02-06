@@ -51,14 +51,33 @@
       }
 
       .header {
-        margin: 16px;
+        padding: 1rem;
         font-size: 3rem;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 3;
+        text-shadow:
+          0px 0px 5px white,
+          0px 0px 10px white,
+          0px 0px 15px white,
+          0px 0px 20px white,
+          0px 0px 25px white,
+          0px 0px 30px white,
+          0px 0px 35px white,
+          0px 0px 40px white,
+          0px 0px 45px white,
+          0px 0px 50px white
+        ;
       }
       .header-breadcrumbs {
         color: #999;
       }
       .header-title {
         font-size: 2em;
+      }
+      .header-spacer {
+        margin-top: 20rem;
       }
 
       .runner {
@@ -75,7 +94,7 @@
         right: 0px;
         left: 0px;
         pointer-events: none;
-        z-index: 4; /* Above everything else. */
+        z-index: 6; /* Above everything else. */
       }
 
     </style>
@@ -236,6 +255,9 @@
       headerEnter.append("div").attr("class", "header-breadcrumbs");
       headerEnter.append("div").attr("class", "header-title");
       header = header.merge(headerEnter);
+
+      selection.selectAll(".header-spacer").data([1])
+        .enter().append("div").attr("class", "header-spacer");
 
       if(state.params){
         header.select(".header-breadcrumbs")

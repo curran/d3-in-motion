@@ -29,6 +29,6 @@
   },
   "homepage": "https://github.com/curran/d3-in-motion#readme",
   "dependencies": {
-    "example-viewer": "0.0.8"
+    "example-viewer": "0.0.9"
   }
 }
