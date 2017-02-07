@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Opacity</title>
+    <title>Introducing Merge</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500">
-      <rect x="250" y="80"  width="300" height="300" fill="rgb(255, 0, 0)"></rect>
-      <rect x="400" y="140" width="300" height="300" fill="rgba(0, 255, 0, 0.5)"></rect>
-    </svg>
+    <script>
+      var svg = d3.select("body").append("svg")
+          .attr("width", 960)
+          .attr("height", 500);
+      
+      function render(data){
+        var circle = svg.selectAll("circle").data(data);
+        
+        circle.enter().append("circle")
+            .attr("cx", function (d){ return d; })
+            .attr("cy", 250)
+            .attr("r", 100)
+          .merge(circle)
+            .attr("r", 50);
+        
+        circle.exit().remove();
+      }
+
+      setTimeout(function (){ render([300, 500, 700]); }, 1000);
+      setTimeout(function (){ render([300, 600]); }, 2000);
+      setTimeout(function (){ render([300, 500, 700]); }, 3000);
+      
+    </script>
   </body>
 </html>

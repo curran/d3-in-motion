@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Introducing Update</title>
+    <title>General Update Pattern</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -11,14 +11,13 @@
           .attr("height", 500);
       
       function render(data){
-        var circle = svg.selectAll("circle").data(data)
-            .attr("cx", function (d){ return d; })
-            .attr("r", 50);
+        var circle = svg.selectAll("circle").data(data);
         
         circle.enter().append("circle")
-            .attr("cx", function (d){ return d; })
             .attr("cy", 250)
-            .attr("r", 100);
+            .attr("r", 100)
+          .merge(circle)
+            .attr("cx", function (d){ return d; });
         
         circle.exit().remove();
       }
@@ -26,6 +25,7 @@
       setTimeout(function (){ render([300, 500, 700]); }, 1000);
       setTimeout(function (){ render([300, 600]); }, 2000);
       setTimeout(function (){ render([300, 500, 700]); }, 3000);
+      setTimeout(function (){ render([300, 600]); }, 4000);
       
     </script>
   </body>

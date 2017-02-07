@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Introducing Update</title>
+    <title>The Case for Exit</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -11,21 +11,15 @@
           .attr("height", 500);
       
       function render(data){
-        var circle = svg.selectAll("circle").data(data)
-            .attr("cx", function (d){ return d; })
-            .attr("r", 50);
-        
-        circle.enter().append("circle")
+        svg.selectAll("circle").data(data)
+          .enter().append("circle")
             .attr("cx", function (d){ return d; })
             .attr("cy", 250)
             .attr("r", 100);
-        
-        circle.exit().remove();
       }
 
       setTimeout(function (){ render([300, 500, 700]); }, 1000);
-      setTimeout(function (){ render([300, 600]); }, 2000);
-      setTimeout(function (){ render([300, 500, 700]); }, 3000);
+      setTimeout(function (){ render([300, 500]); }, 2000);
       
     </script>
   </body>
