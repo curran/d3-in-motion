@@ -12,8 +12,10 @@
           .attr("width", 960)
           .attr("height", 500);
       
-      svg.selectAll("circle").data(data)
-        .enter().append("circle")
+      var circles = svg
+        .selectAll("circle").data(data);
+      
+      circles.enter().append("circle")
           .attr("cx", function (d){ return d; })
           .attr("cy", 250)
           .attr("r", 100);

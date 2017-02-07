@@ -11,16 +11,16 @@
           .attr("height", 500);
       
       function render(data){
-        var circle = svg.selectAll("circle").data(data)
-            .attr("cx", function (d){ return d; })
+        var circles = svg
+          .selectAll("circle").data(data)
             .attr("r", 50);
         
-        circle.enter().append("circle")
+        circles.exit().remove();
+
+        circles.enter().append("circle")
             .attr("cx", function (d){ return d; })
             .attr("cy", 250)
             .attr("r", 100);
-        
-        circle.exit().remove();
       }
 
       setTimeout(function (){ render([300, 500, 700]); }, 1000);

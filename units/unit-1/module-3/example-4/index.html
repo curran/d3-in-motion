@@ -11,14 +11,17 @@
           .attr("height", 500);
       
       function render(data){
-        svg.selectAll("circle").data(data)
-          .enter().append("circle")
+        var circles = svg
+          .selectAll("circle").data(data);
+
+        circles.enter().append("circle")
             .attr("cx", function (d){ return d; })
             .attr("cy", 250)
             .attr("r", 100);
       }
 
       setTimeout(function (){ render([300, 500, 700]); }, 1000);
+      
     </script>
   </body>
 </html>
