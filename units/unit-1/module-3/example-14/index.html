@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Render Function</title>
+    <title>General Update Pattern</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -13,14 +13,21 @@
         var circles = svg
           .selectAll("circle").data(data);
         
+        circles.exit().remove();
+        
         circles
           .enter().append("circle")
-            .attr("cx", function (d){ return d; })
             .attr("cy", 250)
-            .attr("r", 100);
+            .attr("r", 100)
+          .merge(circles)
+            .attr("cx", function (d){ return d; });
       }
       
-      render([300, 500, 700]);
+      setInterval(function (){
+        render(d3.range(Math.random() * 10).map(function (){
+          return Math.random() * 960;
+        })); 
+      }, 1000);
     </script>
   </body>
 </html>
