@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Variable for Circles</title>
+    <title>SVG with D3 I</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500"></svg>
+    <svg width="960" height="500">
+      <rect y="100" width="300" height="300"></rect>
+    </svg>
     <script>
-      var data = [300, 500, 700];
-      var svg = d3.select("svg");
-      
-      var circles = svg
-        .selectAll("circle").data(data);
-      
-      circles
-        .enter().append("circle")
-          .attr("cx", function (d){ return d; })
-          .attr("cy", 250)
-          .attr("r", 100);
+      d3.select("rect")
+          .attr("x", 100);
     </script>
   </body>
 </html>

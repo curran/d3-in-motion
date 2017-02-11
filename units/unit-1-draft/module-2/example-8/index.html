@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pseudo Scatter Plot</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var data = [
+        { x: 171, y: 393},
+        { x: 373, y: 288},
+        { x: 554, y: 309},
+        { x: 576, y: 133},
+        { x: 826, y: 166},
+        { x: 712, y: 99}
+      ];
+      d3.select("body").append("svg")
+          .attr("width", 960)
+          .attr("height", 500)
+      	.selectAll("circle").data(data)
+        .enter().append("circle")
+          .attr("cx", function (d){ return d.x; })
+          .attr("cy", function (d){ return d.y; })
+          .attr("r", 30);
+    </script>
+  </body>
+</html>

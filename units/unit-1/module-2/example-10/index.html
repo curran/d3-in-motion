@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IDs with D3</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <div id="title-1" class="large-title"></div>
+    <div id="content-1" class="small-content"></div>
+    <div id="title-2" class="large-title"></div>
+    <div id="content-2" class="small-content"></div>
+    <script>
+      d3.selectAll(".large-title").style("font-size", "120pt");
+      d3.selectAll(".small-content").style("font-size", "40pt");
+      d3.select("#title-1").text("Large Title");
+      d3.select("#content-1").text("This content is set using D3.");
+      d3.select("#title-2").text("Another Title");
+      d3.select("#content-2").text("This content is also set using D3.");
+    </script>
+  </body>
+</html>

@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Render Function</title>
+    <title>SVG with D3 II</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500"></svg>
+    <svg width="960" height="500">
+      <rect></rect>
+    </svg>
     <script>
-      var svg = d3.select("svg");
-      
-      function render(data){
-        var circles = svg
-          .selectAll("circle").data(data);
-        
-        circles
-          .enter().append("circle")
-            .attr("cx", function (d){ return d; })
-            .attr("cy", 250)
-            .attr("r", 100);
-      }
-      
-      render([300, 500, 700]);
+      d3.select("rect")
+          .attr("x", 100)
+          .attr("y", 100)
+          .attr("width", 300)
+          .attr("height", 300);
     </script>
   </body>
 </html>
