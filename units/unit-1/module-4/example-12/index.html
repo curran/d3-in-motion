@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Remove on Exit</title>
+    <title>Introducing Exit</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -12,8 +12,10 @@
       function render(data){
         var circles = svg
           .selectAll("circle")
-            .data(data);
-        circles.exit().remove();
+          .data(data);
+        circles
+          .exit()
+            .attr("r", 50);
         circles
           .enter().append("circle")
             .attr("cx", function (d){ return d; })

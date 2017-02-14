@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Introducing Exit</title>
+    <title>The Case for Exit</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -12,10 +12,7 @@
       function render(data){
         var circles = svg
           .selectAll("circle")
-            .data(data);
-        circles
-          .exit()
-            .attr("r", 50);
+          .data(data);
         circles
           .enter().append("circle")
             .attr("cx", function (d){ return d; })

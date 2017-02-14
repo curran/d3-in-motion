@@ -12,8 +12,10 @@
       function render(data){
         var circles = svg
           .selectAll("circle")
-            .data(data);
-        circles.exit().remove();
+          .data(data);
+        circles
+          .exit()
+            .remove();
         circles
           .enter().append("circle")
             .attr("cx", function (d){ return d; })

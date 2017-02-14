@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Variable for Circles</title>
+    <title>Introducing Enter</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -9,10 +9,9 @@
     <script>
       var svg = d3.select("svg");
       var data = [300, 500, 700];
-      var circles = svg
+      svg
         .selectAll("circle")
-          .data(data);
-      circles
+        .data(data)
         .enter().append("circle")
           .attr("cx", function (d){ return d; })
           .attr("cy", 250)
