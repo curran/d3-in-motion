@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D3 Circles</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      var svg = d3.select("svg");
+      svg
+        .append("circle")
+          .attr("cx", 300)
+          .attr("cy", 250)
+          .attr("r", 100);
+      svg
+        .append("circle")
+          .attr("cx", 500)
+          .attr("cy", 250)
+          .attr("r", 100);
+      svg
+        .append("circle")
+          .attr("cx", 700)
+          .attr("cy", 250)
+          .attr("r", 100);
+    </script>
+  </body>
+</html>
