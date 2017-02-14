@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introducing setTimeout</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <script>
+      
+      setTimeout(function (){
+        d3.select("body")
+          .append("h1")
+            .text("One second has passed");
+      }, 1000);
+      
+      setTimeout(function (){
+        d3.select("body")
+          .append("h1")
+            .text("Two seconds have passed");
+      }, 2000);
+      
+      setTimeout(function (){
+        d3.select("body")
+          .append("h1")
+            .text("Three seconds have passed");
+      }, 3000);
+      
+    </script>
+  </body>
+</html>

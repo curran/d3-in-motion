@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SVG in HTML</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      var data = [300, 500, 700];
+      
+      d3.select("svg")
+        .selectAll("circle").data(data)
+        .enter().append("circle")
+          .attr("cx", function (d){ return d; })
+          .attr("cy", 250)
+          .attr("r", 100);
+    </script>
+  </body>
+</html>

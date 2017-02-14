@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var body = d3.select("body");
+      body
+        .append("div")
+          .text("Large Title")
+          .attr("class", "large-title");
+      body
+        .append("div")
+          .text("This content is smaller than the title.")
+          .attr("class", "small-content");
+      body
+        .append("div")
+          .text("Another Title")
+          .attr("class", "large-title");
+      body
+        .append("div")
+          .text("This content is also smaller than the title.")
+          .attr("class", "small-content");
+      
+      // Your task is to restore the styling to this page using D3, not CSS.
+      // CTRL + Left/Right arrows navigates between examples.
+      // (Hint: example 9 might be useful.)
+    </script>
+  </body>
+</html>

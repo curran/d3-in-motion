@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appending Many Things</title>
+    <style>
+      .large-title {
+        font-size: 120pt;
+      }
+      .small-content {
+        font-size: 40pt;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var body = d3.select("body");
+      body
+        .append("div")
+          .text("Large Title")
+          .attr("class", "large-title");
+      body
+        .append("div")
+          .text("This content is smaller than the title.")
+          .attr("class", "small-content");
+      body
+        .append("div")
+          .text("Another Title")
+          .attr("class", "large-title");
+      body
+        .append("div")
+          .text("This content is also smaller than the title.")
+          .attr("class", "small-content");
+    </script>
+  </body>
+</html>

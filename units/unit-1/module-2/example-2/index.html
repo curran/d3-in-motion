@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello D3</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <title>Hello DOM API</title>
   </head>
   <body>
+    <h1></h1>
     <script>
-      d3.select("body").append("h1").text("Hello D3!");
+      document.querySelector("h1").textContent = "Hello DOM API";
     </script>
   </body>
 </html>
