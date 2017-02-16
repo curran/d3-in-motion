@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Variable for Circles</title>
+    <title>Render Function</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -12,12 +12,14 @@
     </svg>
     <script>
       var svg = d3.select("svg");
-      var data = [300, 500, 700];
-      var circles = svg
-        .selectAll("circle")
-        .data(data);
-      circles
-          .attr("cx", function (d){ return d; });
+      
+      function render(data){
+        var circles = svg
+          .selectAll("circle").data(data);
+        circles
+            .attr("cx", function (d){ return d; });
+      }
+      render([300, 500, 700]);
     </script>
   </body>
 </html>

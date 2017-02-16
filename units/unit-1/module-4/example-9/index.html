@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Delayed Render</title>
+    <title>No Existing Circles</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500"></svg>
+    <svg width="960" height="500">
+    </svg>
     <script>
       var svg = d3.select("svg");
       
       function render(data){
         var circles = svg
-          .selectAll("circle")
-          .data(data);
+          .selectAll("circle").data(data)
+            .attr("cx", function (d){ return d; })
+            .attr("fill", "orange");
         circles
           .enter().append("circle")
             .attr("cx", function (d){ return d; })
             .attr("cy", 250)
-            .attr("r", 100);
+            .attr("r", 100)
+            .attr("fill", "green");
       }
       
-      setTimeout(function (){ render([300, 500, 700]); }, 1000);
+      render([300, 500, 700]);
     </script>
   </body>
 </html>

@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>D3 Circles</title>
+    <title>Data Join</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500"></svg>
+    <svg width="960" height="500">
+      <circle cy="250" r="100"></circle>
+      <circle cy="250" r="100"></circle>
+      <circle cy="250" r="100"></circle>
+    </svg>
     <script>
       var svg = d3.select("svg");
       svg
-        .append("circle")
-          .attr("cx", 300)
-          .attr("cy", 250)
-          .attr("r", 100);
-      svg
-        .append("circle")
-          .attr("cx", 500)
-          .attr("cy", 250)
-          .attr("r", 100);
-      svg
-        .append("circle")
-          .attr("cx", 700)
-          .attr("cy", 250)
-          .attr("r", 100);
+        .selectAll("circle")
+        .data([300, 500, 700])
+          .attr("cx", function (d){ return d; });
     </script>
   </body>
 </html>

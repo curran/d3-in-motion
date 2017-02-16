@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Data Join</title>
+    <title>Variable for Data</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -12,9 +12,10 @@
     </svg>
     <script>
       var svg = d3.select("svg");
+      var data = [300, 500, 700];
       svg
         .selectAll("circle")
-        .data([300, 500, 700])
+        .data(data)
           .attr("cx", function (d){ return d; });
     </script>
   </body>
