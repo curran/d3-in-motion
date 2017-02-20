@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Case for Exit</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      function render(data){
+        d3.select("svg")
+          .selectAll("circle")
+          .data(data)
+            .attr("cx", function (d){ return d; })
+            .attr("fill", "orange") // This color applies to the "Update" selection.
+          .enter().append("circle")
+            .attr("cx", function (d){ return d; })
+            .attr("cy", 250)
+            .attr("r", 100)
+            .attr("fill", "green"); // This color applies to the "Enter" selection.
+      }
+      render([200]);
+      render([300, 500, 700]);
+      render([300, 500]);
+    </script>
+  </body>
+</html>
