@@ -11,8 +11,7 @@
       <circle cy="250" r="100"></circle>
     </svg>
     <script>
-      var svg = d3.select("svg");
-      svg
+      d3.select("svg")
         .selectAll("circle")
         .data([300, 500, 700])
           .attr("cx", function (d){ return d; });

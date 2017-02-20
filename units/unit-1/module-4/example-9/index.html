@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>No Existing Circles</title>
+    <title>Bubbles</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500">
-    </svg>
+    <svg width="960" height="500"></svg>
     <script>
-      var svg = d3.select("svg");
-      
-      function render(data){
-        var circles = svg
-          .selectAll("circle").data(data)
-            .attr("cx", function (d){ return d; })
-            .attr("fill", "orange");
-        circles
-          .enter().append("circle")
-            .attr("cx", function (d){ return d; })
-            .attr("cy", 250)
-            .attr("r", 100)
-            .attr("fill", "green");
-      }
-      
-      render([300, 500, 700]);
+      var data = [
+        { x: 300, y:150, r: 44 },
+        { x: 500, y:350, r: 51 },
+        { x: 700, y:200, r: 33 },
+        { x: 583, y:114, r: 77 },
+        { x: 844, y:218, r: 74 },
+        { x: 257, y:316, r: 44 },
+        { x: 466, y:200, r: 31 },
+        { x: 179, y:414, r: 50 },
+        { x: 179, y:231, r: 36 },
+        { x: 376, y:326, r: 26 },
+        { x: 676, y:118, r: 68 },
+        { x: 626, y:199, r: 68 },
+        { x: 510, y:269, r: 15 },
+        { x: 510, y:419, r: 15 },
+        { x: 311, y:388, r: 15 },
+        { x: 50, y:388, r: 6 },
+        { x: 90, y:431, r: 6 },
+        { x: 90, y:287, r: 11 },
+        { x: 630, y:145, r: 11 }
+      ];
+      d3.select("svg")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", function (d){ return d.x; })
+          .attr("cy", function (d){ return d.y; })
+          .attr("r", function (d){ return d.r; })
+          .attr("fill", "rgba(255, 0, 0, 0.3)")
+          .attr("stroke", "black");
     </script>
   </body>
 </html>

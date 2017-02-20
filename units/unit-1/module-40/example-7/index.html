@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Update</title>
+    <title>Simplify</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -11,11 +11,15 @@
       <circle cy="250" r="100"></circle>
     </svg>
     <script>
-      d3.select("svg")
-        .selectAll("circle")
-        .data([300, 500, 700])
-          .attr("cx", function (d){ return d; })
-          .attr("fill", "orange"); // This color applies to the "Update" selection.
+      var svg = d3.select("svg");
+      
+      function render(data){
+        var circles = svg
+          .selectAll("circle").data(data)
+            .attr("cx", function (d){ return d; })
+            .attr("fill", "orange");
+      }
+      render([300, 500, 700]);
     </script>
   </body>
 </html>
