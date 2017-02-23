@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Managing One Thing</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      function render(data){
+        var svg = d3.selectAll("svg")
+          .data([null]);
+        svg = svg
+          .enter().append("svg")
+            .attr("width", 960)
+            .attr("height", 500)
+          .merge(svg);
+        
+        var circles = svg.selectAll("circle")
+          .data(data);
+        circles
+          .enter().append("circle")
+            .attr("cy", 250)
+            .attr("r", 100)
+          .merge(circles)
+            .attr("cx", function (d){ return d; });
+        circles
+          .exit().remove();
+      }
+      render([200]);
+      render([300, 500, 700]);
+      render([300, 500]);
+      //render([300]);
+      //render([300, 500, 700]);
+      //render([200, 400, 600, 800]);
+      //render([]);
+    </script>
+  </body>
+</html>

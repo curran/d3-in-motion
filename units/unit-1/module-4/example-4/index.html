@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Variable for Circles</title>
+    <title>Enter</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -11,12 +11,17 @@
       <circle cy="250" r="100"></circle>
     </svg>
     <script>
-      var svg = d3.select("svg");
-      var data = [300, 500, 700];
-      var circles = svg
-        .selectAll("circle").data(data);
-      circles
-          .attr("cx", function (d){ return d; });
+      d3.select("svg")
+        .selectAll("circle")
+        .data([300, 500, 700])
+          .attr("cx", function (d){ return d; })
+          .attr("fill", "orange") // This color applies to the "Update" selection.
+        .enter()
+        .append("circle")
+          .attr("cx", function (d){ return d; })
+          .attr("cy", 250)
+          .attr("r", 100)
+          .attr("fill", "green"); // This color applies to the "Enter" selection.
     </script>
   </body>
 </html>

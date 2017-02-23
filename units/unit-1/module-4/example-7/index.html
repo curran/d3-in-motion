@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simplify</title>
+    <title>Objects as Data</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500">
-      <circle cy="250" r="100"></circle>
-      <circle cy="250" r="100"></circle>
-      <circle cy="250" r="100"></circle>
-    </svg>
+    <svg width="960" height="500"></svg>
     <script>
-      var svg = d3.select("svg");
-      
-      function render(data){
-        var circles = svg
-          .selectAll("circle").data(data)
-            .attr("cx", function (d){ return d; })
-            .attr("fill", "orange");
-      }
-      render([300, 500, 700]);
+      var data = [
+        { x: 300 },
+        { x: 500 },
+        { x: 700 }
+      ];
+      d3.select("svg")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", function (d){ return d.x; })
+          .attr("cy", 250)
+          .attr("r", 100)
+          .attr("fill", "green");
     </script>
   </body>
 </html>
