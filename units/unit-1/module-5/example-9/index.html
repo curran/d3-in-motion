@@ -14,15 +14,15 @@
           .selectAll("circle")
           .data(data);
         circles
+          .exit()
+          	.remove();
+        circles
           .enter()
           .append("circle")
             .attr("cy", 250)
             .attr("r", 100)
           .merge(circles)
             .attr("cx", function (d){ return d; });
-        circles
-          .exit()
-          	.remove();
       }
       render([200]);
       render([300, 500, 700]);

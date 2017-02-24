@@ -10,9 +10,10 @@
       <circle cy="250" r="100"></circle>
     </svg>
     <script>
+      var data = [300, 500, 700];
       d3.select("svg")
         .selectAll("circle")
-        .data([300, 500, 700])
+        .data(data)
           .attr("cx", function (d){ return d; })
           .attr("fill", "orange") // This color applies to the "Update" selection.
         .enter()
