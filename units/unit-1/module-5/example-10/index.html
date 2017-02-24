@@ -12,26 +12,22 @@
       function render(data){
         
         // General Update Pattern
-        var circles = d3.select("svg")
-          .selectAll(".dot")
+        var points = d3.select("svg")
+          .selectAll(".point")
           .data(data);
-        circles
+        points
           .exit()
             .remove();
-        circles
+        points
           .enter()
           .append("circle")
-            .attr("class", "dot")
+            .attr("class", "point")
             .attr("cy", 250)
             .attr("r", 100)
-          .merge(circles)
+          .merge(points)
             .attr("cx", function (d){ return d; });
       }
-      render([300, 500]);
-      render([300]);
-      render([300, 500, 700]);
       render([200, 400, 600, 800]);
-      //render([]);
     </script>
   </body>
 </html>

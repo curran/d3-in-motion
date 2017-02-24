@@ -8,7 +8,8 @@
     <script>
       function render(data){
         
-        var svg = d3.selectAll("svg").data([null]);
+        var svg = d3.selectAll("svg")
+          .data([null]);
         svg = svg.merge(svg.enter()
           .append("svg")
             .attr("width", 960)
@@ -29,13 +30,8 @@
           .merge(circles)
             .attr("cx", function (d){ return d; });
       }
-      render([200]);
-      render([300, 500, 700]);
-      render([300, 500]);
-      //render([300]);
-      //render([300, 500, 700]);
-      //render([200, 400, 600, 800]);
-      //render([]);
+      render([300, 500]); // Creates SVG
+      render([300, 500, 700]); // Uses existing SVG
     </script>
   </body>
 </html>

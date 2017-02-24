@@ -9,8 +9,9 @@
     <script>
       function render(data){
         
-        // Modify the code below
+        // Modify the code in this function
         // to use the General Update Pattern.
+        // Hint: Draw from example 9, use .exit() and .merge().
         var rects = d3.select("svg")
           .selectAll("rect")
           .data(data);
@@ -21,16 +22,15 @@
             .attr("y", 100)
             .attr("width", 70)
             .attr("height", 300);
-        
-        // Hint: Draw from example 9, use .exit() and .merge().
       }
-      render([200]);
-      render([300, 500, 700]);
-      render([300, 500]);
-      render([300]);
-      render([300, 500, 700]);
       
-      // This last invocation should render
+      // These invocations test the various cases (Enter, Update, Exit).
+      render([100]);
+      render([300, 500, 700, 800, 880]);
+      render([300, 500]);
+      render([]);
+      
+      // This last invocation should leave you with
       // four evenly spaced rectangles.
       render([200, 400, 600, 800]);
     </script>
