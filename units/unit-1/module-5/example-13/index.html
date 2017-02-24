@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      function render(data){
+        
+        // Modify the code below
+        // to use the General Update Pattern.
+        d3.select("svg").selectAll("rect").data(data)
+          .enter().append("rect")
+            .attr("x", function (d){ return d; })
+            .attr("y", 100)
+            .attr("width", 70)
+            .attr("height", 300);
+        
+        // Hint: Draw from example 9.
+      }
+      render([200]);
+      render([300, 500, 700]);
+      render([300, 500]);
+      render([300]);
+      render([300, 500, 700]);
+      
+      // This last invocation should render
+      // four evenly spaced rectangles.
+      render([200, 400, 600, 800]);
+    </script>
+  </body>
+</html>
