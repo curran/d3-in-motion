@@ -8,20 +8,19 @@
     <script>
       function render(data){
         
-        // General Update Pattern
-        var svg = d3.selectAll("svg")
-          .data([null]);
-        svg = svg
-          .enter()
+        var svg = d3.selectAll("svg").data([null]);
+        svg = svg.merge(svg.enter()
           .append("svg")
             .attr("width", 960)
-            .attr("height", 500)
-          .merge(svg);
+            .attr("height", 500));
         
         // General Update Pattern
         var circles = svg
           .selectAll("circle")
           .data(data);
+        circles
+          .exit()
+            .remove();
         circles
           .enter()
           .append("circle")
@@ -29,9 +28,6 @@
             .attr("r", 100)
           .merge(circles)
             .attr("cx", function (d){ return d; });
-        circles
-          .exit()
-            .remove();
       }
       render([200]);
       render([300, 500, 700]);

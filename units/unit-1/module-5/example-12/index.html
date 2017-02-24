@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Compact Variations</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -9,28 +9,30 @@
     <script>
       function render(data){
         
-        // General Update Pattern
-        var svg = d3.selectAll("svg").data([null]);
-        svg = svg.merge(svg.enter().append("svg")
-            .attr("width", 960)
-            .attr("height", 500));
+        // Modify the code below
+        // to use the General Update Pattern.
+        var rects = d3.select("svg")
+          .selectAll("rect")
+          .data(data);
+        rects
+          .enter()
+          .append("rect")
+            .attr("x", function (d){ return d; })
+            .attr("y", 100)
+            .attr("width", 70)
+            .attr("height", 300);
         
-        // General Update Pattern
-        var circles = svg.selectAll("circle").data(data);
-        circles.enter().append("circle")
-            .attr("cy", 250)
-            .attr("r", 100)
-          .merge(circles)
-            .attr("cx", function (d){ return d; });
-        circles.exit().remove();
+        // Hint: Draw from example 9, use .exit() and .merge().
       }
       render([200]);
       render([300, 500, 700]);
       render([300, 500]);
-      //render([300]);
-      //render([300, 500, 700]);
-      //render([200, 400, 600, 800]);
-      //render([]);
+      render([300]);
+      render([300, 500, 700]);
+      
+      // This last invocation should render
+      // four evenly spaced rectangles.
+      render([200, 400, 600, 800]);
     </script>
   </body>
 </html>

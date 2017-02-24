@@ -14,15 +14,15 @@
             .attr("cx", function (d){ return d; })
             .attr("fill", "orange"); // This color applies to the "Update" selection.
         circles
+          .exit()
+            .remove();
+        circles
           .enter()
           .append("circle")
             .attr("cx", function (d){ return d; })
             .attr("cy", 250)
             .attr("r", 100)
             .attr("fill", "green"); // This color applies to the "Enter" selection.
-        circles
-          .exit()
-            .remove();
       }
       render([200]);
       render([300, 500, 700]);
