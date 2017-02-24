@@ -11,14 +11,18 @@
         
         // Modify the code below
         // to use the General Update Pattern.
-        d3.select("svg").selectAll("rect").data(data)
-          .enter().append("rect")
+        var rects = d3.select("svg")
+          .selectAll("rect")
+          .data(data);
+        rects
+          .enter()
+          .append("rect")
             .attr("x", function (d){ return d; })
             .attr("y", 100)
             .attr("width", 70)
             .attr("height", 300);
         
-        // Hint: Draw from example 9.
+        // Hint: Draw from example 9, use .exit() and .merge().
       }
       render([200]);
       render([300, 500, 700]);

@@ -14,7 +14,8 @@
             .attr("cx", function (d){ return d; })
             .attr("fill", "orange"); // This color applies to the "Update" selection.
         circles
-          .enter().append("circle")
+          .enter()
+          .append("circle")
             .attr("cx", function (d){ return d; })
             .attr("cy", 250)
             .attr("r", 100)

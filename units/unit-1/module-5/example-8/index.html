@@ -13,12 +13,14 @@
           .data(data)
             .attr("cx", function (d){ return d; }); // DUPLICATED LOGIC
         circles
-          .enter().append("circle")
+          .enter()
+          .append("circle")
             .attr("cx", function (d){ return d; }) // DUPLICATED LOGIC
             .attr("cy", 250)
             .attr("r", 100);
         circles
-          .exit().remove();
+          .exit()
+            .remove();
       }
       render([200]);
       render([300, 500, 700]);

@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Compact Variation</title>
+    <title>Compact Variations</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
       function render(data){
+        
+        // General Update Pattern
         var svg = d3.selectAll("svg").data([null]);
         svg = svg.merge(svg.enter().append("svg")
             .attr("width", 960)
             .attr("height", 500));
         
+        // General Update Pattern
         var circles = svg.selectAll("circle").data(data);
-        circles.exit().remove();
-        circles = circles.merge(circles.enter().append("circle")
+        circles.enter().append("circle")
             .attr("cy", 250)
-            .attr("r", 100));
-        circles.attr("cx", function (d){ return d; });
+            .attr("r", 100)
+          .merge(circles)
+            .attr("cx", function (d){ return d; });
+        circles.exit().remove();
       }
       render([200]);
       render([300, 500, 700]);

@@ -8,17 +8,21 @@
     <svg width="960" height="500"></svg>
     <script>
       function render(data){
+        
+        // General Update Pattern
         var circles = d3.select("svg")
           .selectAll("circle")
           .data(data);
         circles
-          .enter().append("circle")
+          .enter()
+          .append("circle")
             .attr("cy", 250)
             .attr("r", 100)
           .merge(circles)
             .attr("cx", function (d){ return d; });
         circles
-          .exit().remove();
+          .exit()
+          	.remove();
       }
       render([200]);
       render([300, 500, 700]);
