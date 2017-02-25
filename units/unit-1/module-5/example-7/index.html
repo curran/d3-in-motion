@@ -24,8 +24,10 @@
             .attr("r", 100)
             .attr("fill", "green"); // This color applies to the "Enter" selection.
       }
-      render([300, 500, 700]);
-      render([300]);
+      render([300, 500, 700]); // Enter
+      render([]); // Exit
+      //render([300, 500, 700]); // Enter
+      //render([300]); // Update + Exit
     </script>
   </body>
 </html>
