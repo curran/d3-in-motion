@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Using Classes</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500">
-      <circle cx="480" cy="250" r="250" fill="rgba(255, 0, 0, 0.5)"></circle>
-    </svg>
+    <svg width="960" height="500"></svg>
     <script>
       function render(data){
         
-        // General Update Pattern
-        var points = d3.select("svg")
-          .selectAll(".point")
+        // Modify the code in this function
+        // to use the General Update Pattern.
+        // Hint: Draw from example 9, use .exit() and .merge().
+        var rects = d3.select("svg")
+          .selectAll("rect")
           .data(data);
-        points
-          .exit()
-            .remove();
-        points
+        rects
           .enter()
-          .append("circle")
-            .attr("class", "point")
-            .attr("cy", 250)
-            .attr("r", 100)
-          .merge(points)
-            .attr("cx", function (d){ return d; });
+          .append("rect")
+            .attr("x", function (d){ return d; })
+            .attr("y", 100)
+            .attr("width", 70)
+            .attr("height", 300);
       }
-      render([300, 500, 700]); // Enter
-      render([200, 400, 600, 800]); // Enter + Update
-      //render([]); // Exit
+      
+      // These invocations test the various cases (Enter, Update, Exit).
+      render([100]);
+      render([300, 500, 700, 800, 880]);
+      render([300, 500]);
+      render([]);
+      
+      // This last invocation should leave you with
+      // four evenly spaced rectangles.
+      render([200, 400, 600, 800]);
     </script>
   </body>
 </html>

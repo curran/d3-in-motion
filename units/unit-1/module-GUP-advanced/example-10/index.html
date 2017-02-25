@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using Classes</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500">
+      <circle cx="480" cy="250" r="250" fill="rgba(255, 0, 0, 0.5)"></circle>
+    </svg>
+    <script>
+      function render(data){
+        
+        // General Update Pattern
+        var points = d3.select("svg")
+          .selectAll(".point")
+          .data(data);
+        points
+          .exit()
+            .remove();
+        points
+          .enter()
+          .append("circle")
+            .attr("class", "point")
+            .attr("cy", 250)
+            .attr("r", 100)
+          .merge(points)
+            .attr("cx", function (d){ return d; });
+      }
+      render([300, 500, 700]); // Enter
+      render([200, 400, 600, 800]); // Enter + Update
+      //render([]); // Exit
+    </script>
+  </body>
+</html>
