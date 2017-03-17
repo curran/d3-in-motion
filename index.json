@@ -360,6 +360,59 @@
               "files": {
                 "index.html": false
               }
+            },
+            {
+              "name": "example-2",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-3",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-4",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-5",
+              "files": {
+                "data.csv": false,
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-6",
+              "files": {
+                "data.csv": false,
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-7",
+              "files": {
+                "data.csv": false,
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-8",
+              "files": {
+                "data.csv": false,
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-9",
+              "files": {
+                "data.csv": false,
+                "index.html": false
+              }
             }
           ]
         }
