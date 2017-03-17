@@ -348,6 +348,22 @@
           ]
         }
       ]
+    },
+    {
+      "name": "unit-2",
+      "modules": [
+        {
+          "name": "module-1",
+          "examples": [
+            {
+              "name": "example-1",
+              "files": {
+                "index.html": false
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
