@@ -41,9 +41,6 @@ body {
 .header-title {
   font-size: 5rem;
 }
-.header-spacer {
-  margin-top: 20rem;
-}
 
 .runner {
   position: fixed;
@@ -67,4 +64,11 @@ body {
   padding-left: 1rem;
   margin-top: 20px;
   color: #999;
+}
+
+.spacer-top {
+  margin-top: 20rem;
+}
+.spacer-bottom {
+  margin-top: 50rem;
 }
