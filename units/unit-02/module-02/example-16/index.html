@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Range Concept</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      
+      var svg = d3.select("svg"),
+          width = +svg.attr("width"),
+          height = +svg.attr("height"),
+          xColumn = "sepalLength",
+          yColumn = "petalLength";
+      
+      function render(data){
+        
+        var xDomain = d3.extent(data, function (d){ return d[xColumn]; }),
+            yDomain = d3.extent(data, function (d){ return d[yColumn]; });
+        
+        var xRange = [0, width],
+            yRange = [height, 0];
+        
+        var circles = svg
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+          	.remove();
+        circles
+          .enter()
+          .append("circle")
+          .merge(circles)
+            .attr("cx", function (d){
+              return xRange[0] +(
+                (d[xColumn] - xDomain[0]) / (xDomain[1] - xDomain[0])
+              ) * (xRange[1] - xRange[0]);
+            })
+            .attr("cy", function (d){
+              return yRange[0] + (
+                (d[yColumn] - yDomain[0]) / (yDomain[1] - yDomain[0])
+              ) * (yRange[1] - yRange[0]);
+            })
+            .attr("r", 6);
+      }
+            
+      function type(d){
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+        d.petalLength = +d.petalLength;
+        d.petalWidth = +d.petalWidth;
+        return d;
+      }
+      
+      d3.csv("iris.csv", type, render);
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Variables for Columns</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      
+      var svg = d3.select("svg"),
+          width = +svg.attr("width"),
+          xColumn = "sepalLength",
+          yColumn = "petalLength";
+          
+      
+      function render(data){
+        
+        var xMax = d3.max(data, function (d){
+          return d[xColumn];
+        });
+        
+        var circles = svg
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+          	.remove();
+        circles
+          .enter()
+          .append("circle")
+          .merge(circles)
+            .attr("cx", function (d){
+              return d[xColumn] / xMax * width;
+            })
+            .attr("cy", function (d){
+              return d[yColumn] * 70;
+            })
+            .attr("r", 6);
+      }
+            
+      function type(d){
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+        d.petalLength = +d.petalLength;
+        d.petalWidth = +d.petalWidth;
+        return d;
+      }
+      
+      d3.csv("iris.csv", type, render);
+      
+    </script>
+  </body>
+</html>
