@@ -1,13 +1,61 @@
 {
   "units": [
     {
-      "name": "unit-1",
+      "name": "unit-01",
       "modules": [
         {
-          "name": "module-2",
+          "name": "module-02",
           "examples": [
             {
-              "name": "example-1",
+              "name": "example-01",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-03",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-04",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-05",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-06",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-07",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-08",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-09",
               "files": {
                 "index.html": false
               }
@@ -47,62 +95,62 @@
               "files": {
                 "index.html": false
               }
-            },
-            {
-              "name": "example-2",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-3",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-4",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-5",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-6",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-7",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-8",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-9",
-              "files": {
-                "index.html": false
-              }
             }
           ]
         },
         {
-          "name": "module-3",
+          "name": "module-03",
           "examples": [
             {
-              "name": "example-1",
+              "name": "example-01",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-03",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-04",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-05",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-06",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-07",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-08",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-09",
               "files": {
                 "index.html": false
               }
@@ -166,62 +214,62 @@
               "files": {
                 "index.html": false
               }
-            },
-            {
-              "name": "example-2",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-3",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-4",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-5",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-6",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-7",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-8",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-9",
-              "files": {
-                "index.html": false
-              }
             }
           ]
         },
         {
-          "name": "module-4",
+          "name": "module-04",
           "examples": [
             {
-              "name": "example-1",
+              "name": "example-01",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-03",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-04",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-05",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-06",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-07",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-08",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-09",
               "files": {
                 "index.html": false
               }
@@ -231,116 +279,68 @@
               "files": {
                 "index.html": false
               }
-            },
-            {
-              "name": "example-2",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-3",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-4",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-5",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-6",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-7",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-8",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-9",
-              "files": {
-                "index.html": false
-              }
             }
           ]
         },
         {
-          "name": "module-5",
+          "name": "module-05",
           "examples": [
             {
-              "name": "example-1",
+              "name": "example-01",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-03",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-04",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-05",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-06",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-07",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-08",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-09",
               "files": {
                 "index.html": false
               }
             },
             {
               "name": "example-10",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-2",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-3",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-4",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-5",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-6",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-7",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-8",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-9",
               "files": {
                 "index.html": false
               }
@@ -350,65 +350,65 @@
       ]
     },
     {
-      "name": "unit-2",
+      "name": "unit-02",
       "modules": [
         {
-          "name": "module-1",
+          "name": "module-01",
           "examples": [
             {
-              "name": "example-1",
+              "name": "example-01",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-2",
+              "name": "example-02",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-3",
+              "name": "example-03",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-4",
+              "name": "example-04",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-5",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-6",
+              "name": "example-05",
               "files": {
                 "data.csv": false,
                 "index.html": false
               }
             },
             {
-              "name": "example-7",
+              "name": "example-06",
               "files": {
                 "data.csv": false,
                 "index.html": false
               }
             },
             {
-              "name": "example-8",
+              "name": "example-07",
               "files": {
                 "data.csv": false,
                 "index.html": false
               }
             },
             {
-              "name": "example-9",
+              "name": "example-08",
+              "files": {
+                "data.csv": false,
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-09",
               "files": {
                 "data.csv": false,
                 "index.html": false
