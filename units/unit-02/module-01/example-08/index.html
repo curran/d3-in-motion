@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bubbles from CSV</title>
+    <title>Parsing Numbers</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <svg width="960" height="500"></svg>
   </head>
   <body>
     <script>
-      d3.csv("data.csv", type, function (data){
-        d3.select("svg")
-          .selectAll("circle")
-          .data(data)
-          .enter()
-          .append("circle")
-            .attr("cx", function (d){ return d.x; })
-            .attr("cy", function (d){ return d.y; })
-            .attr("r", function (d){ return d.r; })
-            .attr("fill", "rgba(255, 0, 0, 0.3)")
-            .attr("stroke", "black");
-      });
       
+      function render(data){
+        d3.select("body")
+          .append("pre")
+            .style("font-size", "24pt")
+            .text(JSON.stringify(data, null, 2));
+      }
+            
       function type(d){
-        d.x = +d.x;
+        d.x = +d.x; // Equivalent to:  d.x = parseFloat(d.x);
         d.y = +d.y;
         d.r = +d.r;
         return d;
       }
+      
+      d3.csv("data.csv", type, render);
+      
     </script>
   </body>
 </html>

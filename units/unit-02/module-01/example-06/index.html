@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Inspecting Parsed Data</title>
+    <title>Loading a CSV File</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <script>
-      d3.csv("data.csv", function (data){
+      
+      function render(data){
         d3.select("body")
           .append("pre")
-            .style("font-size", "20pt")
-            .text(JSON.stringify(data, null, 2));
-      });
+            .style("font-size", "24pt")
+            .text(d3.csvFormat(data));
+      }
+      
+      d3.csv("data.csv", render);
+      
     </script>
   </body>
 </html>

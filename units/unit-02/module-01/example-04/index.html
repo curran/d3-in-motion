@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CSV Format</title>
+    <title>Displaying JSON</title>
+    <!-- JSON = JavaScript Object Notation -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <script>
-      var data = [
+      
+      function render(data){
+        d3.select("body")
+          .append("pre")
+            .style("font-size", "24pt")
+            .text(JSON.stringify(data, null, 2));
+      }
+      
+      render([
         { x: 300, y:150, r: 44 },
         { x: 500, y:350, r: 51 },
         { x: 700, y:200, r: 33 },
@@ -26,11 +35,7 @@
         { x: 90, y:431, r: 6 },
         { x: 90, y:287, r: 11 },
         { x: 630, y:145, r: 11 }
-      ];
-      d3.select("body")
-      	.append("pre")
-          .style("font-size", "20pt")
-          .text(d3.csvFormat(data));
+      ]);
     </script>
   </body>
 </html>
