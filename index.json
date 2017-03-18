@@ -4,6 +4,17 @@
       "name": "unit-01",
       "modules": [
         {
+          "name": "module-01",
+          "examples": [
+            {
+              "name": "example-01",
+              "files": {
+                "index.html": false
+              }
+            }
+          ]
+        },
+        {
           "name": "module-02",
           "examples": [
             {
