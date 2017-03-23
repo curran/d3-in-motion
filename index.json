@@ -589,195 +589,30 @@
                 "index.html": false,
                 "iris.csv": false
               }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "unit-03",
-      "modules": [
-        {
-          "name": "module-01",
-          "examples": [
-            {
-              "name": "example-01",
-              "files": {
-                "index.html": false
-              }
             },
             {
-              "name": "example-02",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-03",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-04",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-05",
-              "files": {
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-06",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-07",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-08",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-09",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-10",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            }
-          ]
-        },
-        {
-          "name": "module-02",
-          "examples": [
-            {
-              "name": "example-01",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-02",
-              "files": {
-                "data.csv": false,
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-03",
+              "name": "example-19",
               "files": {
                 "index.html": false,
                 "iris.csv": false
               }
             },
             {
-              "name": "example-04",
+              "name": "example-20",
               "files": {
                 "index.html": false,
                 "iris.csv": false
               }
             },
             {
-              "name": "example-05",
+              "name": "example-21",
               "files": {
                 "index.html": false,
                 "iris.csv": false
               }
             },
             {
-              "name": "example-06",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-07",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-08",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-09",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-10",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-11",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-12",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-13",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-14",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-15",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-16",
+              "name": "example-22",
               "files": {
                 "index.html": false,
                 "iris.csv": false

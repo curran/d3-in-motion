@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Range Concept</title>
+    <title>Construct Scales Once</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -12,14 +12,18 @@
       const height = +svg.attr("height");
       const x = d => d.sepalLength;
       const y = d => d.petalLength;
+      const xScale = d3.scaleLinear();
+      const yScale = d3.scaleLinear();
       
       function render(data){
-
-        const xDomain = d3.extent(data, x);
-        const xRange = [0, width];
         
-        const yDomain = d3.extent(data, y);
-        const yRange = [height, 0];
+        xScale
+          .domain(d3.extent(data, x))
+          .range([0, width]);
+        
+        yScale
+          .domain(d3.extent(data, y))
+          .range([height, 0]);
         
         const circles = d3.select("svg")
           .selectAll("circle")
@@ -31,16 +35,8 @@
           .enter()
           .append("circle")
           .merge(circles)
-            .attr("cx", d => {
-              return xRange[0] + (
-                (x(d) - xDomain[0]) / (xDomain[1] - xDomain[0])
-              ) * (xRange[1] - xRange[0]);
-            })
-            .attr("cy", d => {
-              return yRange[0] + (
-                (y(d) - yDomain[0]) / (yDomain[1] - yDomain[0])
-              ) * (yRange[1] - yRange[0]);
-            })
+            .attr("cx", d => xScale(x(d)))
+            .attr("cy", d => yScale(y(d)))
             .attr("r", 6);
       }
             
