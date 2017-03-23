@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Construct Scales Once</title>
+    <title>Factoring Out Ranges</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      
+      // From previous module #2/3/22
+      
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      const xValue = d => d.sepalLength;
-      const yValue = d => d.petalLength;
-      const xScale = d3.scaleLinear();
-      const yScale = d3.scaleLinear();
+      const xScale = d3.scaleLinear().range([0, width]);
+      const yScale = d3.scaleLinear().range([height, 0]);
       
       function render(data){
         
-        xScale
-          .domain(d3.extent(data, xValue))
-          .range([0, width]);
-        
-        yScale
-          .domain(d3.extent(data, yValue))
-          .range([height, 0]);
+        xScale.domain(d3.extent(data, xValue));
+        yScale.domain(d3.extent(data, yValue));
         
         const circles = svg
           .selectAll("circle")
@@ -34,12 +33,12 @@
         circles
           .enter()
           .append("circle")
+            .attr("r", 6)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
-            .attr("cy", d => yScale(yValue(d)))
-            .attr("r", 6);
+            .attr("cy", d => yScale(yValue(d)));
       }
-            
+      
       function type(d){
         d.sepalLength = +d.sepalLength;
         d.sepalWidth = +d.sepalWidth;

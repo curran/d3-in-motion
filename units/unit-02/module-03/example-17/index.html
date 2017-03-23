@@ -7,12 +7,12 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      
-      const xValue = d => d.sepalLength;
-      const yValue = d => d.petalLength;
       
       function render(data){
 

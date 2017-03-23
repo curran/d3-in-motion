@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Exercise</title>
+    <title>Margin Convention ES6</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      
       // Your task is to adjust the margins
       // to make room for axes on the bottom and left.
+      
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      const margin = {top: 20, right: 10, bottom: 20, left: 10};
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      const xValue = d => d.sepalLength;
-      const yValue = d => d.petalLength;
-      const xScale = d3.scaleLinear();
-      const yScale = d3.scaleLinear();
-      
-      const margin = {top: 20, right: 10, bottom: 20, left: 10};
       const innerWidth = width - margin.left - margin.right;
       const innerHeight = height - margin.top - margin.bottom;
+      const xScale = d3.scaleLinear().range([0, innerWidth]);
+      const yScale = d3.scaleLinear().range([innerHeight, 0]);
       
       const g = svg
         .append("g")
           .attr("transform", `translate(${margin.left}, ${margin.top})`);
-      
       g
         .append("rect")
           .attr("width", innerWidth)
@@ -35,13 +33,8 @@
       
       function render(data){
         
-        xScale
-          .domain(d3.extent(data, xValue))
-          .range([0, innerWidth]);
-        
-        yScale
-          .domain(d3.extent(data, yValue))
-          .range([innerHeight, 0]);
+        xScale.domain(d3.extent(data, xValue));
+        yScale.domain(d3.extent(data, yValue));
         
         const circles = g
           .selectAll("circle")
@@ -52,10 +45,10 @@
         circles
           .enter()
           .append("circle")
+            .attr("r", 6)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
-            .attr("cy", d => yScale(yValue(d)))
-            .attr("r", 6);
+            .attr("cy", d => yScale(yValue(d)));
       }
             
       function type(d){

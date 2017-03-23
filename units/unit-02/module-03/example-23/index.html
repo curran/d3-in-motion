@@ -12,14 +12,14 @@
       // from petalLength to sepalWidth,
       // and observe how the scaling changes.
       
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
       const xScale = d3.scaleLinear().range([0, width]);
       const yScale = d3.scaleLinear().range([height, 0]);
-      
-      const xValue = d => d.sepalLength;
-      const yValue = d => d.petalLength;
       
       function render(data){
         
