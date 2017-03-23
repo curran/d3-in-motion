@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CSV Format</title>
-    <!-- CSV = Comma Separated Value -->
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
+    <svg width="960" height="500"></svg>
     <script>
       
+      // Your task is to
+      // define the render function
+      // using ES6 arrow function notation.
+      
       function render(data){
-        d3.select("body")
-          .append("pre")
-            .style("font-size", "24pt")
-            .text(d3.csvFormat(data));
+        const circles = d3.select("svg")
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+          	.remove();
+        circles
+          .enter()
+          .append("circle")
+            .attr("fill", "rgba(255, 0, 0, 0.3)")
+            .attr("stroke", "black")
+          .merge(circles)
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", d => d.r);
       }
       
       render([

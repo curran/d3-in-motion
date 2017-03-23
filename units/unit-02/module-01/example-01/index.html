@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bubbles</title>
+    <title>Rendering Bubbles</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
       
-      // Prerequisite
-      // From Unit 1 / Module 4 / Example 9
-      var data = [
+      // A fusion of previous examples:
+      // Bubbles #1/4/9
+      // Using Merge #1/5/9
+      
+      function render(data){
+        var circles = d3.select("svg")
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+          	.remove();
+        circles
+          .enter()
+          .append("circle")
+            .attr("fill", "rgba(255, 0, 0, 0.3)")
+            .attr("stroke", "black")
+          .merge(circles)
+            .attr("cx", function (d){ return d.x; })
+            .attr("cy", function (d){ return d.y; })
+            .attr("r", function (d){ return d.r; });
+      }
+      
+      render([
         { x: 300, y:150, r: 44 },
         { x: 500, y:350, r: 51 },
         { x: 700, y:200, r: 33 },
@@ -30,17 +50,7 @@
         { x: 90, y:431, r: 6 },
         { x: 90, y:287, r: 11 },
         { x: 630, y:145, r: 11 }
-      ];
-      d3.select("svg")
-        .selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-          .attr("cx", function (d){ return d.x; })
-          .attr("cy", function (d){ return d.y; })
-          .attr("r", function (d){ return d.r; })
-          .attr("fill", "rgba(255, 0, 0, 0.3)")
-          .attr("stroke", "black");
+      ]);
     </script>
   </body>
 </html>
