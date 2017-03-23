@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Computing X Maximum</title>
+    <title>Bubbles from CSV</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
       
-      var svg = d3.select("svg"),
-          width = +svg.attr("width");
-      
       function render(data){
-        
-        var xMax = d3.max(data, function (d){
-          return d.sepalLength;
-        });
-        
-        var circles = svg
+        var circles = d3.select("svg")
           .selectAll("circle")
           .data(data);
         circles
@@ -26,25 +18,22 @@
         circles
           .enter()
           .append("circle")
+            .attr("fill", "rgba(255, 0, 0, 0.3)")
+            .attr("stroke", "black")
           .merge(circles)
-            .attr("cx", function (d){
-              return d.sepalLength / xMax * width;
-            })
-            .attr("cy", function (d){
-              return d.petalLength * 70;
-            })
-            .attr("r", 6);
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", d => d.r);
       }
             
       function type(d){
-        d.sepalLength = +d.sepalLength;
-        d.sepalWidth = +d.sepalWidth;
-        d.petalLength = +d.petalLength;
-        d.petalWidth = +d.petalWidth;
+        d.x = +d.x; // Equivalent to:  d.x = parseFloat(d.x);
+        d.y = +d.y;
+        d.r = +d.r;
         return d;
       }
       
-      d3.csv("iris.csv", type, render);
+      d3.csv("data.csv", type, render);
       
     </script>
   </body>

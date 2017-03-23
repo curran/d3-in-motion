@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Variables for Columns</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
       
-      var svg = d3.select("svg"),
-          width = +svg.attr("width"),
-          xColumn = "sepalLength",
-          yColumn = "petalLength";
-          
-      
+      // Your task is to set the "fill"
+      // attribute of the circles to the
+      // values from the "color" column
+      // of the CSV file.
       function render(data){
-        
-        var xMax = d3.max(data, function (d){
-          return d[xColumn];
-        });
-        
-        var circles = svg
+        var circles = d3.select("svg")
           .selectAll("circle")
           .data(data);
         circles
@@ -29,25 +22,22 @@
         circles
           .enter()
           .append("circle")
+            .attr("fill", "rgba(255, 0, 0, 0.3)") // Hint: move this down into merge.
+            .attr("stroke", "black")
           .merge(circles)
-            .attr("cx", function (d){
-              return d[xColumn] / xMax * width;
-            })
-            .attr("cy", function (d){
-              return d[yColumn] * 70;
-            })
-            .attr("r", 6);
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", d => d.r);
       }
             
       function type(d){
-        d.sepalLength = +d.sepalLength;
-        d.sepalWidth = +d.sepalWidth;
-        d.petalLength = +d.petalLength;
-        d.petalWidth = +d.petalWidth;
+        d.x = +d.x; // Equivalent to:  d.x = parseFloat(d.x);
+        d.y = +d.y;
+        d.r = +d.r;
         return d;
       }
       
-      d3.csv("iris.csv", type, render);
+      d3.csv("data.csv", type, render);
       
     </script>
   </body>

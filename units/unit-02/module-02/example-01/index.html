@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bubbles from CSV</title>
+    <title>Rendering Bubbles ES6</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      
-      // Prerequisite
-      // From Unit 2 / Module 1 / Example 9
       function render(data){
-        var circles = d3.select("svg")
+        const circles = d3.select("svg")
           .selectAll("circle")
           .data(data);
         circles
@@ -23,20 +20,32 @@
             .attr("fill", "rgba(255, 0, 0, 0.3)")
             .attr("stroke", "black")
           .merge(circles)
-            .attr("cx", function (d){ return d.x; })
-            .attr("cy", function (d){ return d.y; })
-            .attr("r", function (d){ return d.r; });
-      }
-            
-      function type(d){
-        d.x = +d.x; // Equivalent to:  d.x = parseFloat(d.x);
-        d.y = +d.y;
-        d.r = +d.r;
-        return d;
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", d => d.r);
       }
       
-      d3.csv("data.csv", type, render);
-      
+      render([
+        { x: 300, y:150, r: 44 },
+        { x: 500, y:350, r: 51 },
+        { x: 700, y:200, r: 33 },
+        { x: 583, y:114, r: 77 },
+        { x: 844, y:218, r: 74 },
+        { x: 257, y:316, r: 44 },
+        { x: 466, y:200, r: 31 },
+        { x: 179, y:414, r: 50 },
+        { x: 179, y:231, r: 36 },
+        { x: 376, y:326, r: 26 },
+        { x: 676, y:118, r: 68 },
+        { x: 626, y:199, r: 68 },
+        { x: 510, y:269, r: 15 },
+        { x: 510, y:419, r: 15 },
+        { x: 311, y:388, r: 15 },
+        { x: 50, y:388, r: 6 },
+        { x: 90, y:431, r: 6 },
+        { x: 90, y:287, r: 11 },
+        { x: 630, y:145, r: 11 }
+      ]);
     </script>
   </body>
 </html>

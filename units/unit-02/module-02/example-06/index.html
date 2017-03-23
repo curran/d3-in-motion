@@ -1,46 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Using Width from SVG</title>
+    <title>Parsing Numbers</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <svg width="960" height="500"></svg>
     <script>
       
-      var svg = d3.select("svg"),
-          width = +svg.attr("width"),
-          xMax = 8; // Approximate guess
-      
       function render(data){
-        var circles = svg
-          .selectAll("circle")
-          .data(data);
-        circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-          .merge(circles)
-            .attr("cx", function (d){
-              return d.sepalLength / xMax * width;
-            })
-            .attr("cy", function (d){
-              return d.petalLength * 70;
-             })
-            .attr("r", 6);
+        d3.select("body")
+          .append("pre")
+            .style("font-size", "24pt")
+            .text(JSON.stringify(data, null, 2));
       }
             
       function type(d){
-        d.sepalLength = +d.sepalLength;
-        d.sepalWidth = +d.sepalWidth;
-        d.petalLength = +d.petalLength;
-        d.petalWidth = +d.petalWidth;
+        d.x = +d.x; // Equivalent to:  d.x = parseFloat(d.x);
+        d.y = +d.y;
+        d.r = +d.r;
         return d;
       }
       
-      d3.csv("iris.csv", type, render);
+      d3.csv("data.csv", type, render);
       
     </script>
   </body>
