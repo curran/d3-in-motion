@@ -8,12 +8,14 @@
     <svg width="960" height="500"></svg>
     <script>
       
+      const svg = d3.select("svg");
+      
       // Your task is to
       // define the render function
       // using ES6 arrow function notation.
       
       function render(data){
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

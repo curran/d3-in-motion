@@ -8,10 +8,13 @@
     <svg width="960" height="500"></svg>
     <script>
       const svg = d3.select("svg");
+      
+      // .attr() with one argument is a "getter", returns a string e.g. "960".
       const width = +svg.attr("width");
-            
+      
       function render(data){
         const xMax = 8; // Approximate guess
+        
         const circles = svg
           .selectAll("circle")
           .data(data);
@@ -21,10 +24,10 @@
         circles
           .enter()
           .append("circle")
+            .attr("r", 6)
           .merge(circles)
-            .attr("cx", d => d.sepalLength * width / xMax)
-            .attr("cy", d => d.petalLength * 70)
-            .attr("r", 6);
+            .attr("cx", d => d.sepalLength / xMax * width)
+            .attr("cy", d => d.petalLength * 70);
       }
             
       function type(d){

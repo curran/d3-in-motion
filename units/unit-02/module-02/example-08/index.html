@@ -7,13 +7,14 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const svg = d3.select("svg");
       
       // Your task is to set the "fill"
       // attribute of the circles to the
       // values from the "color" column
       // of the CSV file.
       function render(data){
-        var circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

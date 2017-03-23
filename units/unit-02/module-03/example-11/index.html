@@ -25,10 +25,10 @@
         circles
           .enter()
           .append("circle")
+            .attr("r", 6)
           .merge(circles)
-            .attr("cx", d => d.sepalLength * width / xMax)
-            .attr("cy", d => height - d.petalLength * height / yMax)
-            .attr("r", 6);
+            .attr("cx", d => d.sepalLength / xMax * width)
+            .attr("cy", d => height - d.petalLength / yMax * height);
       }
             
       function type(d){

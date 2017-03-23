@@ -7,9 +7,11 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const svg = d3.select("svg");
       
+      // From the previous module #2/2/7.
       function render(data){
-        var circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

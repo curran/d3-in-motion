@@ -10,15 +10,16 @@
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      const x = d => d.sepalLength;
-      const y = d => d.petalLength;
+      
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
       
       function render(data){
 
-        const xDomain = d3.extent(data, x);
+        const xDomain = d3.extent(data, xValue);
         const xRange = [0, width];
         
-        const yDomain = d3.extent(data, y);
+        const yDomain = d3.extent(data, yValue);
         const yRange = [height, 0];
         
         const circles = svg
@@ -30,18 +31,18 @@
         circles
           .enter()
           .append("circle")
+            .attr("r", 6)
           .merge(circles)
             .attr("cx", d => {
               return xRange[0] + (
-                (x(d) - xDomain[0]) / (xDomain[1] - xDomain[0])
+                (xValue(d) - xDomain[0]) / (xDomain[1] - xDomain[0])
               ) * (xRange[1] - xRange[0]);
             })
             .attr("cy", d => {
               return yRange[0] + (
-                (y(d) - yDomain[0]) / (yDomain[1] - yDomain[0])
+                (yValue(d) - yDomain[0]) / (yDomain[1] - yDomain[0])
               ) * (yRange[1] - yRange[0]);
-            })
-            .attr("r", 6);
+            });
       }
             
       function type(d){

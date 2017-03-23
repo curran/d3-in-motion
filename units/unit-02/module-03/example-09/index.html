@@ -23,10 +23,10 @@
         circles
           .enter()
           .append("circle")
+            .attr("r", 6)
           .merge(circles)
-            .attr("cx", d => d.sepalLength * width / xMax)
-            .attr("cy", d => d.petalLength * 70)
-            .attr("r", 6);
+            .attr("cx", d => d.sepalLength / xMax * width)
+            .attr("cy", d => d.petalLength * 70);
       }
             
       function type(d){
