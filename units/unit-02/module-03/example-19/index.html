@@ -31,7 +31,7 @@
           ) * (yRange[1] - yRange[0]);
         };
         
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

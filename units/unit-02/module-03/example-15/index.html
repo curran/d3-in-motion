@@ -23,7 +23,7 @@
         const xDomain = [xMin, xMax];
         const yDomain = [yMin, yMax];
         
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

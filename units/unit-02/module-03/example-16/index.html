@@ -18,7 +18,7 @@
         const xDomain = [d3.min(data, x), d3.max(data, x)];
         const yDomain = [d3.min(data, y), d3.max(data, y)];
         
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

@@ -619,6 +619,25 @@
               }
             }
           ]
+        },
+        {
+          "name": "module-04",
+          "examples": [
+            {
+              "name": "example-01",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            }
+          ]
         }
       ]
     }

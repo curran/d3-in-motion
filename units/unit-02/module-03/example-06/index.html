@@ -12,7 +12,7 @@
             
       function render(data){
         const xMax = 8; // Approximate guess
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

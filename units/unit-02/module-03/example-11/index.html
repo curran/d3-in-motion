@@ -16,7 +16,7 @@
         const xMax = d3.max(data, d => d.sepalLength);
         const yMax = d3.max(data, d => d.petalLength);
         
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles

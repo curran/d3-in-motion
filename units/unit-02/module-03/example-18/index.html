@@ -21,7 +21,7 @@
         const yDomain = d3.extent(data, y);
         const yRange = [height, 0];
         
-        const circles = d3.select("svg")
+        const circles = svg
           .selectAll("circle")
           .data(data);
         circles
