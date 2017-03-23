@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Construct Scales Once</title>
+    <title>Margin Convention</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -15,17 +15,31 @@
       const xScale = d3.scaleLinear();
       const yScale = d3.scaleLinear();
       
+      const margin = {top: 20, right: 10, bottom: 20, left: 10};
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+      
+      const g = svg
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      
+      g
+        .append("rect")
+          .attr("width", innerWidth)
+          .attr("height", innerHeight)
+          .attr("fill-opacity", 0.3);
+      
       function render(data){
         
         xScale
           .domain(d3.extent(data, x))
-          .range([0, width]);
+          .range([0, innerWidth]);
         
         yScale
           .domain(d3.extent(data, y))
-          .range([height, 0]);
+          .range([innerHeight, 0]);
         
-        const circles = svg
+        const circles = g
           .selectAll("circle")
           .data(data);
         circles
