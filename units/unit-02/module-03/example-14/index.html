@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using yMin</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const x = d => d.sepalLength;
+      const y = d => d.petalLength;
+      
+      function render(data){
+        
+        const xMin = d3.min(data, x);
+        const xMax = d3.max(data, x);
+        const yMin = d3.min(data, y);
+        const yMax = d3.max(data, y);
+        
+        const circles = d3.select("svg")
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+            .remove();
+        circles
+          .enter()
+          .append("circle")
+          .merge(circles)
+            .attr("cx", d => (x(d) - xMin) * width / (xMax - xMin))
+            .attr("cy", d => height - (y(d) - yMin) * height / (yMax - yMin))
+            .attr("r", 6);
+      }
+            
+      function type(d){
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+        d.petalLength = +d.petalLength;
+        d.petalWidth = +d.petalWidth;
+        return d;
+      }
+      
+      d3.csv("iris.csv", type, render);
+      
+    </script>
+  </body>
+</html>
