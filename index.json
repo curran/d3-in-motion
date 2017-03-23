@@ -678,6 +678,13 @@
                 "index.html": false,
                 "iris.csv": false
               }
+            },
+            {
+              "name": "example-08",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
             }
           ]
         },
