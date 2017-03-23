@@ -14,8 +14,8 @@
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
-      const x = d => d.sepalLength;
-      const y = d => d.petalLength;
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
       const xScale = d3.scaleLinear();
       const yScale = d3.scaleLinear();
       
@@ -36,11 +36,11 @@
       function render(data){
         
         xScale
-          .domain(d3.extent(data, x))
+          .domain(d3.extent(data, xValue))
           .range([0, innerWidth]);
         
         yScale
-          .domain(d3.extent(data, y))
+          .domain(d3.extent(data, yValue))
           .range([innerHeight, 0]);
         
         const circles = g
@@ -53,8 +53,8 @@
           .enter()
           .append("circle")
           .merge(circles)
-            .attr("cx", d => xScale(x(d)))
-            .attr("cy", d => yScale(y(d)))
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)))
             .attr("r", 6);
       }
             

@@ -673,6 +673,18 @@
               }
             }
           ]
+        },
+        {
+          "name": "module-05",
+          "examples": [
+            {
+              "name": "example-01",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            }
+          ]
         }
       ]
     }
