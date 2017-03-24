@@ -387,7 +387,7 @@
             {
               "name": "example-04",
               "files": {
-                "_babelrc": false,
+                "babelrc.json": false,
                 "bundle.js": false,
                 "index.html": false,
                 "index.js": false,
