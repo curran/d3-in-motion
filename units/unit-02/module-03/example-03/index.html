@@ -17,7 +17,7 @@
         circles.exit().remove();
         circles
           .enter().append("circle")
-            .attr("r", 3)
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xValue(d) * 80)
             .attr("cy", d => yValue(d) * 70);

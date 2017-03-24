@@ -25,7 +25,7 @@
         circles.exit().remove();
         circles
           .enter().append("circle")
-            .attr("r", 3)
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xValue(d) / xDomain[1] * xRange[1])
             .attr("cy", d => yValue(d) / yDomain[1] * yRange[1]);

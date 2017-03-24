@@ -22,7 +22,7 @@
         circles.exit().remove();
         circles
           .enter().append("circle")
-            .attr("r", 3)
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xValue(d) / xMax * width)
             .attr("cy", d => yValue(d) / yMax * height);
