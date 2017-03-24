@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Computing xMax II</title>
+    <title>Using d3.scaleLinear</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       const width = +svg.attr("width");
+      const height = +svg.attr("height");
       
-      function max(data, value){
-        let valueMax = -Infinity;
-        data.forEach(d => {
-          if(value(d) > valueMax){
-            valueMax = value(d);
-          }
-        });
-        return valueMax;
-      }
-            
+      const xRange = [0, width];
+      const yRange = [0, height];
+      
       function render(data){
+        const xDomain = [0, d3.max(data, xValue)];
+        const yDomain = [0, d3.max(data, yValue)];
         
-        const xMax = max(data, d => d.sepalLength);
+        const xScale = d3.scaleLinear().domain(xDomain).range(xRange);
+        const yScale = d3.scaleLinear().domain(yDomain).range(yRange);
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => d.sepalLength / xMax * width)
-            .attr("cy", d => d.petalLength * 70);
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
       }
             
       function type(d){

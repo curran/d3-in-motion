@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Value Accessors</title>
+    <title>Flipping Y</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -16,22 +16,22 @@
       
       function render(data){
         
-        const xMax = d3.max(data, xValue);
-        const yMax = d3.max(data, yValue);
+        const xScale = d3.scaleLinear()
+          .domain(d3.extent(data, xValue))
+          .range([0, width]);
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const yScale = d3.scaleLinear()
+          .domain(d3.extent(data, yValue))
+          .range([height, 0]);
+        
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => xValue(d) / xMax * width)
-            .attr("cy", d => height - yValue(d) / yMax * height);
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
       }
             
       function type(d){

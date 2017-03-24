@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Manual Scaling</title>
+    <title>Scaling to Bottom Right</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      
+      const xMax = 7.9;
+      const yMax = 6.9;
+      
       function render(data){
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => d.sepalLength * 50)
-            .attr("cy", d => d.petalLength * 50);
+            .attr("cx", d => xValue(d) / xMax * width)
+            .attr("cy", d => yValue(d) / yMax * height);
       }
             
       function type(d){

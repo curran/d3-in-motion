@@ -1,28 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The Iris Dataset</title>
+    <title>Value Accessor Pattern</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       
       function render(data){
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 1)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => d.sepalLength)
-            .attr("cy", d => d.petalLength);
+            .attr("cx", d => xValue(d) * 80)
+            .attr("cy", d => yValue(d) * 70);
       }
             
       function type(d){

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Using xMin</title>
+    <title>Optimization</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -13,27 +13,23 @@
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
+      const xScale = d3.scaleLinear()
+        .range([0, width]);
+      const yScale = d3.scaleLinear()
+        .range([height, 0]);
       
       function render(data){
+        xScale.domain(d3.extent(data, xValue));
+        yScale.domain(d3.extent(data, yValue));
         
-        const xMin = d3.min(data, xValue);
-        const xMax = d3.max(data, xValue);
-        
-        const yMax = d3.max(data, yValue);
-        
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => (xValue(d) - xMin) / (xMax - xMin) * width)
-            .attr("cy", d => height - yValue(d) / yMax * height);
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
       }
             
       function type(d){

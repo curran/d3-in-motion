@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Inverting Y</title>
+    <title>Using d3.extent</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
       const width = +svg.attr("width");
       const height = +svg.attr("height");
       
       function render(data){
         
-        const xMax = d3.max(data, d => d.sepalLength);
-        const yMax = d3.max(data, d => d.petalLength);
+        const xScale = d3.scaleLinear()
+          .domain(d3.extent(data, xValue))
+          .range([0, width]);
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const yScale = d3.scaleLinear()
+          .domain(d3.extent(data, yValue))
+          .range([0, height]);
+        
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => d.sepalLength / xMax * width)
-            .attr("cy", d => height - d.petalLength / yMax * height);
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
       }
             
       function type(d){

@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Using Width from SVG</title>
+    <title>Domain Concept</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const svg = d3.select("svg");
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
       
-      // .attr() with one argument is a "getter", returns a string e.g. "960".
+      const svg = d3.select("svg");
       const width = +svg.attr("width");
+      const height = +svg.attr("height");
       
       function render(data){
-        const xMax = 8; // Approximate guess
+        const xDomain = [0, d3.max(data, xValue)];
+        const yDomain = [0, d3.max(data, yValue)];
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => d.sepalLength / xMax * width)
-            .attr("cy", d => d.petalLength * 70);
+            .attr("cx", d => xValue(d) / xDomain[1] * width)
+            .attr("cy", d => yValue(d) / yDomain[1] * height);
       }
             
       function type(d){

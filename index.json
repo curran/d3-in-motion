@@ -455,15 +455,15 @@
             {
               "name": "example-01",
               "files": {
-                "data.csv": false,
-                "index.html": false
+                "index.html": false,
+                "iris.csv": false
               }
             },
             {
               "name": "example-02",
               "files": {
-                "data.csv": false,
-                "index.html": false
+                "index.html": false,
+                "iris.csv": false
               }
             },
             {
@@ -545,69 +545,6 @@
             },
             {
               "name": "example-14",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-15",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-16",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-17",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-18",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-19",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-20",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-21",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-22",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-23",
               "files": {
                 "index.html": false,
                 "iris.csv": false

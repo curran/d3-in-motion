@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Using Width and xMax</title>
+    <title>Using d3.max</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      
       const svg = d3.select("svg");
-      const width = 960;
-            
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      
       function render(data){
-        const xMax = 8; // Approximate guess
+        const xMax = d3.max(data, xValue);
+        const yMax = d3.max(data, yValue);
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 3)
           .merge(circles)
-            .attr("cx", d => d.sepalLength / xMax * width)
-            .attr("cy", d => d.petalLength * 70);
+            .attr("cx", d => xValue(d) / xMax * width)
+            .attr("cy", d => yValue(d) / yMax * height);
       }
             
       function type(d){
