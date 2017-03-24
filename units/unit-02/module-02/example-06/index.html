@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Parsing Numbers</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
+    <svg width="960" height="500"></svg>
     <script>
+      const svg = d3.select("svg");
       
+      // Your task is to set the "fill"
+      // attribute of the circles to the
+      // values from the "color" column
+      // of the CSV file.
       function render(data){
-        d3.select("body")
-          .append("pre")
-            .style("font-size", "24pt")
-            .text(JSON.stringify(data, null, 2));
+        const circles = svg
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+            .remove();
+        circles
+          .enter()
+          .append("circle")
+            .attr("fill", "rgba(255, 0, 0, 0.3)") // Hint: move this down into merge.
+            .attr("stroke", "black")
+          .merge(circles)
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", d => d.r);
       }
-      
+            
       function type(d){
         d.x = +d.x; // Equivalent to:  d.x = parseFloat(d.x);
         d.y = +d.y;

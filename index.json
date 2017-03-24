@@ -415,12 +415,14 @@
             {
               "name": "example-02",
               "files": {
+                "data.csv": false,
                 "index.html": false
               }
             },
             {
               "name": "example-03",
               "files": {
+                "data.csv": false,
                 "index.html": false
               }
             },
@@ -440,20 +442,6 @@
             },
             {
               "name": "example-06",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-07",
-              "files": {
-                "data.csv": false,
-                "index.html": false
-              }
-            },
-            {
-              "name": "example-08",
               "files": {
                 "data.csv": false,
                 "index.html": false
