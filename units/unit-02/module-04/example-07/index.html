@@ -20,16 +20,15 @@
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       
       function render(data){
-        
         let g = svg.selectAll("g").data([null]);
         g = g.enter().append("g").merge(g);
         g.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-        const rect = g.selectAll("rect").data([null]);
-        rect.enter().append("rect").merge(rect)
+        let rect = g.selectAll("rect").data([null]);
+        rect = rect.enter().append("rect").merge(rect);
+        rect.attr("fill-opacity", 0.2)
             .attr("width", innerWidth)
-            .attr("height", innerHeight)
-            .attr("fill-opacity", 0.2);
+            .attr("height", innerHeight);
 
         xScale.domain(d3.extent(data, xValue));
         yScale.domain(d3.extent(data, yValue));
@@ -58,8 +57,8 @@
         setTimeout(() => render(data), 2000);
         setTimeout(() => render(data), 3000);
         setTimeout(() => render(data), 4000);
-        setTimeout(() => render(data), 5000);
-      });
+        setTimeout(() => render(data), 5000); 
+      }); 
       
     </script>
   </body>

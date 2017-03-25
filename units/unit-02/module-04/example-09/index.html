@@ -7,11 +7,13 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      // Your task is to adjust the margins
+      
+      // Your task is to adjust the margin
       // to make room for axes on the bottom and left.
       
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
+      const margin = {top: 50, right: 30, bottom: 50, left: 30};
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
@@ -19,8 +21,7 @@
       const xScale = d3.scaleLinear();
       const yScale = d3.scaleLinear();
       
-      function render(data, margin){
-        
+      function render(data){
         const innerWidth = width - margin.left - margin.right;
         const innerHeight = height - margin.top - margin.bottom;
         
@@ -28,11 +29,11 @@
         g = g.enter().append("g").merge(g);
         g.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-        const rect = g.selectAll("rect").data([null]);
-        rect.enter().append("rect").merge(rect)
+        let rect = g.selectAll("rect").data([null]);
+        rect = rect.enter().append("rect").merge(rect);
+        rect.attr("fill-opacity", 0.2)
             .attr("width", innerWidth)
-            .attr("height", innerHeight)
-            .attr("fill-opacity", 0.2);
+            .attr("height", innerHeight);
 
         xScale
           .domain(d3.extent(data, xValue))
@@ -59,14 +60,7 @@
         return d;
       }
       
-      d3.csv("iris.csv", type, data => {
-        setTimeout(() => render(data, {top: 50, right: 30, bottom: 50, left: 30}), 0);
-        setTimeout(() => render(data, {top: 20, right: 30, bottom: 50, left: 30}), 1000);
-        setTimeout(() => render(data, {top: 50, right: 50, bottom: 50, left: 30}), 2000);
-        setTimeout(() => render(data, {top: 50, right: 30, bottom: 90, left: 30}), 3000);
-        setTimeout(() => render(data, {top: 50, right: 30, bottom: 50, left: 70}), 4000);
-        setTimeout(() => render(data, {top: 50, right: 30, bottom: 50, left: 30}), 5000);
-      });
+      d3.csv("iris.csv", type, render);
       
     </script>
   </body>
