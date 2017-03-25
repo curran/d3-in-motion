@@ -9,7 +9,7 @@
     <script>
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
-      const margin = {top: 20, right: 10, bottom: 20, left: 10};
+      const margin = {top: 50, right: 30, bottom: 50, left: 30};
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
@@ -20,20 +20,14 @@
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       
       function render(data){
-        
         xScale.domain(d3.extent(data, xValue));
         yScale.domain(d3.extent(data, yValue));
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)));

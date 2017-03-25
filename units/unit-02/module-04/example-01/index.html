@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Factoring Out Ranges</title>
+    <title>Optimization</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
       
-      // From previous module #2/3/22
+      // From previous module #2/4/1
       
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
@@ -20,25 +20,19 @@
       const yScale = d3.scaleLinear().range([height, 0]);
       
       function render(data){
-        
         xScale.domain(d3.extent(data, xValue));
         yScale.domain(d3.extent(data, yValue));
         
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("r", 6)
+          .enter().append("circle")
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)));
       }
-      
+            
       function type(d){
         d.sepalLength = +d.sepalLength;
         d.sepalWidth = +d.sepalWidth;
