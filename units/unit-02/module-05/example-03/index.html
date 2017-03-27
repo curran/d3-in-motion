@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>X Axis Fail</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      const margin = {top: 50, right: 30, bottom: 50, left: 30};
+      
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const xScale = d3.scaleLinear();
+      const yScale = d3.scaleLinear();
+      const xAxis = d3.axisLeft().scale(xAxis);
+      
+      function render(data){
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        
+        xScale
+          .domain(d3.extent(data, xValue))
+          .range([0, innerWidth]);
+        yScale
+          .domain(d3.extent(data, yValue))
+          .range([innerHeight, 0]);
+        
+        let g = svg.selectAll("g").data([null]);
+        g = g.enter().append("g").merge(g);
+        g.attr("transform", `translate(${margin.left}, ${margin.top})`);
+        
+        let yAxisG = g.selectAll("g").data([null]);
+        yAxisG = yAxisG.enter().append("g").merge(yAxisG);
+        yAxisG.call(xAxis);
+        
+        const circles = g.selectAll("circle").data(data);
+        circles.exit().remove();
+        circles
+          .enter().append("circle")
+            .attr("r", 5)
+          .merge(circles)
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
+      }
+            
+      function type(d){
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+        d.petalLength = +d.petalLength;
+        d.petalWidth = +d.petalWidth;
+        return d;
+      }
+      
+      d3.csv("iris.csv", type, data => {
+        setTimeout(() => render(data), 0);
+        setTimeout(() => { margin.top    = 100; render(data); }, 1000);
+        setTimeout(() => { margin.right  = 330; render(data); }, 2000);
+        setTimeout(() => { margin.bottom = 100; render(data); }, 3000);
+        setTimeout(() => { margin.left   = 330; render(data); }, 4000);
+      });
+      
+    </script>
+  </body>
+</html>
