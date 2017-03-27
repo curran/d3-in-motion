@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Using selection.call</title>
+    <title>X Axis</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -18,17 +18,18 @@
       const innerHeight = height - margin.top - margin.bottom;
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
-      const yAxis = d3.axisLeft().scale(yScale);
+      const xAxis = d3.axisBottom().scale(xScale);
       
       const g = svg.append("g")
           .attr("transform", `translate(${margin.left}, ${margin.top})`);
-      const yAxisG = g.append("g");
+      const xAxisG = g.append("g")
+          .attr("transform", `translate(0, ${innerHeight})`);
       
       function render(data){
         xScale.domain(d3.extent(data, xValue));
         yScale.domain(d3.extent(data, yValue));
         
-        yAxisG.call(yAxis); // Equivalent to yAxis(yAxisG);
+        xAxisG.call(xAxis);
         
         const circles = g.selectAll("circle").data(data);
         circles.exit().remove();
