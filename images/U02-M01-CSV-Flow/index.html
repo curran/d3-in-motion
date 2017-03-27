@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body, div { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+  </style>
+</head>
+
+<body>
+  <img src="diagram.svg">
+  <script>
+    let x = 0;
+    let mouseX = 0;
+    const div = d3
+      .select("body")
+        .on("mousemove", () => mouseX = d3.event.clientX)
+      .append("div")
+        .style("background-color", "white");
+    
+    d3.timer(() =>{
+      x += (mouseX - x) / 50;
+      div.style("left", x + "px");
+    });
+
+  </script>
+</body>
