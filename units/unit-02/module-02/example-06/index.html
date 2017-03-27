@@ -14,16 +14,11 @@
       // values from the "color" column
       // of the CSV file.
       function render(data){
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
-            .attr("fill", "rgba(255, 0, 0, 0.3)") // Hint: move this down into merge.
+          .enter().append("circle")
+            .attr("fill", "rgba(255, 0, 0, 0.3)")
             .attr("stroke", "black")
           .merge(circles)
             .attr("cx", d => d.x)
@@ -38,7 +33,16 @@
         return d;
       }
       
-      d3.csv("data.csv", type, render);
+      // Render twice, once with all pink color values,
+      // to show why it's necessary to set fill in merge (not enter).
+      d3.csv("data.csv", type, data => {
+        
+        // Clone each data element and overwrite the color as pink.
+        render(data.map(d => Object.assign({}, d, { color: "pink" })));
+        
+        // Render the original data after 1 second.
+        setTimeout(() => render(data), 1000);
+      });
       
     </script>
   </body>

@@ -15,15 +15,10 @@
       // using ES6 arrow function notation.
       
       function render(data){
-        const circles = svg
-          .selectAll("circle")
-          .data(data);
+        const circles = svg.selectAll("circle").data(data);
+        circles.exit().remove();
         circles
-          .exit()
-            .remove();
-        circles
-          .enter()
-          .append("circle")
+          .enter().append("circle")
             .attr("fill", "rgba(255, 0, 0, 0.3)")
             .attr("stroke", "black")
           .merge(circles)

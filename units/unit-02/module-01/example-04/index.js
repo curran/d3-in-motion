@@ -3,15 +3,10 @@ import { select } from "d3-selection";
 const svg = d3.select("svg");
 
 function render(data){
-  const circles = svg
-    .selectAll("circle")
-    .data(data);
+  const circles = svg.selectAll("circle").data(data);
+  circles.exit().remove();
   circles
-    .exit()
-      .remove();
-  circles
-    .enter()
-    .append("circle")
+    .enter().append("circle")
       .attr("fill", "rgba(255, 0, 0, 0.3)")
       .attr("stroke", "black")
     .merge(circles)
