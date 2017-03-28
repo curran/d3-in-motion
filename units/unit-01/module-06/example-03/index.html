@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The Case for Classes</title>
+    <title>Using Classes</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
@@ -11,18 +11,18 @@
     <script>
       function render(data){
         var circles = d3.select("svg")
-          .selectAll("circle")
+          .selectAll(".point")
           .data(data);
-        circles
-          .exit()
-            .remove();
         circles
           .enter()
           .append("circle")
+            .attr("class", "point")
             .attr("cy", 250)
             .attr("r", 100)
           .merge(circles)
             .attr("cx", function (d){ return d; });
+        circles
+          .exit().remove();
       }
       render([300, 500]);
       render([300]);
