@@ -34,7 +34,7 @@
           .domain(d3.extent(data, yValue))
           .range([innerHeight, 0]);
         
-        // BEM (Block Element Modifier) class name convention. See http://getbem.com/
+        // BEM (Block Element Modifier) class name convention.
         const xAxisG = g.selectAll(".axis--x").data([null]);
         xAxisG.enter().append("g").attr("class", "axis--x")
           .merge(xAxisG)
