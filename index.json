@@ -357,6 +357,23 @@
               }
             }
           ]
+        },
+        {
+          "name": "module-06",
+          "examples": [
+            {
+              "name": "example-01",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false
+              }
+            }
+          ]
         }
       ]
     },

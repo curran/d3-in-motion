@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rendering One Circle</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      function render(data){
+        
+        // General Update Pattern
+        var circles = d3.select("svg")
+          .selectAll("circle")
+          .data(data)
+            .attr("fill", "orange"); // This color applies to the "Update" selection.
+        circles
+          .exit()
+            .remove();
+        circles
+          .enter()
+          .append("circle")
+            .attr("cy", 250)
+            .attr("r", 100)
+            .attr("fill", "green") // This color applies to the "Enter" selection.
+          .merge(circles)
+            .attr("cx", function (d){ return d; });
+      }
+      
+      render([480]);
+      setTimeout(function (){ render([480]); }, 1000);
+    </script>
+  </body>
+</html>
