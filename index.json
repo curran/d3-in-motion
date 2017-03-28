@@ -396,6 +396,12 @@
               "files": {
                 "index.html": false
               }
+            },
+            {
+              "name": "example-07",
+              "files": {
+                "index.html": false
+              }
             }
           ]
         }
