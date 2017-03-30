@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  	<style>
+      /* Colors from Sunlight Foundataion
+         Data Visualization Style Guide. */
+      .axis .tick line {
+        stroke-width: 2px;
+        stroke: #C0C0BB;
+      }
+      .axis .tick text {
+      	font-size: 30px;
+        fill: #8E8883;
+      }
+      .axis .domain {
+        display: none;
+      }
+      /* Block Element Modifier naming convention. */
+      .axis__label {
+        text-anchor: middle;
+        font-size: 50px;
+        fill: #635F5D;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      // Your task is to modify the render function
+      // such that it manages all DOM elements
+      // within the svg and is idempotent.
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      let xLabel;
+      let yLabel;
+      const margin = {top: 30, right: 30, bottom: 100, left: 100};
+      
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const xScale = d3.scaleLinear().range([0, innerWidth]);
+      const yScale = d3.scaleLinear().range([innerHeight, 0]);
+      const xAxis = d3.axisBottom()
+        .scale(xScale)
+        .tickSizeInner(-innerHeight)
+        .tickPadding(15);
+      const yAxis = d3.axisLeft()
+        .scale(yScale)
+        .tickSizeInner(-innerWidth)
+        .ticks(5)
+        .tickPadding(10);
+      
+      function render(data){
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        
+        let g = svg.selectAll("g").data([null]);
+        g = g.enter().append("g").merge(g);
+        g.attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        xScale
+          .domain(d3.extent(data, xValue))
+          .range([0, innerWidth])
+          .nice();
+        yScale
+          .domain(d3.extent(data, yValue))
+          .range([innerHeight, 0])
+          .nice();
+        
+        let xAxisG = g.selectAll(".axis--x").data([null]);
+        xAxisG = xAxisG.enter().append("g").attr("class", "axis axis--x")
+          .merge(xAxisG)
+            .attr("transform", `translate(0, ${innerHeight})`)
+            .call(xAxis);
+        
+        let yAxisG = g.selectAll(".axis--y").data([null]);
+        yAxisG = yAxisG.enter().append("g").attr("class", "axis axis--y")
+          .merge(yAxisG)
+            .call(yAxis);
+
+        // Change this part.
+        xAxisG
+          .append("text")
+            .attr("class", "axis__label")
+            .attr("x", innerWidth / 2)
+            .attr("y", 85)
+            .text(xLabel);
+        yAxisG
+          .append("text")
+            .attr("class", "axis__label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -innerHeight / 2)
+            .attr("y", -45)
+            .text(yLabel);
+        
+        xAxisG.call(xAxis);
+        yAxisG.call(yAxis);
+        
+        const circles = g.selectAll("circle").data(data);
+        circles.exit().remove();
+        circles
+          .enter().append("circle")
+            .attr("r", 5)
+          .merge(circles)
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
+      }
+            
+      function type(d){
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+        d.petalLength = +d.petalLength;
+        d.petalWidth = +d.petalWidth;
+        return d;
+      }
+      
+      d3.csv("iris.csv", type, (data) => {
+        
+        // Render the first time with ugly labels.
+        xLabel = "sepalLength";
+        yLabel = "petalLength";
+        render(data);
+        
+        // Render again after 1 second with beautiful labels.
+        // This is to ensure the General Update Pattern
+        // is used correctly for the labels.
+        setTimeout(() => {
+          xLabel = "Sepal Length";
+          yLabel = "Petal Length";
+          render(data);
+        }, 1000);
+      });
+      
+    </script>
+  </body>
+</html>

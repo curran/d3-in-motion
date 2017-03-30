@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Styling Axes with CSS</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  	<style>
+      .axis .tick line {
+        stroke-width: 3px;
+        stroke: #f7351b;
+      }
+      .axis .tick text {
+      	font-size: 30px;
+        fill: #635F5D;
+      }
+      .axis .domain {
+        stroke-width: 5;
+        stroke: #6ce2e9;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const xValue = d => d.sepalLength;
+      const yValue = d => d.petalLength;
+      const margin = {top: 50, right: 30, bottom: 50, left: 63};
+      
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+      const xScale = d3.scaleLinear().range([0, innerWidth]);
+      const yScale = d3.scaleLinear().range([innerHeight, 0]);
+      const xAxis = d3.axisBottom().scale(xScale);
+      const yAxis = d3.axisLeft().scale(yScale);
+      
+      const g = svg.append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
+      const xAxisG = g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0, ${innerHeight})`);
+      const yAxisG = g.append("g")
+          .attr("class", "axis");
+      
+      function render(data){
+        xScale.domain(d3.extent(data, xValue));
+        yScale.domain(d3.extent(data, yValue));
+        
+        xAxisG.call(xAxis);
+        yAxisG.call(yAxis);
+        
+        const circles = g.selectAll("circle").data(data);
+        circles.exit().remove();
+        circles
+          .enter().append("circle")
+            .attr("r", 5)
+          .merge(circles)
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)));
+      }
+            
+      function type(d){
+        d.sepalLength = +d.sepalLength;
+        d.sepalWidth = +d.sepalWidth;
+        d.petalLength = +d.petalLength;
+        d.petalWidth = +d.petalWidth;
+        return d;
+      }
+      
+      d3.csv("iris.csv", type, render);
+      
+    </script>
+  </body>
+</html>
