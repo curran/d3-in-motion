@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Color Legend Circles</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const svg = d3.select("svg");
+      
+      const colorScale = d3.scaleOrdinal()
+        .domain(["setosa", "versicolor", "virginica"])
+        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+      
+      const circles = svg
+        .selectAll("circle")
+        .data(colorScale.domain());
+      circles
+        .exit().remove();
+      circles
+        .enter().append("circle")
+          .attr("cx", 300)
+          .attr("cy", (d, i) => i * 50 + 200)
+          .attr("r", 20)
+        .merge(circles)
+          .attr("fill", d => colorScale(d));
+    </script>
+  </body>
+</html>

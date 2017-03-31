@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Circles and Text II</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+      .legend__label {
+        font-size: 40px;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+        fill: #635F5D;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const colorLegendX = 300;
+      const colorLegendY = 200;
+      const colorLegendRadius = 20;
+      const colorLegendSpacing = 50;
+      const colorLegendLabelOffset = 30;
+      
+      const svg = d3.select("svg");
+      
+      const colorScale = d3.scaleOrdinal()
+        .domain(["setosa", "versicolor", "virginica"])
+        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+      
+      const legendItems = svg.selectAll("g").data(colorScale.domain());
+      legendItems.exit().remove();
+      const legendItemsEnter = legendItems.enter().append("g")
+          .attr("transform", (d, i) => {
+            `translate(${colorLegendX}, ${i * colorLegendSpacing + colorLegendY})`
+          });
+      
+      const circles = legendItems.select("circle")
+        .merge(legendItemsEnter.append("circle"))
+          .attr("r", colorLegendRadius)
+          .attr("cx", colorLegendX)
+          .attr("cy", (d, i) => i * colorLegendSpacing + colorLegendY)
+          .attr("fill", colorScale);
+      
+      const labels = legendItems.select("text")
+        .merge(legendItemsEnter.append("text").attr("class", "legend__label"))
+          .attr("x", colorLegendX + colorLegendLabelOffset)
+          .attr("y", (d, i) => i * colorLegendSpacing + colorLegendY)
+          .text(d => d);
+    </script>
+  </body>
+</html>
