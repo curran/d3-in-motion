@@ -27,17 +27,18 @@
         fill: #8E8883;
       }
       .legend__title {
-        font-size: 30px;
+        font-size: 32px;
         font-family: sans-serif;
         fill: #635F5D;
+      }
+      circle {
+        fill-opacity: 0.8;
       }
     </style>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      // Your task is to add title labels
-      // to the color and size legends.
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
       const colorValue = d => d.species;
@@ -47,7 +48,7 @@
       const yLabel = "Petal Length";
       const colorLabel = "Species";
       const sizeLabel = "Petal Width";
-      const margin = {top: 30, right: 260, bottom: 100, left: 100};
+      const margin = {top: 25, right: 260, bottom: 100, left: 100};
       const colorLegendX = 780;
       const colorLegendY = 80;
       const colorLegendRadius = 8;
@@ -55,13 +56,12 @@
       const colorLegendLabelOffset = 20;
       const colorLegendTitlePadding = 30;
       const sizeLegendX = 780;
-      const sizeLegendY = 250;
+      const sizeLegendY = 260;
       const sizeLegendSpacing = 35;
       const sizeLegendLabelOffset = 20;
       const sizeLegendTicks = 5;
       const sizeLegendFill = "gray";
       const sizeLegendTitlePadding = 30;
-      
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
