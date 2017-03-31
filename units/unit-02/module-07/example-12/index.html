@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Adding a Color Legend</title>
+    <title>Plot with Color Legend</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .axis .tick line {
@@ -21,9 +21,9 @@
         fill: #635F5D;
       }
       .legend__label {
-        font-size: 30px;
         font-family: sans-serif;
         alignment-baseline: middle;
+        font-size: 30px;
         fill: #8E8883;
       }
     </style>
@@ -38,9 +38,9 @@
       const yLabel = "Petal Length";
       const margin = {top: 30, right: 200, bottom: 100, left: 100};
       const colorLegendX = 800;
-      const colorLegendY = 40;
-      const colorLegendRadius = 10;
-      const colorLegendSpacing = 50;
+      const colorLegendY = 50;
+      const colorLegendRadius = 12;
+      const colorLegendSpacing = 40;
       const colorLegendLabelOffset = 20;
       
       const svg = d3.select("svg");
@@ -50,7 +50,6 @@
       const innerHeight = height - margin.top - margin.bottom;
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
-      
       const colorScale = d3.scaleOrdinal()
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
@@ -72,6 +71,8 @@
           .attr("transform", `translate(0, ${innerHeight})`);
       const yAxisG = g.append("g")
           .attr("class", "axis");
+      const colorLegendG = svg.append("g")
+          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       
       xAxisG
         .append("text")
@@ -89,28 +90,25 @@
           .text(yLabel);
       
       function renderColorLegend(){
-        let legendG = svg.selectAll(".legend").data([null]);
-        legendG = legendG.merge(legendG.enter().append("g")
-          .attr("class", "legend"));
+        const legendItems = colorLegendG
+          .selectAll("g")
+          .data(colorScale.domain());
+        legendItems
+          .exit().remove();
+        const legendItemsEnter = legendItems
+          .enter().append("g")
+            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
         
-        const legendItems = legendG.selectAll("g").data(colorScale.domain());
-        legendItems.exit().remove();
-        const legendItemsEnter = legendItems.enter().append("g")
-            .attr("transform", (d, i) => {
-              `translate(${colorLegendX}, ${i * colorLegendSpacing + colorLegendY})`
-            });
-
-        const circles = legendItems.select("circle")
+        legendItems.select("circle")
           .merge(legendItemsEnter.append("circle"))
             .attr("r", colorLegendRadius)
-            .attr("cx", colorLegendX)
-            .attr("cy", (d, i) => i * colorLegendSpacing + colorLegendY)
             .attr("fill", colorScale);
-
-        const labels = legendItems.select("text")
-          .merge(legendItemsEnter.append("text").attr("class", "legend__label"))
-            .attr("x", colorLegendX + colorLegendLabelOffset)
-            .attr("y", (d, i) => i * colorLegendSpacing + colorLegendY)
+        
+        legendItemsEnter
+          .append("text")
+            .attr("class", "legend__label")
+          .merge(legendItems.select(".legend__label"))
+            .attr("x", colorLegendLabelOffset)
             .text(d => d);
       }
       

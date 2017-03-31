@@ -18,13 +18,35 @@
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       
-      const circles = svg.selectAll("circle").data(colorScale.domain());
-      circles.exit().remove();
-      circles.merge(circles.enter().append("circle"))
-          .attr("r", colorLegendRadius)
-          .attr("cx", colorLegendX)
-          .attr("cy", (d, i) => i * colorLegendSpacing + colorLegendY)
-          .attr("fill", colorScale);
+      const colorLegendG = svg.append("g")
+          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
+      
+      function renderColorLegend(){
+        const circles = colorLegendG
+          .selectAll("circle")
+          .data(colorScale.domain());
+        circles
+          .exit().remove();
+        circles
+          .enter().append("circle")
+            .attr("cy", (d, i) => i * colorLegendSpacing)
+            .attr("r", colorLegendRadius)
+          .merge(circles)
+            .attr("fill", colorScale);
+      }
+      
+      colorScale.domain(["setosa", "versicolor"]);
+      renderColorLegend();
+      
+      setTimeout(() => {
+        colorScale.domain(["setosa"]);
+        renderColorLegend();
+      }, 1000);
+      
+      setTimeout(() => {
+        colorScale.domain(["setosa", "versicolor", "virginica"]);
+        renderColorLegend();
+      }, 2000);
     </script>
   </body>
 </html>

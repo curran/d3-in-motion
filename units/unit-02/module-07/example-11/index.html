@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Circles and Text II</title>
+    <title>Nested General Update</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
       .legend__label {
@@ -27,25 +27,44 @@
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       
-      const legendItems = svg.selectAll("g").data(colorScale.domain());
-      legendItems.exit().remove();
-      const legendItemsEnter = legendItems.enter().append("g")
-          .attr("transform", (d, i) => {
-            `translate(${colorLegendX}, ${i * colorLegendSpacing + colorLegendY})`
-          });
+      const colorLegendG = svg.append("g")
+          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       
-      const circles = legendItems.select("circle")
-        .merge(legendItemsEnter.append("circle"))
-          .attr("r", colorLegendRadius)
-          .attr("cx", colorLegendX)
-          .attr("cy", (d, i) => i * colorLegendSpacing + colorLegendY)
-          .attr("fill", colorScale);
+      function renderColorLegend(){
+        const legendItems = colorLegendG
+          .selectAll("g")
+          .data(colorScale.domain());
+        legendItems
+          .exit().remove();
+        const legendItemsEnter = legendItems
+          .enter().append("g")
+            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
+        
+        legendItems.select("circle")
+          .merge(legendItemsEnter.append("circle"))
+            .attr("r", colorLegendRadius)
+            .attr("fill", colorScale);
+        
+        legendItemsEnter
+          .append("text")
+            .attr("class", "legend__label")
+          .merge(legendItems.select(".legend__label"))
+            .attr("x", colorLegendLabelOffset)
+            .text(d => d);
+      }
       
-      const labels = legendItems.select("text")
-        .merge(legendItemsEnter.append("text").attr("class", "legend__label"))
-          .attr("x", colorLegendX + colorLegendLabelOffset)
-          .attr("y", (d, i) => i * colorLegendSpacing + colorLegendY)
-          .text(d => d);
+      colorScale.domain(["setosa", "versicolor"]);
+      renderColorLegend();
+      
+      setTimeout(() => {
+        colorScale.domain(["setosa"]);
+        renderColorLegend();
+      }, 1000);
+      
+      setTimeout(() => {
+        colorScale.domain(["setosa", "versicolor", "virginica"]);
+        renderColorLegend();
+      }, 2000);
     </script>
   </body>
 </html>

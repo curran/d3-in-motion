@@ -39,7 +39,6 @@
       const innerHeight = height - margin.top - margin.bottom;
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
-      
       const colorScale = d3.scaleOrdinal()
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
