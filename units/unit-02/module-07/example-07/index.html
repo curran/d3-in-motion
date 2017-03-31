@@ -41,6 +41,13 @@
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       const colorScale = d3.scaleOrdinal()
         .range(d3.schemeCategory10);
+      // For more color schemes, see:
+      //
+      // d3-scale-chromatic (not included in d3.js)
+      // https://github.com/d3/d3-scale-chromatic
+      //
+      // Every ColorBrewer Scale
+      // https://bl.ocks.org/mbostock/5577023
       
       const xAxis = d3.axisBottom()
         .scale(xScale)

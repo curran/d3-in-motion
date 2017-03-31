@@ -82,6 +82,8 @@
         yScale
           .domain(d3.extent(data, yValue))
           .nice();
+        colorScale
+          .domain([]);
         
         xAxisG.call(xAxis);
         yAxisG.call(yAxis);
@@ -105,7 +107,12 @@
         return d;
       }
       
-      d3.csv("iris.csv", type, render);
+      d3.csv("iris.csv", type, (data) => {
+        setTimeout(() => render(d3.shuffle(data)), 0);
+        setTimeout(() => render(d3.shuffle(data)), 1000);
+        setTimeout(() => render(d3.shuffle(data)), 2000);
+        setTimeout(() => render(d3.shuffle(data)), 3000);
+      });
       
     </script>
   </body>
