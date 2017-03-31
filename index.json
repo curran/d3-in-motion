@@ -920,6 +920,20 @@
                 "index.html": false,
                 "iris.csv": false
               }
+            },
+            {
+              "name": "example-13",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            },
+            {
+              "name": "example-14",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
             }
           ]
         }
