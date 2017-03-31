@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Size Legend Circles</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const sizeValue = d => d.petalWidth;
+      const sizeMax = 12;
+      const sizeLegendX = 300;
+      const sizeLegendY = 100;
+      const sizeLegendSpacing = 50;
+      const sizeLegendLabelOffset = 20;
+      const sizeLegendTicks = 5;
+      
+      const svg = d3.select("svg");
+      const sizeScale = d3.scaleSqrt()
+        .domain([0, 2.5])
+        .range([0, sizeMax]);
+      
+      const sizeLegendG = svg.append("g")
+          .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
+      
+      function renderSizeLegend(){
+        const circles = sizeLegendG
+          .selectAll("circle")
+          .data(sizeScale.ticks(sizeLegendTicks));
+        circles
+          .exit().remove();
+        circles
+          .enter().append("circle")
+            .attr("cy", (d, i) => i * sizeLegendSpacing)
+            .attr("r", sizeScale)
+          .merge(circles)
+            .attr("fill", colorScale);
+      }
+      
+      renderSizeLegend();
+    </script>
+  </body>
+</html>

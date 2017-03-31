@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Filtering Out Zero</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  	<style>
+      .legend__label {
+        font-family: sans-serif;
+        alignment-baseline: middle;
+        font-size: 30px;
+        fill: #8E8883;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const sizeValue = d => d.petalWidth;
+      const sizeMax = 12;
+      const sizeLegendX = 300;
+      const sizeLegendY = 150;
+      const sizeLegendSpacing = 50;
+      const sizeLegendLabelOffset = 20;
+      const sizeLegendTicks = 5;
+      
+      const svg = d3.select("svg");
+      const sizeScale = d3.scaleSqrt()
+        .domain([0, 2.5])
+        .range([0, sizeMax]);
+      
+      const sizeLegendG = svg.append("g")
+          .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
+      
+      function renderSizeLegend(){
+        const legendItems = sizeLegendG
+          .selectAll("g")
+          .data(sizeScale.ticks(sizeLegendTicks).filter(d => d));
+        legendItems
+          .exit().remove();
+        const legendItemsEnter = legendItems
+          .enter().append("g")
+            .attr("transform", (d, i) => `translate(0, ${i * sizeLegendSpacing})`);
+        
+        legendItems.select("circle")
+          .merge(legendItemsEnter.append("circle"))
+            .attr("r", sizeScale);
+        
+        legendItemsEnter
+          .append("text")
+            .attr("class", "legend__label")
+          .merge(legendItems.select(".legend__label"))
+            .attr("x", sizeLegendLabelOffset)
+            .text(d => d);
+      }
+      
+      renderSizeLegend();
+    </script>
+  </body>
+</html>
