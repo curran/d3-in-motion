@@ -893,43 +893,62 @@
             {
               "name": "example-08",
               "files": {
-                "index.html": false
+                "index.html": false,
+                "iris.csv": false
               }
-            },
+            }
+          ]
+        },
+        {
+          "name": "module-08",
+          "examples": [
             {
-              "name": "example-09",
+              "name": "example-01",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-10",
+              "name": "example-02",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-11",
+              "name": "example-03",
               "files": {
                 "index.html": false
               }
             },
             {
-              "name": "example-12",
+              "name": "example-04",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-05",
               "files": {
                 "index.html": false,
                 "iris.csv": false
               }
             },
             {
-              "name": "example-13",
+              "name": "example-06",
               "files": {
                 "index.html": false,
                 "iris.csv": false
               }
             },
             {
-              "name": "example-14",
+              "name": "example-07",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            },
+            {
+              "name": "example-08",
               "files": {
                 "index.html": false,
                 "iris.csv": false

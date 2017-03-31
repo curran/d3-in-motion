@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nested General Update</title>
+    <title>Color Legend Labels</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
       .legend__label {
@@ -22,34 +22,36 @@
       const colorLegendLabelOffset = 30;
       
       const svg = d3.select("svg");
-      
       const colorScale = d3.scaleOrdinal()
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
-      
       const colorLegendG = svg.append("g")
           .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       
       function renderColorLegend(){
-        const legendItems = colorLegendG
-          .selectAll("g")
+        const circles = colorLegendG
+          .selectAll("circle")
           .data(colorScale.domain());
-        legendItems
+        circles
           .exit().remove();
-        const legendItemsEnter = legendItems
-          .enter().append("g")
-            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
-        
-        legendItems.select("circle")
-          .merge(legendItemsEnter.append("circle"))
+        circles
+          .enter().append("circle")
+            .attr("cy", (d, i) => i * colorLegendSpacing)
             .attr("r", colorLegendRadius)
+          .merge(circles)
             .attr("fill", colorScale);
-        
-        legendItemsEnter
-          .append("text")
+
+        const labels = colorLegendG
+          .selectAll("text")
+          .data(colorScale.domain());
+        labels
+          .exit().remove();
+        labels
+          .enter().append("text")
             .attr("class", "legend__label")
-          .merge(legendItems.select(".legend__label"))
+          .merge(labels)
             .attr("x", colorLegendLabelOffset)
+            .attr("y", (d, i) => i * colorLegendSpacing)
             .text(d => d);
       }
       

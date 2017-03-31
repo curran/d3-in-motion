@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Color Legend Variables</title>
+    <title>Color Legend Circles</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const colorLegendX = 300;
-      const colorLegendY = 200;
-      const colorLegendRadius = 20;
-      const colorLegendSpacing = 50;
-      
       const svg = d3.select("svg");
-      
       const colorScale = d3.scaleOrdinal()
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
-      
       const colorLegendG = svg.append("g")
-          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
+          .attr("transform", "translate(300, 200)");
       
       function renderColorLegend(){
         const circles = colorLegendG
@@ -29,8 +22,8 @@
           .exit().remove();
         circles
           .enter().append("circle")
-            .attr("cy", (d, i) => i * colorLegendSpacing)
-            .attr("r", colorLegendRadius)
+            .attr("cy", (d, i) => i * 50)
+            .attr("r", 20)
           .merge(circles)
             .attr("fill", colorScale);
       }
@@ -47,6 +40,7 @@
         colorScale.domain(["setosa", "versicolor", "virginica"]);
         renderColorLegend();
       }, 2000);
+      
     </script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Color Legend Labels</title>
+    <title>Nested General Update</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
       .legend__label {
@@ -31,44 +31,43 @@
           .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       
       function renderColorLegend(){
-        const circles = colorLegendG
-          .selectAll("circle")
+        const legendItems = colorLegendG
+          .selectAll("g")
           .data(colorScale.domain());
-        circles
+        legendItems
           .exit().remove();
-        circles
-          .enter().append("circle")
-            .attr("cy", (d, i) => i * colorLegendSpacing)
+        const legendItemsEnter = legendItems
+          .enter().append("g")
+            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
+        
+        legendItems.select("circle")
+          .merge(legendItemsEnter.append("circle"))
             .attr("r", colorLegendRadius)
-          .merge(circles)
             .attr("fill", colorScale);
-
-        const labels = colorLegendG
-          .selectAll("text")
-          .data(colorScale.domain());
-        labels
-          .exit().remove();
-        labels
-          .enter().append("text")
+        
+        legendItemsEnter
+          .append("text")
             .attr("class", "legend__label")
-          .merge(labels)
+          .merge(legendItems.select(".legend__label"))
             .attr("x", colorLegendLabelOffset)
-            .attr("y", (d, i) => i * colorLegendSpacing)
             .text(d => d);
       }
       
-      colorScale.domain(["setosa", "versicolor"]);
+      colorScale.domain(["pancakes", "apples"]);
       renderColorLegend();
       
-      setTimeout(() => {
-        colorScale.domain(["setosa"]);
-        renderColorLegend();
-      }, 1000);
-      
-      setTimeout(() => {
-        colorScale.domain(["setosa", "versicolor", "virginica"]);
-        renderColorLegend();
-      }, 2000);
+      function testGeneralUpdatePattern(){
+        setTimeout(() => {
+          colorScale.domain(["setosa"]);
+          renderColorLegend();
+        }, 1000);
+
+        setTimeout(() => {
+          colorScale.domain(["setosa", "versicolor", "virginica"]);
+          renderColorLegend();
+        }, 2000);
+      }
+      testGeneralUpdatePattern();
     </script>
   </body>
 </html>
