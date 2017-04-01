@@ -1024,6 +1024,37 @@
               }
             }
           ]
+        },
+        {
+          "name": "module-10",
+          "examples": [
+            {
+              "name": "example-01",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            },
+            {
+              "name": "example-02",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-03",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-04",
+              "files": {
+                ".index.html.swp": false,
+                "index.html": false
+              }
+            }
+          ]
         }
       ]
     }

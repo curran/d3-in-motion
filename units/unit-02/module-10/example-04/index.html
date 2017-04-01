@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Color Legend Component</title>
+    <title>Size Legend Component</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .legend .tick text {
@@ -21,11 +21,11 @@
     <svg width="960" height="500"></svg>
     
     <script>
-      function colorLegend(selection, props){
-        const { scale, label, x, y, radius, tickPadding, spacing } = props;
+      function sizeLegend(selection, props){
+        const { scale, label, x, y, spacing, ticks, tickPadding, tickFill } = props;
         
-        let g = selection.selectAll(".legend--color").data([null]);
-        g = g.merge(g.enter().append("g").attr("class", "legend legend--color"))
+        let g = selection.selectAll(".legend--size").data([null]);
+        g = g.merge(g.enter().append("g").attr("class", "legend legend--size"))
             .attr("transform", `translate(${x}, ${y})`);
         
         const text = g.selectAll(".legend__label").data([null]);
@@ -34,7 +34,8 @@
             .attr("y", -30)
             .text(label);
         
-        const tick = g.selectAll(".tick").data(scale.domain());
+        const tick = g.selectAll(".tick")
+          .data(scale.ticks(ticks).filter(d => d));
         tick.exit().remove();
         
         const tickEnter = tick.enter().append("g").attr("class", "tick");
@@ -42,8 +43,8 @@
             .attr("transform", (d, i) => `translate(0, ${i * spacing})`);
         
         tick.select("circle").merge(tickEnter.append("circle"))
-            .attr("r", radius)
-            .attr("fill", scale);
+            .attr("r", scale)
+            .attr("fill", tickFill);
         
         tick.select("text").merge(tickEnter.append("text"))
             .attr("x", tickPadding)
@@ -54,18 +55,20 @@
     <script>
       function main(){
         const svg = d3.select("svg");
-        const colorScale = d3.scaleOrdinal()
-          .domain(["setosa", "versicolor", "virginica"])
-          .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+        const sizeMax = 12;
+        const sizeScale = d3.scaleSqrt()
+          .domain([0, 2.5])
+          .range([0, sizeMax]);
         
-        colorLegend(svg, {
-          scale: colorScale,
+        sizeLegend(svg, {
+          scale: sizeScale,
           label: "Species",
           x: 750,
-          y: 90,
-          radius: 10,
+          y: 285,
           spacing: 35,
-          tickPadding: 20
+          ticks: 5,
+          tickPadding: 20,
+          tickFill: "gray"
         });
       }
       main();
