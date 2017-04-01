@@ -929,26 +929,37 @@
             {
               "name": "example-05",
               "files": {
-                "index.html": false,
-                "iris.csv": false
+                "index.html": false
               }
             },
             {
               "name": "example-06",
               "files": {
-                "index.html": false,
-                "iris.csv": false
+                "index.html": false
               }
             },
             {
               "name": "example-07",
+              "files": {
+                "index.html": false
+              }
+            },
+            {
+              "name": "example-08",
               "files": {
                 "index.html": false,
                 "iris.csv": false
               }
             },
             {
-              "name": "example-08",
+              "name": "example-09",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            },
+            {
+              "name": "example-10",
               "files": {
                 "index.html": false,
                 "iris.csv": false
