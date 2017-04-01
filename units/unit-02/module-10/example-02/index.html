@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Complete Color Legend</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  	<style>
+      .legend .tick text {
+        font-size: 30px;
+        fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+      }
+      .legend__label {
+        font-size: 40px;
+        fill: #635F5D;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const colorLabel = "Species";
+      const colorLegendX = 750;
+      const colorLegendY = 90;
+      const colorLegendRadius = 10;
+      const colorLegendSpacing = 35;
+      const colorLegendLabelOffset = 20;
+      
+      const svg = d3.select("svg");
+      const colorScale = d3.scaleOrdinal()
+        .domain(["setosa", "versicolor", "virginica"])
+        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+      const colorLegendG = svg.append("g")
+          .attr("class", "legend")
+          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
+      
+      colorLegendG
+        .append("text")
+          .attr("class", "legend__label")
+          .attr("x", -20)
+          .attr("y", -30)
+          .text(colorLabel);
+      
+      function renderColorLegend(){
+        const colorLegendTick = colorLegendG
+          .selectAll(".tick")
+          .data(colorScale.domain());
+        colorLegendTick
+          .exit().remove();
+        const colorLegendTickEnter = colorLegendTick
+          .enter().append("g")
+            .attr("class", "tick");
+        colorLegendTickEnter
+          .merge(colorLegendTick)
+            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
+        
+        colorLegendTickEnter.append("circle")
+          .merge(colorLegendTick.select("circle"))
+            .attr("r", colorLegendRadius)
+            .attr("fill", colorScale);
+
+        colorLegendTickEnter.append("text")
+          .merge(colorLegendTick.select("text"))
+            .attr("x", colorLegendLabelOffset)
+            .text(d => d);
+      }
+      
+      renderColorLegend();
+      
+    </script>
+  </body>
+</html>
