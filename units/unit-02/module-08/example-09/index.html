@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Plot with Color Legend</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .axis .tick line {
@@ -31,11 +31,14 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      // Your task is to add a label
+      // to the color legend.
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
       const colorValue = d => d.species;
       const xLabel = "Sepal Length";
       const yLabel = "Petal Length";
+      const colorLabel = "Species"; // <--- Hint
       const margin = {top: 30, right: 287, bottom: 100, left: 100};
       
       const colorLegendX = 750;

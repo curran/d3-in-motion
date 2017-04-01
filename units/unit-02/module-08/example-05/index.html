@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nested General Update</title>
+    <title>Legend Tick Groups</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
-      .legend__label {
+      .legend .tick text {
         font-size: 40px;
         font-family: sans-serif;
         alignment-baseline: middle;
@@ -22,52 +22,31 @@
       const colorLegendLabelOffset = 30;
       
       const svg = d3.select("svg");
-      
       const colorScale = d3.scaleOrdinal()
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       
       const colorLegendG = svg.append("g")
+          .attr("class", "legend")
           .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       
-      function renderColorLegend(){
-        const legendItems = colorLegendG
-          .selectAll("g")
-          .data(colorScale.domain());
-        legendItems
-          .exit().remove();
-        const legendItemsEnter = legendItems
-          .enter().append("g")
-            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
-        
-        legendItems.select("circle")
-          .merge(legendItemsEnter.append("circle"))
-            .attr("r", colorLegendRadius)
-            .attr("fill", colorScale);
-        
-        legendItemsEnter
-          .append("text")
-            .attr("class", "legend__label")
-          .merge(legendItems.select(".legend__label"))
-            .attr("x", colorLegendLabelOffset)
-            .text(d => d);
-      }
+      const colorLegendTickEnter = colorLegendG
+        .selectAll(".tick")
+        .data(colorScale.domain())
+        .enter().append("g")
+          .attr("class", "tick")
+          .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
       
-      colorScale.domain(["pancakes", "apples"]);
-      renderColorLegend();
+      colorLegendTickEnter
+        .append("circle")
+          .attr("r", colorLegendRadius)
+          .attr("fill", colorScale);
       
-      function testGeneralUpdatePattern(){
-        setTimeout(() => {
-          colorScale.domain(["setosa"]);
-          renderColorLegend();
-        }, 1000);
-
-        setTimeout(() => {
-          colorScale.domain(["setosa", "versicolor", "virginica"]);
-          renderColorLegend();
-        }, 2000);
-      }
-      testGeneralUpdatePattern();
+      colorLegendTickEnter
+        .append("text")
+          .attr("x", colorLegendLabelOffset)
+          .text(d => d);
+      
     </script>
   </body>
 </html>
