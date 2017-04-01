@@ -29,6 +29,7 @@
         .range([0, sizeMax]);
       
       const sizeLegendG = svg.append("g")
+          .attr("class", "legend")
           .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
       
       function renderSizeLegend(){

@@ -14,6 +14,7 @@
       const sizeLegendSpacing = 50;
       const sizeLegendLabelOffset = 20;
       const sizeLegendTicks = 5;
+      const sizeLegendFillColor = "gray";
       
       const svg = d3.select("svg");
       const sizeScale = d3.scaleSqrt()
@@ -23,21 +24,13 @@
       const sizeLegendG = svg.append("g")
           .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
       
-      function renderSizeLegend(){
-        const circles = sizeLegendG
-          .selectAll("circle")
-          .data(sizeScale.ticks(sizeLegendTicks));
-        circles
-          .exit().remove();
-        circles
-          .enter().append("circle")
-            .attr("cy", (d, i) => i * sizeLegendSpacing)
-            .attr("r", sizeScale)
-          .merge(circles)
-            .attr("fill", colorScale);
-      }
-      
-      renderSizeLegend();
+      sizeLegendG
+        .selectAll("circle")
+        .data(sizeScale.ticks(sizeLegendTicks))
+        .enter().append("circle")
+          .attr("cy", (d, i) => i * sizeLegendSpacing)
+          .attr("r", sizeScale)
+          .attr("fill", sizeLegendFillColor);
     </script>
   </body>
 </html>
