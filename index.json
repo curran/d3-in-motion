@@ -1050,7 +1050,6 @@
             {
               "name": "example-04",
               "files": {
-                ".index.html.swp": false,
                 "index.html": false
               }
             }

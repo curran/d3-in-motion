@@ -22,16 +22,16 @@
     
     <script>
       function colorLegend(selection, props){
-        const { scale, label, x, y, radius, tickPadding, spacing } = props;
+        const { scale, x, y, label, labelX, labelY, radius, tickPadding, spacing, } = props;
         
         let g = selection.selectAll(".legend--color").data([null]);
         g = g.merge(g.enter().append("g").attr("class", "legend legend--color"))
             .attr("transform", `translate(${x}, ${y})`);
         
-        const text = g.selectAll(".legend__label").data([null]);
-        text.merge(text.enter().append("text").attr("class", "legend__label"))
-            .attr("x", -20)
-            .attr("y", -30)
+        const labelText = g.selectAll(".legend__label").data([null]);
+        labelText.merge(labelText.enter().append("text").attr("class", "legend__label"))
+            .attr("x", labelX)
+            .attr("y", labelY)
             .text(label);
         
         const tick = g.selectAll(".tick").data(scale.domain());
@@ -60,12 +60,14 @@
         
         colorLegend(svg, {
           scale: colorScale,
-          label: "Species",
           x: 750,
           y: 90,
           radius: 10,
           spacing: 35,
-          tickPadding: 20
+          tickPadding: 20,
+          label: "Species",
+          labelX: -20,
+          labelY: -30,
         });
       }
       main();

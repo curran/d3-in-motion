@@ -22,16 +22,16 @@
     
     <script>
       function sizeLegend(selection, props){
-        const { scale, label, x, y, spacing, ticks, tickPadding, tickFill } = props;
+        const { scale, x, y, label, labelX, labelY, spacing, ticks, tickPadding, tickFill } = props;
         
         let g = selection.selectAll(".legend--size").data([null]);
         g = g.merge(g.enter().append("g").attr("class", "legend legend--size"))
             .attr("transform", `translate(${x}, ${y})`);
         
-        const text = g.selectAll(".legend__label").data([null]);
-        text.merge(text.enter().append("text").attr("class", "legend__label"))
-            .attr("x", -20)
-            .attr("y", -30)
+        const labelText = g.selectAll(".legend__label").data([null]);
+        labelText.merge(labelText.enter().append("text").attr("class", "legend__label"))
+            .attr("x", labelX)
+            .attr("y", labelY)
             .text(label);
         
         const tick = g.selectAll(".tick")
@@ -68,7 +68,9 @@
           spacing: 35,
           ticks: 5,
           tickPadding: 20,
-          tickFill: "gray"
+          tickFill: "gray",
+          labelX: -20,
+          labelY: -30,
         });
       }
       main();
