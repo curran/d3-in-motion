@@ -20,11 +20,11 @@
         font-size: 50px;
         fill: #635F5D;
       }
-      .legend__label {
-        font-family: sans-serif;
-        alignment-baseline: middle;
+      .legend text {
         font-size: 30px;
         fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
       }
     </style>
   </head>
@@ -38,18 +38,20 @@
       const sizeMax = 12;
       const xLabel = "Sepal Length";
       const yLabel = "Petal Length";
-      const margin = {top: 30, right: 200, bottom: 100, left: 100};
-      const colorLegendX = 800;
+      const margin = {top: 30, right: 287, bottom: 100, left: 100};
+      
+      const colorLegendX = 750;
       const colorLegendY = 50;
-      const colorLegendRadius = 9;
+      const colorLegendRadius = 15;
       const colorLegendSpacing = 40;
       const colorLegendLabelOffset = 20;
-      const sizeLegendX = 800;
-      const sizeLegendY = 220;
+      
+      const sizeLegendX = 750;
+      const sizeLegendY = 225;
       const sizeLegendSpacing = 40;
       const sizeLegendLabelOffset = 20;
       const sizeLegendTicks = 5;
-      const sizeLegendFill = "gray";
+      const sizeLegendFillColor = "gray";
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
@@ -82,8 +84,10 @@
       const yAxisG = g.append("g")
           .attr("class", "axis");
       const colorLegendG = svg.append("g")
+          .attr("class", "legend")
           .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       const sizeLegendG = svg.append("g")
+          .attr("class", "legend")
           .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
       
       xAxisG
@@ -102,47 +106,49 @@
           .text(yLabel);
       
       function renderColorLegend(){
-        const legendItems = colorLegendG
-          .selectAll("g")
+        const colorLegendTick = colorLegendG
+          .selectAll(".tick")
           .data(colorScale.domain());
-        legendItems
+        colorLegendTick
           .exit().remove();
-        const legendItemsEnter = legendItems
+        const colorLegendTickEnter = colorLegendTick
           .enter().append("g")
+            .attr("class", "tick");
+        colorLegendTickEnter
+          .merge(colorLegendTick)
             .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
         
-        legendItems.select("circle")
-          .merge(legendItemsEnter.append("circle"))
+        colorLegendTickEnter.append("circle")
+          .merge(colorLegendTick.select("circle"))
             .attr("r", colorLegendRadius)
             .attr("fill", colorScale);
-        
-        legendItemsEnter
-          .append("text")
-            .attr("class", "legend__label")
-          .merge(legendItems.select(".legend__label"))
+
+        colorLegendTickEnter.append("text")
+          .merge(colorLegendTick.select("text"))
             .attr("x", colorLegendLabelOffset)
             .text(d => d);
       }
       
       function renderSizeLegend(){
-        const legendItems = sizeLegendG
-          .selectAll("g")
+        const sizeLegendTick = sizeLegendG
+          .selectAll(".tick")
           .data(sizeScale.ticks(sizeLegendTicks).filter(d => d));
-        legendItems
+        sizeLegendTick
           .exit().remove();
-        const legendItemsEnter = legendItems
+        const sizeLegendTickEnter = sizeLegendTick
           .enter().append("g")
+            .attr("class", "tick");
+        sizeLegendTickEnter
+          .merge(sizeLegendTick)
             .attr("transform", (d, i) => `translate(0, ${i * sizeLegendSpacing})`);
-        
-        legendItems.select("circle")
-          .merge(legendItemsEnter.append("circle"))
+
+        sizeLegendTickEnter.append("circle")
+          .merge(sizeLegendTick.select("circle"))
             .attr("r", sizeScale)
-            .attr("fill", sizeLegendFill);
-        
-        legendItemsEnter
-          .append("text")
-            .attr("class", "legend__label")
-          .merge(legendItems.select(".legend__label"))
+            .attr("fill", sizeLegendFillColor);
+      
+        sizeLegendTickEnter.append("text")
+          .merge(sizeLegendTick.select("text"))
             .attr("x", sizeLegendLabelOffset)
             .text(d => d);
       }
