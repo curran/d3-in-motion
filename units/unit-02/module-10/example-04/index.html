@@ -22,7 +22,18 @@
     
     <script>
       function sizeLegend(selection, props){
-        const { scale, x, y, label, labelX, labelY, spacing, ticks, tickPadding, tickFill } = props;
+        const {
+          x,
+          y,
+          scale,
+          spacing,
+          ticks,
+          tickPadding,
+          tickFill,
+          label,
+          labelX,
+          labelY
+        } = props;
         
         let g = selection.selectAll(".legend--size").data([null]);
         g = g.merge(g.enter().append("g").attr("class", "legend legend--size"))

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>X and Y Axis Components</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  	<style>
+      .axis .tick line {
+        stroke-width: 2px;
+        stroke: #dddddd;
+      }
+      .axis .tick text {
+      	font-size: 30px;
+        fill: #8E8883;
+      }
+      .axis .domain {
+        display: none;
+      }
+      .axis__label {
+        text-anchor: middle;
+        font-size: 50px;
+        fill: #635F5D;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      function xAxis(selection, props){
+        const {
+          scale,
+          ticks,
+          tickPadding,
+          innerWidth,
+          innerHeight,
+          label,
+          labelPadding
+        } = props;
+        
+        const g = selection.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0, ${innerHeight})`);
+      
+        const labelText = g.selectAll(".axis__label").data([null]);
+        labelText
+          .enter().append("text")
+            .attr("class", "axis__label")
+          .merge(labelText)
+            .attr("x", innerWidth / 2)
+            .attr("y", labelPadding)
+            .text(label);
+
+        const axis = d3.axisBottom()
+          .scale(scale)
+          .tickSizeInner(-innerHeight)
+          .ticks(ticks)
+          .tickPadding(tickPadding);
+        
+        g.call(axis);
+      }
+    </script>
+
+    <script>
+      function yAxis(selection, props){
+        const {
+          scale,
+          ticks,
+          tickPadding,
+          innerWidth,
+          innerHeight,
+          label,
+          labelPadding
+        } = props;
+        
+        let g = selection.selectAll(".axis--y").data([null]);
+        g = g.merge(g.enter().append("g").attr("class", "axis axis--y"));
+        
+        const labelText = g.selectAll(".axis__label").data([null]);
+        labelText
+          .enter().append("text")
+            .attr("class", "axis__label")
+            .attr("transform", "rotate(-90)")
+          .merge(labelText)
+            .attr("x", -innerHeight / 2)
+            .attr("y", labelPadding)
+            .text(label);
+        
+        const axis = d3.axisLeft()
+          .scale(scale)
+          .tickSizeInner(-innerWidth)
+          .ticks(ticks)
+          .tickPadding(tickPadding);
+        
+        g.call(axis);
+      }
+    </script>
+    
+    <script>
+      function main(){
+        const xValue = d => d.sepalLength;
+        const xLabel = "Sepal Length";
+        const yValue = d => d.petalLength;
+        const yLabel = "Petal Length";
+        const margin = {top: 30, right: 287, bottom: 100, left: 100};
+        
+        const svg = d3.select("svg");
+        const width = +svg.attr("width");
+        const height = +svg.attr("height");
+        
+        const xScale = d3.scaleLinear();
+        const yScale = d3.scaleLinear();
+        
+        function render(data){
+          const innerWidth = width - margin.left - margin.right;
+          const innerHeight = height - margin.top - margin.bottom;
+          
+          xScale
+            .domain(d3.extent(data, xValue)).nice()
+            .range([0, innerWidth]);
+          yScale
+            .domain(d3.extent(data, yValue)).nice()
+            .range([innerHeight, 0]);
+          
+          let g = svg.selectAll("g").data([null]);
+          g = g.enter().append("g").merge(g);
+          g.attr("transform", `translate(${margin.left}, ${margin.top})`);
+          
+          xAxis(g, {
+            scale: xScale,
+            ticks: 10,
+            tickPadding: 15,
+            innerWidth: innerWidth,
+            innerHeight: innerHeight,
+            label: xLabel,
+            labelPadding: 85
+          });
+          
+          yAxis(g, {
+            scale: yScale,
+            ticks: 5,
+            tickPadding: 10,
+            labelPadding: -45,
+            innerWidth: innerWidth,
+            innerHeight: innerHeight,
+            label: yLabel
+          });
+        }
+        
+        function type(d){
+          d.sepalLength = +d.sepalLength;
+          d.sepalWidth = +d.sepalWidth;
+          d.petalLength = +d.petalLength;
+          d.petalWidth = +d.petalWidth;
+          return d;
+        }
+        
+        d3.csv("iris.csv", type, render);
+      }
+      main();
+    </script>
+  </body>
+</html>
