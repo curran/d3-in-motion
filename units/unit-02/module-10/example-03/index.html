@@ -49,16 +49,14 @@
             .attr("x", tickPadding)
             .text(d => d);
       }
-    </script>
-    
-    <script>
+      
       function main(){
         const svg = d3.select("svg");
         const colorScale = d3.scaleOrdinal()
           .domain(["setosa", "versicolor", "virginica"])
           .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
         
-        colorLegend(svg, {
+        svg.call(colorLegend, {
           scale: colorScale,
           x: 750,
           y: 90,

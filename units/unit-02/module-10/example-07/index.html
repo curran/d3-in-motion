@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fully Componentized</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+      .axis .tick line {
+        stroke-width: 2px;
+        stroke: #dddddd;
+      }
+      .axis .tick text {
+      	font-size: 30px;
+        fill: #8E8883;
+      }
+      .axis .domain {
+        display: none;
+      }
+      .axis__label {
+        text-anchor: middle;
+        font-size: 50px;
+        fill: #635F5D;
+      }
+      .legend .tick text {
+        font-size: 30px;
+        fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+      }
+      .legend__label {
+        font-size: 40px;
+        fill: #635F5D;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      function scatterPlotMarks(selection, props){
+        const {
+          data,
+          xScale,
+          xValue,
+          yScale,
+          yValue,
+          colorScale,
+          colorValue,
+          sizeScale,
+          sizeValue
+        } = props;
+        
+        const circles = selection.selectAll("circle").data(data);
+        circles.exit().remove();
+        circles
+          .enter().append("circle")
+            .attr("r", 5)
+          .merge(circles)
+            .attr("cx", d => xScale(xValue(d)))
+            .attr("cy", d => yScale(yValue(d)))
+            .attr("fill", d => colorScale(colorValue(d)))
+            .attr("r", d => sizeScale(sizeValue(d)));
+      }
+      
+      function xAxis(selection, props){
+        let g = selection
+          .selectAll(".axis--x").data([null]);
+        g = g.merge(g.enter().append("g")
+            .attr("class", "axis axis--x"));
+        
+        g.attr("transform", `translate(0, ${props.innerHeight})`)
+            .call(d3.axisBottom()
+              .scale(props.scale)
+              .tickSizeInner(-props.innerHeight)
+              .ticks(props.ticks)
+              .tickPadding(props.tickPadding));
+
+        const labelText = g.selectAll(".axis__label").data([null]);
+        labelText.enter().append("text").attr("class", "axis__label")
+          .merge(labelText)
+            .attr("x", props.innerWidth / 2)
+            .attr("y", props.labelPadding)
+            .text(props.label);
+      }
+
+      function yAxis(selection, props){
+        let g = selection
+          .selectAll(".axis--y").data([null]);
+        g = g.merge(g.enter().append("g")
+            .attr("class", "axis axis--y"));
+        
+        g.call(d3.axisLeft()
+          .scale(props.scale)
+          .tickSizeInner(-props.innerWidth)
+          .ticks(props.ticks)
+          .tickPadding(props.tickPadding));
+        
+        const labelText = g.selectAll(".axis__label").data([null]);
+        labelText
+          .enter().append("text")
+            .attr("class", "axis__label")
+            .attr("transform", "rotate(-90)")
+          .merge(labelText)
+            .attr("x", -props.innerHeight / 2)
+            .attr("y", props.labelPadding)
+            .text(props.label);
+      }
+      
+      function scatterPlot(selection, props){
+        const { data, width, height, margin, xValue, yValue, } = props;
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+
+        const xScale = d3.scaleLinear()
+          .domain(d3.extent(data, xValue)).nice()
+          .range([0, innerWidth]);
+        const yScale = d3.scaleLinear()
+          .domain(d3.extent(data, yValue)).nice()
+          .range([innerHeight, 0]);
+
+        let g = selection.selectAll("g").data([null]);
+        g = g.enter().append("g").merge(g);
+        g.attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+        xAxis(g, {
+          scale: xScale,
+          ticks: 10,
+          tickPadding: 15,
+          innerWidth: innerWidth,
+          innerHeight: innerHeight,
+          label: props.xLabel,
+          labelPadding: 85
+        });
+
+        yAxis(g, {
+          scale: yScale,
+          ticks: 5,
+          tickPadding: 10,
+          labelPadding: -45,
+          innerWidth: innerWidth,
+          innerHeight: innerHeight,
+          label: props.yLabel
+        });
+        
+        scatterPlotMarks(g, {
+          data,
+          xScale,
+          xValue,
+          yScale,
+          yValue,
+          colorScale: props.colorScale,
+          colorValue: props.colorValue,
+          sizeScale: props.sizeScale,
+          sizeValue: props.sizeValue
+        });
+      }
+      
+      function sizeLegend(selection, props){
+        const {
+          x,
+          y,
+          scale,
+          spacing,
+          ticks,
+          tickPadding,
+          tickFill,
+          label,
+          labelX,
+          labelY
+        } = props;
+        
+        let g = selection.selectAll(".legend--size").data([null]);
+        g = g.merge(g.enter().append("g").attr("class", "legend legend--size"))
+            .attr("transform", `translate(${x}, ${y})`);
+        
+        const labelText = g.selectAll(".legend__label").data([null]);
+        labelText.merge(labelText.enter().append("text").attr("class", "legend__label"))
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .text(label);
+        
+        const tick = g.selectAll(".tick")
+          .data(scale.ticks(ticks).filter(d => d));
+        tick.exit().remove();
+        
+        const tickEnter = tick.enter().append("g").attr("class", "tick");
+        tickEnter.merge(tick)
+            .attr("transform", (d, i) => `translate(0, ${i * spacing})`);
+        
+        tick.select("circle").merge(tickEnter.append("circle"))
+            .attr("r", scale)
+            .attr("fill", tickFill);
+        
+        tick.select("text").merge(tickEnter.append("text"))
+            .attr("x", tickPadding)
+            .text(d => d);
+      }
+      
+      function colorLegend(selection, props){
+        const { scale, x, y, label, labelX, labelY, radius, tickPadding, spacing, } = props;
+        
+        let g = selection.selectAll(".legend--color").data([null]);
+        g = g.merge(g.enter().append("g").attr("class", "legend legend--color"))
+            .attr("transform", `translate(${x}, ${y})`);
+        
+        const labelText = g.selectAll(".legend__label").data([null]);
+        labelText.merge(labelText.enter().append("text").attr("class", "legend__label"))
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .text(label);
+        
+        const tick = g.selectAll(".tick").data(scale.domain());
+        tick.exit().remove();
+        
+        const tickEnter = tick.enter().append("g").attr("class", "tick");
+        tickEnter.merge(tick)
+            .attr("transform", (d, i) => `translate(0, ${i * spacing})`);
+        
+        tick.select("circle").merge(tickEnter.append("circle"))
+            .attr("r", radius)
+            .attr("fill", scale);
+        
+        tick.select("text").merge(tickEnter.append("text"))
+            .attr("x", tickPadding)
+            .text(d => d);
+      }
+      
+      function main(){
+        const svg = d3.select("svg");
+        
+        function type(d){
+          d.sepalLength = +d.sepalLength;
+          d.sepalWidth = +d.sepalWidth;
+          d.petalLength = +d.petalLength;
+          d.petalWidth = +d.petalWidth;
+          return d;
+        }
+        
+        d3.csv("iris.csv", type, (data) => {
+          const colorValue = d => d.species;
+          const sizeValue = d => d.petalWidth;
+          const sizeMax = 12;
+          
+          const colorScale = d3.scaleOrdinal()
+            .domain(["setosa", "versicolor", "virginica"])
+            .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+          const sizeScale = d3.scaleSqrt()
+            .domain([0, d3.max(data, sizeValue)])
+            .range([0, sizeMax]);
+          
+          svg
+            .call(scatterPlot, {
+              data,
+              width: +svg.attr("width"),
+              height: +svg.attr("height"),
+              margin: {top: 30, right: 287, bottom: 100, left: 100},
+              xValue: d => d.sepalLength,
+              xLabel: "Sepal Length",
+              yValue: d => d.petalLength,
+              yLabel: "Petal Length",
+              colorScale,
+              colorValue,
+              sizeScale,
+              sizeValue
+            })
+            .call(sizeLegend, {
+              scale: sizeScale,
+              label: "Species",
+              x: 750,
+              y: 285,
+              spacing: 35,
+              ticks: 5,
+              tickPadding: 20,
+              tickFill: "gray",
+              labelX: -20,
+              labelY: -30,
+            })
+            .call(colorLegend, {
+              scale: colorScale,
+              x: 750,
+              y: 90,
+              radius: 10,
+              spacing: 35,
+              tickPadding: 20,
+              label: "Species",
+              labelX: -20,
+              labelY: -30,
+            });
+        });
+      }
+      main();
+    </script>
+  </body>
+</html>

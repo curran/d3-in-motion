@@ -1059,6 +1059,20 @@
                 "index.html": false,
                 "iris.csv": false
               }
+            },
+            {
+              "name": "example-06",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
+            },
+            {
+              "name": "example-07",
+              "files": {
+                "index.html": false,
+                "iris.csv": false
+              }
             }
           ]
         }
