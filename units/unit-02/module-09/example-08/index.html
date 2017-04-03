@@ -191,7 +191,6 @@
         circles.exit().remove();
         circles
           .enter().append("circle")
-            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)))
