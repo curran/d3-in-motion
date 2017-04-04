@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Fast and Deterministic</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .axis .tick line {
@@ -25,6 +25,12 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      // Your task is to use a scheme from
+      // Every ColorBrewer Scale
+      // https://bl.ocks.org/mbostock/5577023
+      // 
+      // Hint: open the console there
+      // and click on a color scheme.
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
       const colorValue = d => d.species;
@@ -40,7 +46,7 @@
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       const colorScale = d3.scaleOrdinal()
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+        .range(d3.schemeCategory10); // <--- Change this line.
       
       const xAxis = d3.axisBottom()
         .scale(xScale)
@@ -107,12 +113,7 @@
         return d;
       }
       
-      d3.csv("iris.csv", type, (data) => {
-        setTimeout(() => render(d3.shuffle(data)), 0);
-        setTimeout(() => render(d3.shuffle(data)), 1000);
-        setTimeout(() => render(d3.shuffle(data)), 2000);
-        setTimeout(() => render(d3.shuffle(data)), 3000);
-      });
+      d3.csv("iris.csv", type, render);
       
     </script>
   </body>

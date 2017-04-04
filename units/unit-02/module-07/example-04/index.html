@@ -83,7 +83,9 @@
           .domain(d3.extent(data, yValue))
           .nice();
         colorScale
-          .domain(data.map(colorValue));
+          .domain(data.map(colorValue)); // Same as not specifying domain
+        //  .domain(data.map(colorValue).sort()); // Data-independent ordering
+        //  .domain(d3.set(data.map(colorValue)).values().sort()); // More efficient
         
         xAxisG.call(xAxis);
         yAxisG.call(yAxis);
@@ -107,12 +109,7 @@
         return d;
       }
       
-      d3.csv("iris.csv", type, (data) => {
-        setTimeout(() => render(d3.shuffle(data)), 0);
-        setTimeout(() => render(d3.shuffle(data)), 1000);
-        setTimeout(() => render(d3.shuffle(data)), 2000);
-        setTimeout(() => render(d3.shuffle(data)), 3000);
-      });
+      d3.csv("iris.csv", type, render);
       
     </script>
   </body>

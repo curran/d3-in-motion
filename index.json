@@ -882,20 +882,6 @@
                 "index.html": false,
                 "iris.csv": false
               }
-            },
-            {
-              "name": "example-07",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
-            },
-            {
-              "name": "example-08",
-              "files": {
-                "index.html": false,
-                "iris.csv": false
-              }
             }
           ]
         },
@@ -1070,7 +1056,6 @@
             {
               "name": "example-07",
               "files": {
-                ".git": false,
                 "index.html": false,
                 "iris.csv": false
               }
