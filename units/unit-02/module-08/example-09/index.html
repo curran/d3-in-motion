@@ -1,25 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Exercise</title>
+    <title>Tick Text Padding</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-  	<style>
-      .axis .tick line {
-        stroke-width: 2px;
-        stroke: #dddddd;
-      }
-      .axis .tick text {
-      	font-size: 30px;
-        fill: #8E8883;
-      }
-      .axis .domain {
-        display: none;
-      }
-      .axis__label {
-        text-anchor: middle;
-        font-size: 50px;
-        fill: #635F5D;
-      }
+    <style>
       .legend .tick text {
         font-size: 30px;
         fill: #8E8883;
@@ -31,126 +15,54 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      // Your task is to add a label
-      // to the color legend.
-      const xValue = d => d.sepalLength;
-      const yValue = d => d.petalLength;
-      const colorValue = d => d.species;
-      const xLabel = "Sepal Length";
-      const yLabel = "Petal Length";
-      const colorLabel = "Species"; // <--- Hint
-      const margin = {top: 30, right: 287, bottom: 100, left: 100};
-      
-      const colorLegendX = 750;
-      const colorLegendY = 170;
-      const colorLegendRadius = 15;
-      const colorLegendSpacing = 50;
-      const colorLegendLabelOffset = 20;
-      
-      const svg = d3.select("svg");
-      const width = +svg.attr("width");
-      const height = +svg.attr("height");
-      const innerWidth = width - margin.left - margin.right;
-      const innerHeight = height - margin.top - margin.bottom;
-      const xScale = d3.scaleLinear().range([0, innerWidth]);
-      const yScale = d3.scaleLinear().range([innerHeight, 0]);
-      const colorScale = d3.scaleOrdinal()
-        .domain(["setosa", "versicolor", "virginica"])
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
-      
-      const xAxis = d3.axisBottom()
-        .scale(xScale)
-        .tickSizeInner(-innerHeight)
-        .tickPadding(15);
-      const yAxis = d3.axisLeft()
-        .scale(yScale)
-        .tickSizeInner(-innerWidth)
-        .ticks(5)
-        .tickPadding(10);
-      
-      const g = svg.append("g")
-          .attr("transform", `translate(${margin.left}, ${margin.top})`);
-      const xAxisG = g.append("g")
-          .attr("class", "axis")
-          .attr("transform", `translate(0, ${innerHeight})`);
-      const yAxisG = g.append("g")
-          .attr("class", "axis");
-      const colorLegendG = svg.append("g")
-          .attr("class", "legend")
-          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
-      
-      xAxisG
-        .append("text")
-          .attr("class", "axis__label")
-          .attr("x", innerWidth / 2)
-          .attr("y", 85)
-          .text(xLabel);
-      
-      yAxisG
-        .append("text")
-          .attr("class", "axis__label")
-          .attr("transform", "rotate(-90)")
-          .attr("x", -innerHeight / 2)
-          .attr("y", -45)
-          .text(yLabel);
-      
-      function renderColorLegend(){
-        const colorLegendTick = colorLegendG
+      function colorLegend(selection, props){
+        const colorScale = props.colorScale;
+        const positionX = props.positionX;
+        const positionY = props.positionY;
+        const tickRadius = props.tickRadius;
+        const tickSpacing = props.tickSpacing;
+        const tickPadding = props.tickPadding;
+        
+        const legendG = selection
+          .append("g")
+            .attr("class", "legend legend--color")
+            .attr("transform", `translate(${positionX}, ${positionY})`);
+        
+        const ticks = legendG
           .selectAll(".tick")
           .data(colorScale.domain());
-        colorLegendTick
-          .exit().remove();
-        const colorLegendTickEnter = colorLegendTick
+        const ticksEnter = ticks
           .enter().append("g")
-            .attr("class", "tick");
-        colorLegendTickEnter
-          .merge(colorLegendTick)
-            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
+            .attr("class", "tick")
+            .attr("transform", (d, i) => `translate(0, ${i * tickSpacing})`);
         
-        colorLegendTickEnter.append("circle")
-          .merge(colorLegendTick.select("circle"))
-            .attr("r", colorLegendRadius)
+        ticksEnter
+          .append("circle")
+            .attr("r", tickRadius)
             .attr("fill", colorScale);
-
-        colorLegendTickEnter.append("text")
-          .merge(colorLegendTick.select("text"))
-            .attr("x", colorLegendLabelOffset)
+        
+        ticksEnter
+          .append("text")
+            .attr("x", tickRadius + tickPadding)
             .text(d => d);
       }
       
-      function render(data){
-        xScale
-          .domain(d3.extent(data, xValue))
-          .nice();
-        yScale
-          .domain(d3.extent(data, yValue))
-          .nice();
-        
-        xAxisG.call(xAxis);
-        yAxisG.call(yAxis);
-        
-        const circles = g.selectAll("circle").data(data);
-        circles.exit().remove();
-        circles
-          .enter().append("circle")
-            .attr("r", 5)
-          .merge(circles)
-            .attr("cx", d => xScale(xValue(d)))
-            .attr("cy", d => yScale(yValue(d)))
-            .attr("fill", d => colorScale(colorValue(d)));
-        
-        renderColorLegend();
+      function main(){
+        const svg = d3.select("svg");
+        const colorScale = d3.scaleOrdinal()
+          .domain(["setosa", "versicolor", "virginica"])
+          .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+
+        colorLegend(svg, {
+          colorScale: colorScale,
+          positionX: 400,
+          positionY: 200,
+          tickRadius: 12,
+          tickSpacing: 35,
+          tickPadding: 6
+        });
       }
-            
-      function type(d){
-        d.sepalLength = +d.sepalLength;
-        d.sepalWidth = +d.sepalWidth;
-        d.petalLength = +d.petalLength;
-        d.petalWidth = +d.petalWidth;
-        return d;
-      }
-      
-      d3.csv("iris.csv", type, render);
+      main();
       
     </script>
   </body>

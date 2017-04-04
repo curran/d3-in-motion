@@ -7,23 +7,23 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const colorLegendX = 300;
-      const colorLegendY = 200;
-      const colorLegendRadius = 20;
-      const colorLegendSpacing = 50;
-      
       const svg = d3.select("svg");
       const colorScale = d3.scaleOrdinal()
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       
+      const colorLegendPositionX = 400;
+      const colorLegendPositionY = 200;
+      const colorLegendTickRadius = 12;
+      const colorLegendTickSpacing = 35;
+      
       svg
         .selectAll("circle")
         .data(colorScale.domain())
         .enter().append("circle")
-          .attr("cx", colorLegendX)
-          .attr("cy", (d, i) => i * colorLegendSpacing + colorLegendY)
-          .attr("r", colorLegendRadius)
+          .attr("cx", colorLegendPositionX)
+          .attr("cy", (d, i) => i * colorLegendTickSpacing + colorLegendPositionY)
+          .attr("r", colorLegendTickRadius)
           .attr("fill", colorScale);
       
     </script>
