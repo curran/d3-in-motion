@@ -39,7 +39,7 @@
           .domain(["setosa", "versicolor", "virginica"])
           .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
 
-        colorLegend(svg, {
+        svg.call(colorLegend, {
           colorScale: colorScale,
           positionX: 400,
           positionY: 200,

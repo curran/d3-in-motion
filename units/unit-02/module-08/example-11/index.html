@@ -1,25 +1,113 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Color Legend Circles</title>
+    <title>General Update Pattern</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+      .legend .tick text {
+        font-size: 30px;
+        fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+      }
+      .legend__label {
+        font-size: 45px;
+        fill: #635F5D;
+        font-family: sans-serif;
+      }
+    </style>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const svg = d3.select("svg");
-      const colorScale = d3.scaleOrdinal()
-        .domain(["setosa", "versicolor", "virginica"])
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+      function colorLegend(selection, props){
+        const colorScale = props.colorScale;
+        const positionX = props.positionX;
+        const positionY = props.positionY;
+        const tickRadius = props.tickRadius;
+        const tickSpacing = props.tickSpacing;
+        const tickPadding = props.tickPadding;
+        const label = props.label;
+        const labelX = props.labelX;
+        const labelY = props.labelY;
+        
+        let legendG = selection
+          .selectAll(".legend--color")
+          .data([null]);
+        legendG = legendG
+          .enter().append("g")
+            .attr("class", "legend legend--color")
+          .merge(legendG)
+            .attr("transform", `translate(${positionX}, ${positionY})`);
+        
+        const legendLabel = legendG
+          .selectAll(".legend__label")
+          .data([null]);
+        legendLabel
+          .enter().append("text")
+            .attr("class", "legend__label")
+          .merge(legendLabel)
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .text(label);
+        
+        const ticks = legendG
+          .selectAll(".tick")
+          .data(colorScale.domain());
+        const ticksEnter = ticks
+          .enter().append("g")
+            .attr("class", "tick");
+        ticksEnter
+          .merge(ticks)
+            .attr("transform", (d, i) => `translate(0, ${i * tickSpacing})`);
+        ticks.exit().remove();
+        
+        ticksEnter
+          .append("circle")
+          .merge(ticks.select("circle"))
+            .attr("r", tickRadius)
+            .attr("fill", colorScale);
+        
+        ticksEnter
+          .append("text")
+          .merge(ticks.select("text"))
+            .attr("x", tickRadius + tickPadding)
+            .text(d => d);
+      }
       
-      svg
-        .selectAll("circle")
-        .data(colorScale.domain())
-        .enter().append("circle")
-          .attr("cx", 400)
-          .attr("cy", (d, i) => i * 35 + 200)
-          .attr("r", 12)
-          .attr("fill", colorScale);
+      function main(){
+        const svg = d3.select("svg");
+        
+        colorLegend(svg, {
+          colorScale: d3.scaleOrdinal(d3.schemeCategory10)
+            .domain(["A", "B", "C", "D", "E", "F"]),
+          positionX: 400,
+          positionY: 120,
+          tickRadius: 28,
+          tickSpacing: 62,
+          tickPadding: 6,
+          label: "Alphabet",
+          labelX: -40,
+          labelY: -44
+        });
+        
+        setTimeout(() => {
+          colorLegend(svg, {
+            colorScale: d3.scaleOrdinal()
+              .domain(["setosa", "versicolor", "virginica"])
+              .range(["#eb8e37", "#1ac6cf", "#e35dd4"]),
+            positionX: 400,
+            positionY: 200,
+            tickRadius: 12,
+            tickSpacing: 35,
+            tickPadding: 6,
+            label: "Species",
+            labelX: -20,
+            labelY: -30
+          });
+        }, 2000);
+      }
+      main();
       
     </script>
   </body>

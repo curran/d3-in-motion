@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>General Update Pattern</title>
+    <title>Legend Label</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <style>
       .legend .tick text {
@@ -9,6 +9,11 @@
         fill: #8E8883;
         font-family: sans-serif;
         alignment-baseline: middle;
+      }
+      .legend__label {
+        font-size: 45px;
+        fill: #635F5D;
+        font-family: sans-serif;
       }
     </style>
   </head>
@@ -22,65 +27,58 @@
         const tickRadius = props.tickRadius;
         const tickSpacing = props.tickSpacing;
         const tickPadding = props.tickPadding;
+        const label = props.label;
+        const labelX = props.labelX;
+        const labelY = props.labelY;
         
-        let legendG = selection
-          .selectAll(".legend--color")
-          .data([null]);
-        legendG = legendG
-          .enter().append("g")
+        const legendG = selection
+          .append("g")
             .attr("class", "legend legend--color")
-          .merge(legendG)
             .attr("transform", `translate(${positionX}, ${positionY})`);
+        
+        legendG
+          .append("text")
+            .attr("class", "legend__label")
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .text(label);
         
         const ticks = legendG
           .selectAll(".tick")
           .data(colorScale.domain());
         const ticksEnter = ticks
           .enter().append("g")
-            .attr("class", "tick");
-        ticksEnter
-          .merge(ticks)
+            .attr("class", "tick")
             .attr("transform", (d, i) => `translate(0, ${i * tickSpacing})`);
-        ticks.exit().remove();
         
         ticksEnter
           .append("circle")
-          .merge(ticks.select("circle"))
             .attr("r", tickRadius)
             .attr("fill", colorScale);
         
         ticksEnter
           .append("text")
-          .merge(ticks.select("text"))
             .attr("x", tickRadius + tickPadding)
             .text(d => d);
       }
       
       function main(){
         const svg = d3.select("svg");
-        
-        colorLegend(svg, {
-          colorScale: d3.scaleOrdinal(d3.schemeCategory10)
-            .domain(["a", "b", "c", "d"]),
+        const colorScale = d3.scaleOrdinal()
+          .domain(["setosa", "versicolor", "virginica"])
+          .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+
+        svg.call(colorLegend, {
+          colorScale: colorScale,
           positionX: 400,
-          positionY: 155,
-          tickRadius: 28,
-          tickSpacing: 62,
-          tickPadding: 6
+          positionY: 200,
+          tickRadius: 12,
+          tickSpacing: 35,
+          tickPadding: 6,
+          label: "Species",
+          labelX: -20,
+          labelY: -30
         });
-        
-        setTimeout(() => {
-          colorLegend(svg, {
-            colorScale: d3.scaleOrdinal()
-              .domain(["setosa", "versicolor", "virginica"])
-              .range(["#eb8e37", "#1ac6cf", "#e35dd4"]),
-            positionX: 400,
-            positionY: 200,
-            tickRadius: 12,
-            tickSpacing: 35,
-            tickPadding: 6
-          });
-        }, 2000);
       }
       main();
       

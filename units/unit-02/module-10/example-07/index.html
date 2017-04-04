@@ -132,7 +132,7 @@
             .attr("transform", "rotate(-90)")
           .merge(labelText)
             .attr("x", -innerHeight / 2)
-            .attr("y", labelPadding)
+            .attr("y", -labelPadding)
             .text(label);
       }
       
@@ -177,7 +177,7 @@
           scale: yScale,
           ticks: 5,
           tickPadding: 10,
-          labelPadding: -45,
+          labelPadding: 45,
           innerWidth: innerWidth,
           innerHeight: innerHeight,
           label: props.yLabel
