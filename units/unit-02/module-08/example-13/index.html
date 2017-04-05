@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Exercise</title>
+    <title>Solution</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .axis .tick line {
@@ -20,23 +20,28 @@
         font-size: 50px;
         fill: #635F5D;
       }
+      .legend .tick text {
+        font-size: 30px;
+        fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+      }
+      .legend__label {
+        font-size: 45px;
+        fill: #635F5D;
+        font-family: sans-serif;
+      }
     </style>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      // Your task is to use a scheme from
-      // Every ColorBrewer Scale
-      // https://bl.ocks.org/mbostock/5577023
-      // 
-      // Hint: open the console there
-      // and click on a color scheme.
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
       const colorValue = d => d.species;
       const xLabel = "Sepal Length";
       const yLabel = "Petal Length";
-      const margin = {top: 30, right: 30, bottom: 100, left: 100};
+      const margin = {top: 30, right: 300, bottom: 100, left: 100};
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
@@ -46,7 +51,7 @@
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       const colorScale = d3.scaleOrdinal()
-        .range(d3.schemeCategory10); // <--- Change this line.
+        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       
       const xAxis = d3.axisBottom()
         .scale(xScale)
@@ -81,6 +86,61 @@
           .attr("y", -45)
           .text(yLabel);
       
+      function colorLegend(selection, props){
+        const colorScale = props.colorScale;
+        const positionX = props.positionX;
+        const positionY = props.positionY;
+        const tickRadius = props.tickRadius;
+        const tickSpacing = props.tickSpacing;
+        const tickPadding = props.tickPadding;
+        const label = props.label;
+        const labelX = props.labelX;
+        const labelY = props.labelY;
+        
+        let legendG = selection
+          .selectAll(".legend--color")
+          .data([null]);
+        legendG = legendG
+          .enter().append("g")
+            .attr("class", "legend legend--color")
+          .merge(legendG)
+            .attr("transform", `translate(${positionX}, ${positionY})`);
+        
+        const legendLabel = legendG
+          .selectAll(".legend__label")
+          .data([null]);
+        legendLabel
+          .enter().append("text")
+            .attr("class", "legend__label")
+          .merge(legendLabel)
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .text(label);
+        
+        const ticks = legendG
+          .selectAll(".tick")
+          .data(colorScale.domain());
+        const ticksEnter = ticks
+          .enter().append("g")
+            .attr("class", "tick");
+        ticksEnter
+          .merge(ticks)
+            .attr("transform", (d, i) => `translate(0, ${i * tickSpacing})`);
+        ticks.exit().remove();
+        
+        ticksEnter
+          .append("circle")
+          .merge(ticks.select("circle"))
+            .attr("r", tickRadius)
+            .attr("fill", colorScale);
+        
+        ticksEnter
+          .append("text")
+          .merge(ticks.select("text"))
+            .attr("x", tickRadius + tickPadding)
+            .text(d => d);
+      }
+      
       function render(data){
         xScale
           .domain(d3.extent(data, xValue))
@@ -103,6 +163,18 @@
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)))
             .attr("fill", d => colorScale(colorValue(d)));
+        
+        colorLegend(svg, {
+          colorScale: colorScale,
+          positionX: 750,
+          positionY: 200,
+          tickRadius: 12,
+          tickSpacing: 35,
+          tickPadding: 6,
+          label: "Species",
+          labelX: -20,
+          labelY: -30
+        });
       }
             
       function type(d){

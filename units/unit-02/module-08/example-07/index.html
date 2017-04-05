@@ -1,86 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nested General Update</title>
+    <title>Tick Text</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <style>
-      .legend .tick text {
-        font-size: 40px;
-        font-family: sans-serif;
-        alignment-baseline: middle;
-        fill: #635F5D;
-      }
-    </style>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const colorLegendX = 300;
-      const colorLegendY = 200;
-      let colorLegendRadius = 20;
-      let colorLegendSpacing = 50;
-      let colorLegendLabelOffset = 30;
-      
-      const svg = d3.select("svg");
-      const colorScale = d3.scaleOrdinal()
-        .domain(["setosa", "versicolor", "virginica"])
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
-      
-      const colorLegendG = svg.append("g")
-          .attr("class", "legend")
-          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
-      
-      function renderColorLegend(){
-        const colorLegendTick = colorLegendG
+      function colorLegend(selection, props){
+        const colorScale = props.colorScale;
+        const positionX = props.positionX;
+        const positionY = props.positionY;
+        const tickRadius = props.tickRadius;
+        const tickSpacing = props.tickSpacing;
+        
+        const legendG = selection
+          .append("g")
+            .attr("class", "legend legend--color")
+            .attr("transform", `translate(${positionX}, ${positionY})`);
+        
+        const ticks = legendG
           .selectAll(".tick")
           .data(colorScale.domain());
-        colorLegendTick
-          .exit().remove();
-        const colorLegendTickEnter = colorLegendTick
+        const ticksEnter = ticks
           .enter().append("g")
-            .attr("class", "tick");
-        colorLegendTickEnter
-          .merge(colorLegendTick)
-            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
-
-        colorLegendTickEnter.append("circle")
-          .merge(colorLegendTick.select("circle"))
-            .attr("r", colorLegendRadius)
+            .attr("class", "tick")
+            .attr("transform", (d, i) => `translate(0, ${i * tickSpacing})`);
+        
+        ticksEnter
+          .append("circle")
+            .attr("r", tickRadius)
             .attr("fill", colorScale);
-
-        colorLegendTickEnter.append("text")
-          .merge(colorLegendTick.select("text"))
-            .attr("x", colorLegendLabelOffset)
+        
+        ticksEnter
+          .append("text")
             .text(d => d);
       }
       
-      function testGeneralUpdatePattern(){
-        colorScale
-          .domain(["pancakes", "apples"])
-          .range(["orange", "red"]);
-        colorLegendRadius = 50;
-        colorLegendSpacing = 110;
-        colorLegendLabelOffset = 60;
-        renderColorLegend();
-        
-        setTimeout(() => {
-          colorScale.domain(["setosa"]).range(["green"]);
-          colorLegendRadius = 10;
-          colorLegendLabelOffset = 20;
-          renderColorLegend();
-        }, 1000);
+      function main(){
+        const svg = d3.select("svg");
+        const colorScale = d3.scaleOrdinal()
+          .domain(["setosa", "versicolor", "virginica"])
+          .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
 
-        setTimeout(() => {
-          colorScale
-            .domain(["setosa", "versicolor", "virginica"])
-            .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
-          colorLegendRadius = 20;
-          colorLegendSpacing = 50;
-          colorLegendLabelOffset = 30;
-          renderColorLegend();
-        }, 2000);
+        svg.call(colorLegend, {
+          colorScale: colorScale,
+          positionX: 400,
+          positionY: 200,
+          tickRadius: 12,
+          tickSpacing: 35
+        });
       }
-      testGeneralUpdatePattern();
+      main();
       
     </script>
   </body>

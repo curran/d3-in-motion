@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>d3.schemeCategory10</title>
+    <title>Exercise</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .axis .tick line {
@@ -25,6 +25,11 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
+      // Your task is to add the
+      // color legend to this scatter plot.
+      //
+      // This code is the "Data Driven Domain"
+      // example from previous module 7  #2/7/4
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
       const colorValue = d => d.species;
@@ -40,14 +45,7 @@
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       const colorScale = d3.scaleOrdinal()
-        .range(d3.schemeCategory10);
-      // For more color schemes, see:
-      //
-      // d3-scale-chromatic (not included in d3.js)
-      // https://github.com/d3/d3-scale-chromatic
-      //
-      // Every ColorBrewer Scale
-      // https://bl.ocks.org/mbostock/5577023
+        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       
       const xAxis = d3.axisBottom()
         .scale(xScale)

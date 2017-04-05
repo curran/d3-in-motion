@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Deterministic Domain</title>
+    <title>d3.schemeCategory10</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   	<style>
       .axis .tick line {
@@ -40,7 +40,15 @@
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
       const colorScale = d3.scaleOrdinal()
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+        .range(d3.schemeCategory10);
+      
+      // For more color schemes, see:
+      //
+      // d3-scale-chromatic (not included in d3.js)
+      // https://github.com/d3/d3-scale-chromatic
+      //
+      // Every ColorBrewer Scale
+      // https://bl.ocks.org/mbostock/5577023
       
       const xAxis = d3.axisBottom()
         .scale(xScale)
@@ -83,7 +91,7 @@
           .domain(d3.extent(data, yValue))
           .nice();
         colorScale
-          .domain(data.map(colorValue).sort());
+          .domain(d3.set(data.map(colorValue)).values().sort());
         
         xAxisG.call(xAxis);
         yAxisG.call(yAxis);
@@ -107,12 +115,7 @@
         return d;
       }
       
-      d3.csv("iris.csv", type, (data) => {
-        setTimeout(() => render(d3.shuffle(data)), 0);
-        setTimeout(() => render(d3.shuffle(data)), 1000);
-        setTimeout(() => render(d3.shuffle(data)), 2000);
-        setTimeout(() => render(d3.shuffle(data)), 3000);
-      });
+      d3.csv("iris.csv", type, render);
       
     </script>
   </body>

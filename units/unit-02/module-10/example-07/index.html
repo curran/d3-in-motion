@@ -37,21 +37,25 @@
     <svg width="960" height="500"></svg>
     <script>
       function scatterPlotMarks(selection, props){
-        const {
-          data,
-          xScale,
-          xValue,
-          yScale,
-          yValue,
-          colorScale,
-          colorValue,
-          sizeScale,
-          sizeValue
-        } = props;
+        const data = props.data;
+        const xScale = props.xScale;
+        const xValue = props.xValue;
+        const yScale = props.yScale;
+        const yValue = props.yValue;
+        const colorScale = props.colorScale;
+        const colorValue = props.colorValue;
+        const sizeScale = props.sizeScale;
+        const sizeValue = props.sizeValue;
         
-        const circles = selection.selectAll("circle").data(data);
-        circles.exit().remove();
-        circles.merge(circles.enter().append("circle"))
+        const circles = selection
+          .selectAll("circle")
+          .data(data);
+        circles
+          .exit()
+            .remove();
+        circles
+          .enter().append("circle")
+          .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)))
             .attr("fill", d => colorScale(colorValue(d)))
@@ -59,64 +63,105 @@
       }
       
       function xAxis(selection, props){
-        let g = selection
-          .selectAll(".axis--x").data([null]);
-        g = g.merge(g.enter().append("g")
-            .attr("class", "axis axis--x"));
-        
-        g.attr("transform", `translate(0, ${props.innerHeight})`)
-            .call(d3.axisBottom()
-              .scale(props.scale)
-              .tickSizeInner(-props.innerHeight)
-              .ticks(props.ticks)
-              .tickPadding(props.tickPadding));
+        const scale = props.scale;
+        const innerWidth = props.innerWidth;
+        const innerHeight = props.innerHeight;
+        const ticks = props.ticks;
+        const tickPadding = props.tickPadding;
+        const label = props.label;
+        const labelPadding = props.labelPadding;
 
-        const labelText = g.selectAll(".axis__label").data([null]);
-        labelText.enter().append("text").attr("class", "axis__label")
+        const axis = d3.axisBottom()
+          .scale(scale)
+          .tickSizeInner(-innerHeight)
+          .ticks(ticks)
+          .tickPadding(tickPadding);
+
+        let g = selection
+          .selectAll(".axis--x")
+          .data([null]);
+        g = g
+          .enter().append("g")
+            .attr("class", "axis axis--x")
+          .merge(g)
+            .attr("transform", `translate(0, ${innerHeight})`)
+            .call(axis);
+
+        const labelText = g
+          .selectAll(".axis__label")
+          .data([null]);
+        labelText
+          .enter().append("text")
+            .attr("class", "axis__label")
           .merge(labelText)
-            .attr("x", props.innerWidth / 2)
-            .attr("y", props.labelPadding)
-            .text(props.label);
+            .attr("x", innerWidth / 2)
+            .attr("y", labelPadding)
+            .text(label);
       }
 
       function yAxis(selection, props){
+        const scale = props.scale;
+        const innerWidth = props.innerWidth;
+        const innerHeight = props.innerHeight;
+        const ticks = props.ticks;
+        const tickPadding = props.tickPadding;
+        const label = props.label;
+        const labelPadding = props.labelPadding;
+
+        const axis = d3.axisLeft()
+          .scale(scale)
+          .tickSizeInner(-innerWidth)
+          .ticks(ticks)
+          .tickPadding(tickPadding);
+
         let g = selection
-          .selectAll(".axis--y").data([null]);
-        g = g.merge(g.enter().append("g")
-            .attr("class", "axis axis--y"));
+          .selectAll(".axis--y")
+          .data([null]);
+        g = g
+          .enter().append("g")
+            .attr("class", "axis axis--y")
+          .merge(g)
+            .call(axis);
         
-        g.call(d3.axisLeft()
-          .scale(props.scale)
-          .tickSizeInner(-props.innerWidth)
-          .ticks(props.ticks)
-          .tickPadding(props.tickPadding));
-        
-        const labelText = g.selectAll(".axis__label").data([null]);
+        const labelText = g
+          .selectAll(".axis__label")
+          .data([null]);
         labelText
           .enter().append("text")
             .attr("class", "axis__label")
             .attr("transform", "rotate(-90)")
           .merge(labelText)
-            .attr("x", -props.innerHeight / 2)
-            .attr("y", props.labelPadding)
-            .text(props.label);
+            .attr("x", -innerHeight / 2)
+            .attr("y", -labelPadding)
+            .text(label);
       }
       
       function scatterPlot(selection, props){
-        const { data, width, height, margin, xValue, yValue, } = props;
+        const data = props.data;
+        const width = props.width;
+        const height = props.height;
+        const margin = props.margin;
+        const xValue = props.xValue;
+        const yValue = props.yValue;
+
         const innerWidth = width - margin.left - margin.right;
         const innerHeight = height - margin.top - margin.bottom;
 
         const xScale = d3.scaleLinear()
           .domain(d3.extent(data, xValue)).nice()
           .range([0, innerWidth]);
+
         const yScale = d3.scaleLinear()
           .domain(d3.extent(data, yValue)).nice()
           .range([innerHeight, 0]);
 
-        let g = selection.selectAll("g").data([null]);
-        g = g.enter().append("g").merge(g);
-        g.attr("transform", `translate(${margin.left}, ${margin.top})`);
+        let g = selection
+          .selectAll("g")
+          .data([null]);
+        g = g
+          .enter().append("g")
+          .merge(g)
+            .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
         xAxis(g, {
           scale: xScale,
@@ -132,7 +177,7 @@
           scale: yScale,
           ticks: 5,
           tickPadding: 10,
-          labelPadding: -45,
+          labelPadding: 45,
           innerWidth: innerWidth,
           innerHeight: innerHeight,
           label: props.yLabel
@@ -152,71 +197,118 @@
       }
       
       function sizeLegend(selection, props){
-        const {
-          x,
-          y,
-          scale,
-          spacing,
-          ticks,
-          tickPadding,
-          tickFill,
-          label,
-          labelX,
-          labelY
-        } = props;
+        const x = props.x;
+        const y = props.y;
+        const scale = props.scale;
+        const spacing = props.spacing;
+        const ticks = props.ticks;
+        const tickPadding = props.tickPadding;
+        const tickFill = props.tickFill;
+        const label = props.label;
+        const labelX = props.labelX;
+        const labelY = props.labelY;
         
-        let g = selection.selectAll(".legend--size").data([null]);
-        g = g.merge(g.enter().append("g").attr("class", "legend legend--size"))
+        let g = selection
+          .selectAll(".legend--size")
+          .data([null]);
+        g = g
+          .enter().append("g")
+            .attr("class", "legend legend--size")
+          .merge(g)
             .attr("transform", `translate(${x}, ${y})`);
         
-        const labelText = g.selectAll(".legend__label").data([null]);
-        labelText.merge(labelText.enter().append("text").attr("class", "legend__label"))
+        const labelText = g
+          .selectAll(".legend__label")
+          .data([null]);
+        labelText
+          .enter().append("text")
+            .attr("class", "legend__label")
+          .merge(labelText)
             .attr("x", labelX)
             .attr("y", labelY)
             .text(label);
         
-        const tick = g.selectAll(".tick")
+        const tick = g
+          .selectAll(".tick")
           .data(scale.ticks(ticks).filter(d => d));
-        tick.exit().remove();
+        tick
+          .exit()
+            .remove();
         
-        const tickEnter = tick.enter().append("g").attr("class", "tick");
-        tickEnter.merge(tick)
+        const tickEnter = tick
+          .enter().append("g")
+            .attr("class", "tick");
+        tickEnter
+          .merge(tick)
             .attr("transform", (d, i) => `translate(0, ${i * spacing})`);
         
-        tick.select("circle").merge(tickEnter.append("circle"))
+        tick
+          .select("circle")
+          .merge(tickEnter.append("circle"))
             .attr("r", scale)
             .attr("fill", tickFill);
         
-        tick.select("text").merge(tickEnter.append("text"))
+        tick
+          .select("text")
+          .merge(tickEnter.append("text"))
             .attr("x", tickPadding)
             .text(d => d);
       }
       
       function colorLegend(selection, props){
-        const { scale, x, y, label, labelX, labelY, radius, tickPadding, spacing, } = props;
+        const x = props.x;
+        const y = props.y;
+        const scale = props.scale;
+        const spacing = props.spacing;
+        const tickPadding = props.tickPadding;
+        const tickRadius = props.tickRadius;
+        const label = props.label;
+        const labelX = props.labelX;
+        const labelY = props.labelY;
         
-        let g = selection.selectAll(".legend--color").data([null]);
-        g = g.merge(g.enter().append("g").attr("class", "legend legend--color"))
+        let g = selection
+          .selectAll(".legend--color")
+          .data([null]);
+        g = g
+          .enter().append("g")
+            .attr("class", "legend legend--color")
+          .merge(g)
             .attr("transform", `translate(${x}, ${y})`);
         
-        const labelText = g.selectAll(".legend__label").data([null]);
-        labelText.merge(labelText.enter().append("text").attr("class", "legend__label"))
+        const labelText = g
+          .selectAll(".legend__label")
+          .data([null]);
+        labelText
+          .enter().append("text")
+            .attr("class", "legend__label")
+          .merge(labelText)
             .attr("x", labelX)
             .attr("y", labelY)
             .text(label);
         
-        const tick = g.selectAll(".tick").data(scale.domain());
-        tick.exit().remove();
+        const tick = g
+          .selectAll(".tick")
+          .data(scale.domain());
+        tick
+          .exit()
+            .remove();
         
-        const tickEnter = tick.enter().append("g").attr("class", "tick");
-        tickEnter.merge(tick)
+        const tickEnter = tick
+          .enter().append("g")
+            .attr("class", "tick");
+        tickEnter
+          .merge(tick)
             .attr("transform", (d, i) => `translate(0, ${i * spacing})`);
         
-        tick.select("circle").merge(tickEnter.append("circle"))
-            .attr("r", radius)
+        tick
+          .select("circle")
+          .merge(tickEnter.append("circle"))
+            .attr("r", tickRadius)
             .attr("fill", scale);
         
-        tick.select("text").merge(tickEnter.append("text"))
+        tick
+          .select("text")
+          .merge(tickEnter.append("text"))
             .attr("x", tickPadding)
             .text(d => d);
       }
@@ -240,6 +332,7 @@
           const colorScale = d3.scaleOrdinal()
             .domain(["setosa", "versicolor", "virginica"])
             .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
+
           const sizeScale = d3.scaleSqrt()
             .domain([0, d3.max(data, sizeValue)])
             .range([0, sizeMax]);
@@ -275,7 +368,7 @@
               scale: colorScale,
               x: 750,
               y: 90,
-              radius: 10,
+              tickRadius: 10,
               spacing: 35,
               tickPadding: 20,
               label: "Species",
