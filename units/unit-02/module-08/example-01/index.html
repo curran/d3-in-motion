@@ -21,6 +21,14 @@
           .attr("r", 12)
           .attr("fill", colorScale);
       
+      svg
+        .selectAll("text")
+        .data(colorScale.domain())
+        .enter().append("text")
+          .attr("x", 400)
+          .attr("y", (d, i) => i * 35 + 200)
+          .text(d => d);
+      
     </script>
   </body>
 </html>

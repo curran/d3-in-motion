@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Color Legend Function</title>
+    <title>Color Legend Variables</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+      /* Not a very specific selector, needs improvement. */
+      text {
+        font-size: 30px;
+        fill: #8E8883;
+        font-family: sans-serif;
+        alignment-baseline: middle;
+      }
+    </style>
   </head>
   <body>
     <svg width="960" height="500"></svg>
@@ -12,28 +21,28 @@
         .domain(["setosa", "versicolor", "virginica"])
         .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
 
-      function colorLegend(props){
-        const positionX = props.positionX;
-        const positionY = props.positionY;
-        const tickRadius = props.tickRadius;
-        const tickSpacing = props.tickSpacing;
-        
-        svg
-          .selectAll("circle")
-          .data(colorScale.domain())
-          .enter().append("circle")
-            .attr("cx", positionX)
-            .attr("cy", (d, i) => i * tickSpacing + positionY)
-            .attr("r", tickRadius)
-            .attr("fill", colorScale);
-      }
+      const positionX = 400;
+      const positionY = 200;
+      const tickRadius = 12;
+      const tickSpacing = 35;
+      const tickPadding = 6;
       
-      colorLegend({
-        positionX: 400,
-        positionY: 200,
-        tickRadius: 12,
-        tickSpacing: 35
-      });
+      svg
+        .selectAll("circle")
+        .data(colorScale.domain())
+        .enter().append("circle")
+          .attr("cx", positionX)
+          .attr("cy", (d, i) => i * tickSpacing + positionY) // Duplicated logic.
+          .attr("r", tickRadius)
+          .attr("fill", colorScale);
+      
+      svg
+        .selectAll("text")
+        .data(colorScale.domain())
+        .enter().append("text")
+          .attr("x", positionX + tickRadius + tickPadding)
+          .attr("y", (d, i) => i * tickSpacing + positionY) // Duplicated logic.
+          .text(d => d);
       
     </script>
   </body>
