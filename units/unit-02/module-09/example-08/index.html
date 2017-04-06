@@ -27,7 +27,7 @@
         alignment-baseline: middle;
       }
       .legend__label {
-        font-size: 40px;
+        font-size: 45px;
         fill: #635F5D;
         font-family: sans-serif;
       }
@@ -38,27 +38,12 @@
     <script>
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
-      const colorValue = d => d.species;
       const sizeValue = d => d.petalWidth;
-      const sizeMax = 12;
+      const sizeMax = 10;
       const xLabel = "Sepal Length";
       const yLabel = "Petal Length";
-      const colorLabel = "Species";
       const sizeLabel = "Petal Width";
-      const margin = {top: 30, right: 287, bottom: 100, left: 100};
-      
-      const colorLegendX = 750;
-      const colorLegendY = 90;
-      const colorLegendRadius = 10;
-      const colorLegendSpacing = 35;
-      const colorLegendLabelOffset = 20;
-      
-      const sizeLegendX = 750;
-      const sizeLegendY = 285;
-      const sizeLegendSpacing = 35;
-      const sizeLegendLabelOffset = 20;
-      const sizeLegendTicks = 5;
-      const sizeLegendFillColor = "gray";
+      const margin = {top: 30, right: 300, bottom: 100, left: 100};
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
@@ -67,9 +52,6 @@
       const innerHeight = height - margin.top - margin.bottom;
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
-      const colorScale = d3.scaleOrdinal()
-        .domain(["setosa", "versicolor", "virginica"])
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       const sizeScale = d3.scaleSqrt()
         .range([0, sizeMax]);
       
@@ -90,12 +72,6 @@
           .attr("transform", `translate(0, ${innerHeight})`);
       const yAxisG = g.append("g")
           .attr("class", "axis");
-      const colorLegendG = svg.append("g")
-          .attr("class", "legend")
-          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
-      const sizeLegendG = svg.append("g")
-          .attr("class", "legend")
-          .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
       
       xAxisG
         .append("text")
@@ -112,65 +88,59 @@
           .attr("y", -45)
           .text(yLabel);
       
-      colorLegendG
-        .append("text")
-          .attr("class", "legend__label")
-          .attr("x", -20)
-          .attr("y", -30)
-          .text(colorLabel);
-      
-      sizeLegendG
-        .append("text")
-          .attr("class", "legend__label")
-          .attr("x", -20)
-          .attr("y", -30)
-          .text(sizeLabel);
-      
-      function renderColorLegend(){
-        const colorLegendTick = colorLegendG
-          .selectAll(".tick")
-          .data(colorScale.domain());
-        colorLegendTick
-          .exit().remove();
-        const colorLegendTickEnter = colorLegendTick
-          .enter().append("g")
-            .attr("class", "tick");
-        colorLegendTickEnter
-          .merge(colorLegendTick)
-            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
+      function sizeLegend(selection, props){
+        const sizeScale = props.sizeScale;
+        const positionX = props.positionX;
+        const positionY = props.positionY;
+        const ticksCount = props.ticks;
+        const tickFill = props.tickFill;
+        const tickSpacing = props.tickSpacing;
+        const tickPadding = props.tickPadding;
+        const label = props.label;
+        const labelX = props.labelX;
+        const labelY = props.labelY;
         
-        colorLegendTickEnter.append("circle")
-          .merge(colorLegendTick.select("circle"))
-            .attr("r", colorLegendRadius)
-            .attr("fill", colorScale);
-
-        colorLegendTickEnter.append("text")
-          .merge(colorLegendTick.select("text"))
-            .attr("x", colorLegendLabelOffset)
-            .text(d => d);
-      }
-      
-      function renderSizeLegend(){
-        const sizeLegendTick = sizeLegendG
+        let legendG = selection
+          .selectAll(".legend--size")
+          .data([null]);
+        legendG = legendG
+          .enter().append("g")
+            .attr("class", "legend legend--size")
+          .merge(legendG)
+            .attr("transform", `translate(${positionX}, ${positionY})`);
+        
+        const legendLabel = legendG
+          .selectAll(".legend__label")
+          .data([null]);
+        legendLabel
+          .enter().append("text")
+            .attr("class", "legend__label")
+          .merge(legendLabel)
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .text(label);
+        
+        const ticks = legendG
           .selectAll(".tick")
-          .data(sizeScale.ticks(sizeLegendTicks).filter(d => d));
-        sizeLegendTick
-          .exit().remove();
-        const sizeLegendTickEnter = sizeLegendTick
+          .data(sizeScale.ticks(ticksCount).filter(d => d));
+        const ticksEnter = ticks
           .enter().append("g")
             .attr("class", "tick");
-        sizeLegendTickEnter
-          .merge(sizeLegendTick)
-            .attr("transform", (d, i) => `translate(0, ${i * sizeLegendSpacing})`);
-
-        sizeLegendTickEnter.append("circle")
-          .merge(sizeLegendTick.select("circle"))
+        ticksEnter
+          .merge(ticks)
+            .attr("transform", (d, i) => `translate(0, ${i * tickSpacing})`);
+        ticks.exit().remove();
+        
+        ticksEnter
+          .append("circle")
+          .merge(ticks.select("circle"))
             .attr("r", sizeScale)
-            .attr("fill", sizeLegendFillColor);
-      
-        sizeLegendTickEnter.append("text")
-          .merge(sizeLegendTick.select("text"))
-            .attr("x", sizeLegendLabelOffset)
+            .attr("fill", tickFill);
+        
+        ticksEnter
+          .append("text")
+          .merge(ticks.select("text"))
+            .attr("x", tickPadding)
             .text(d => d);
       }
       
@@ -191,14 +161,25 @@
         circles.exit().remove();
         circles
           .enter().append("circle")
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)))
-            .attr("fill", d => colorScale(colorValue(d)))
             .attr("r", d => sizeScale(sizeValue(d)));
         
-        renderColorLegend();
-        renderSizeLegend();
+        sizeLegend(svg, {
+          sizeScale: sizeScale,
+          positionX: 722,
+          positionY: 200,
+          ticks: 5,
+          tickFill: "black",
+          tickSpacing: 35,
+          tickPadding: 16,
+          label: "Petal Width",
+          labelX: -20,
+          labelY: -30
+        });
+
       }
             
       function type(d){

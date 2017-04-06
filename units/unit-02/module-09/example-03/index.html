@@ -7,30 +7,20 @@
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const sizeValue = d => d.petalWidth;
-      const sizeMax = 12;
-      const sizeLegendX = 300;
-      const sizeLegendY = 100;
-      const sizeLegendSpacing = 50;
-      const sizeLegendLabelOffset = 20;
-      const sizeLegendTicks = 5;
-      const sizeLegendFillColor = "gray";
-      
       const svg = d3.select("svg");
+      const sizeMax = 10;
       const sizeScale = d3.scaleSqrt()
         .domain([0, 2.5])
         .range([0, sizeMax]);
       
-      const sizeLegendG = svg.append("g")
-          .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
-      
-      sizeLegendG
+      svg
         .selectAll("circle")
-        .data(sizeScale.ticks(sizeLegendTicks))
+        .data(sizeScale.ticks(5))
         .enter().append("circle")
-          .attr("cy", (d, i) => i * sizeLegendSpacing)
+          .attr("cx", 400)
+          .attr("cy", (d, i) => i * 35 + 200)
           .attr("r", sizeScale)
-          .attr("fill", sizeLegendFillColor);
+          .attr("fill", "black");
     </script>
   </body>
 </html>

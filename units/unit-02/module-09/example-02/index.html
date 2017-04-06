@@ -20,12 +20,6 @@
         font-size: 50px;
         fill: #635F5D;
       }
-      .legend text {
-        font-size: 30px;
-        fill: #8E8883;
-        font-family: sans-serif;
-        alignment-baseline: middle;
-      }
     </style>
   </head>
   <body>
@@ -33,18 +27,11 @@
     <script>
       const xValue = d => d.sepalLength;
       const yValue = d => d.petalLength;
-      const colorValue = d => d.species;
       const sizeValue = d => d.petalWidth;
-      const sizeMax = 12;
+      const sizeMax = 10;
       const xLabel = "Sepal Length";
       const yLabel = "Petal Length";
-      const margin = {top: 30, right: 287, bottom: 100, left: 100};
-      
-      const colorLegendX = 750;
-      const colorLegendY = 170;
-      const colorLegendRadius = 15;
-      const colorLegendSpacing = 50;
-      const colorLegendLabelOffset = 20;
+      const margin = {top: 30, right: 30, bottom: 100, left: 100};
       
       const svg = d3.select("svg");
       const width = +svg.attr("width");
@@ -53,9 +40,6 @@
       const innerHeight = height - margin.top - margin.bottom;
       const xScale = d3.scaleLinear().range([0, innerWidth]);
       const yScale = d3.scaleLinear().range([innerHeight, 0]);
-      const colorScale = d3.scaleOrdinal()
-        .domain(["setosa", "versicolor", "virginica"])
-        .range(["#eb8e37", "#1ac6cf", "#e35dd4"]);
       const sizeScale = d3.scaleSqrt()
         .range([0, sizeMax]);
       
@@ -76,9 +60,6 @@
           .attr("transform", `translate(0, ${innerHeight})`);
       const yAxisG = g.append("g")
           .attr("class", "axis");
-      const colorLegendG = svg.append("g")
-          .attr("class", "legend")
-          .attr("transform", `translate(${colorLegendX}, ${colorLegendY})`);
       
       xAxisG
         .append("text")
@@ -94,30 +75,6 @@
           .attr("x", -innerHeight / 2)
           .attr("y", -45)
           .text(yLabel);
-      
-      function renderColorLegend(){
-        const colorLegendTick = colorLegendG
-          .selectAll(".tick")
-          .data(colorScale.domain());
-        colorLegendTick
-          .exit().remove();
-        const colorLegendTickEnter = colorLegendTick
-          .enter().append("g")
-            .attr("class", "tick");
-        colorLegendTickEnter
-          .merge(colorLegendTick)
-            .attr("transform", (d, i) => `translate(0, ${i * colorLegendSpacing})`);
-        
-        colorLegendTickEnter.append("circle")
-          .merge(colorLegendTick.select("circle"))
-            .attr("r", colorLegendRadius)
-            .attr("fill", colorScale);
-
-        colorLegendTickEnter.append("text")
-          .merge(colorLegendTick.select("text"))
-            .attr("x", colorLegendLabelOffset)
-            .text(d => d);
-      }
       
       function render(data){
         xScale
@@ -136,13 +93,11 @@
         circles.exit().remove();
         circles
           .enter().append("circle")
+            .attr("r", 5)
           .merge(circles)
             .attr("cx", d => xScale(xValue(d)))
             .attr("cy", d => yScale(yValue(d)))
-            .attr("fill", d => colorScale(colorValue(d)))
             .attr("r", d => sizeScale(sizeValue(d)));
-        
-        renderColorLegend();
       }
             
       function type(d){
