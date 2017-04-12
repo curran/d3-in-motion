@@ -1,63 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Size Legend Labels</title>
+    <title>Size Legend Variables</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <style>
-      .legend .tick text {
-        font-size: 40px;
-        font-family: sans-serif;
-        alignment-baseline: middle;
-        fill: #635F5D;
-      }
-    </style>
   </head>
   <body>
     <svg width="960" height="500"></svg>
     <script>
-      const sizeValue = d => d.petalWidth;
-      const sizeMax = 12;
-      const sizeLegendX = 300;
-      const sizeLegendY = 100;
-      const sizeLegendSpacing = 50;
-      const sizeLegendLabelOffset = 20;
-      const sizeLegendTicks = 5;
-      const sizeLegendFillColor = "gray";
-      
       const svg = d3.select("svg");
+      const sizeMax = 10;
       const sizeScale = d3.scaleSqrt()
         .domain([0, 2.5])
         .range([0, sizeMax]);
       
-      const sizeLegendG = svg.append("g")
-          .attr("class", "legend")
-          .attr("transform", `translate(${sizeLegendX}, ${sizeLegendY})`);
+      const positionX = 400;
+      const positionY = 200;
+      const tickRadius = 12;
+      const tickSpacing = 35;
+      const tickPadding = 6;
+      const ticks = 5;
+      const tickFill = "black";
       
-      function renderSizeLegend(){
-        const sizeLegendTick = sizeLegendG
-          .selectAll(".tick")
-          .data(sizeScale.ticks(sizeLegendTicks));
-        sizeLegendTick
-          .exit().remove();
-        const sizeLegendTickEnter = sizeLegendTick
-          .enter().append("g")
-            .attr("class", "tick");
-        sizeLegendTickEnter
-          .merge(sizeLegendTick)
-            .attr("transform", (d, i) => `translate(0, ${i * sizeLegendSpacing})`);
-
-        sizeLegendTickEnter.append("circle")
-          .merge(sizeLegendTick.select("circle"))
-            .attr("r", sizeScale)
-            .attr("fill", sizeLegendFillColor);
-      
-        sizeLegendTickEnter.append("text")
-          .merge(sizeLegendTick.select("text"))
-            .attr("x", sizeLegendLabelOffset)
-            .text(d => d);
-      }
-      
-      renderSizeLegend();
+      svg
+        .selectAll("circle")
+        .data(sizeScale.ticks(ticks))
+        .enter().append("circle")
+          .attr("cx", positionX)
+          .attr("cy", (d, i) => i * tickSpacing + positionY)
+          .attr("r", sizeScale)
+          .attr("fill", tickFill);
     </script>
   </body>
 </html>
