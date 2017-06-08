@@ -1,6 +1,6 @@
 import { select } from "d3-selection";
 
-const svg = d3.select("svg");
+const svg = select("svg");
 
 function render(data){
   const circles = svg.selectAll("circle").data(data);

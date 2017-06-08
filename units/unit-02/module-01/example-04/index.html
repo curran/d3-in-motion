@@ -2,10 +2,18 @@
 <html>
   <head>
     <title>Using Rollup and Babel</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!--
+      No longer necessary to load
+      D3 default bundle (219KB).
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+    -->
   </head>
   <body>
     <svg width="960" height="500"></svg>
+    <!--
+      This bundle contains our code
+      and the D3 functions we import (18KB).
+    -->
     <script src="bundle.js"></script>
   </body>
 </html>
