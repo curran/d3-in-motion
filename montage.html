@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Montage</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <script>
+      function parseHash(){
+        const raw = window.location.hash.substr(1).split("/");
+        return { unit: +raw[0], module: +raw[1] };
+      }
+
+      function twoDigits(number){
+        return number.toString().length === 1 ? "0" + number : number;
+      }
+
+      function examplePath(params){
+        return [
+          "units",                   
+          "unit-" + twoDigits(params.unit),
+          "module-" + twoDigits(params.module),
+          "example-" + twoDigits(params.example)
+        ].join("/");                 
+      }
+
+      const width = 960;
+      const height = 500;
+
+      d3.json("index.json", (data) => {
+        const { unit, module } = parseHash();
+        const moduleData = data.units[unit - 1].modules[module - 1];
+        const examples = moduleData.examples.map((d, i) => ({ unit, module, example: i + 1 }));
+        d3.select("body").selectAll("iframe").data(examples)
+          .enter().append("iframe")
+            .attr("src", examplePath)
+            .attr("frameborder", "none")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("marginwidth", 0)
+            .attr("marginheight", 0)
+            .attr("scrolling", "no")
+            .style("pointer-events", "none");
+      });
+      window.addEventListener("mousemove", (event) => {
+        if(event.shiftKey){
+          const scale = event.clientX / window.innerWidth;
+          const transform = `scale(${scale})`;// translate(-${scale*width}, -${scale*height})`;
+          const marginTB = (scale * height - height)/2 + "px";
+          const marginLR = (scale * width - width)/2 + "px";
+          d3.selectAll("iframe")
+              .style("transform", transform)
+              .style("margin-top", marginTB)
+              .style("margin-bottom", marginTB)
+              .style("margin-left", marginLR)
+              .style("margin-right", marginLR);
+        }
+      })
+
+      let current = -1;
+      const RIGHT_ARROW = 39;
+      const LEFT_ARROW = 37;
+      const highlight = (event) => {
+        if(event.keyCode === RIGHT_ARROW){
+          current++;
+        }
+        if(event.keyCode === LEFT_ARROW){
+          current--;
+        }
+        d3.selectAll("iframe")
+            .style("border", (d, i) => "solid 8px " + (i === current ? "red" : "white"))
+      }
+      window.addEventListener("keyup", highlight)
+      highlight({ keyCode: 0 }); // Set initial border for layout.
+    </script>
+  </body>
+</html>
