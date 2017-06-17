@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rendering Rectangles</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const svg = d3.select("svg");
+      
+      function render(data){
+        svg.selectAll("rect").data(data)
+          .enter().append("rect")
+            .attr("x", (d, i) => i * 150)
+            .attr("y", 150)
+            .attr("width", 50)
+            .attr("height", 200)
+      }
+      
+      function type(d){
+        d.population = +d.population;
+        return d;
+      }
+      
+      d3.csv("data.csv", type, render);
+    </script>
+  </body>
+</html>

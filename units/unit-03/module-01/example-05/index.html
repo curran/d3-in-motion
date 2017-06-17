@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Using d3.scaleBand</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const xValue = d => d.country;
+      
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      
+      const xScale = d3.scaleBand()
+        .range([0, width]);
+      
+      function render(data){
+        xScale.domain(data.map(xValue));
+        svg.selectAll("rect").data(data)
+          .enter().append("rect")
+            .attr("x", d => xScale(xValue(d)))
+            .attr("y", 150)
+            .attr("width", xScale.bandwidth())
+            .attr("height", 200)
+            .attr("stroke", "white");
+      }
+      
+      function type(d){
+        d.population = +d.population;
+        return d;
+      }
+      
+      d3.csv("data.csv", type, render);
+    </script>
+  </body>
+</html>

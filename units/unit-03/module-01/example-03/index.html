@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parsing Population</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <script>
+      function type(d){
+        d.population = +d.population;
+        return d;
+      }
+      
+      d3.csv("data.csv", type, (data) => {
+        d3.select("body")
+          .append("pre")
+          .style("font-size", "1.4em")
+            .text(JSON.stringify(data, null, 2));
+      });
+    </script>
+  </body>
+</html>

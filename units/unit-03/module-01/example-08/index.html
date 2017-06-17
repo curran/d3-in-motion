@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flipping Bars</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const xValue = d => d.country;
+      const yValue = d => d.population;
+      
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      
+      const xScale = d3.scaleBand()
+        .padding(0.2)
+        .range([0, width]);
+      const yScale = d3.scaleLinear()
+        .range([0, height]);
+      
+      function render(data){
+        xScale.domain(data.map(xValue));
+        yScale.domain([0, d3.max(data, yValue)]);
+        svg.selectAll("rect").data(data)
+          .enter().append("rect")
+            .attr("x", d => xScale(xValue(d)))
+            .attr("y", d => height - yScale(yValue(d)))
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => yScale(yValue(d)));
+      }
+      
+      function type(d){
+        d.population = +d.population;
+        return d;
+      }
+      
+      d3.csv("data.csv", type, render);
+    </script>
+  </body>
+</html>

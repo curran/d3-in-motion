@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Custom Tick Format</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+      .axis .tick line {
+        stroke-width: 2px;
+        stroke: #C0C0BB;
+      }
+      .axis .tick text {
+      	font-size: 30px;
+        fill: #8E8883;
+      }
+      .axis .domain {
+        display: none;
+      }
+      .axis__label {
+        text-anchor: middle;
+        font-size: 50px;
+        fill: #635F5D;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="500"></svg>
+    <script>
+      const xValue = d => d.country;
+      const yValue = d => d.population;
+      const margin = {top: 10, right: 30, bottom: 50, left: 100};
+      
+      const svg = d3.select("svg");
+      const width = +svg.attr("width");
+      const height = +svg.attr("height");
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+      
+      const xScale = d3.scaleBand()
+        .padding(0.2)
+        .range([0, innerWidth]);
+      const yScale = d3.scaleLinear()
+        .range([innerHeight, 0]);
+      const xAxis = d3.axisBottom()
+        .tickSizeInner(0)
+        .tickPadding(10)
+        .scale(xScale);
+      const yAxis = d3.axisLeft()
+        .tickSizeInner(-innerWidth)
+        .tickFormat(d3.format(".2s"))
+        .scale(yScale);
+      
+      const g = svg.append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
+      const xAxisG = g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0, ${innerHeight})`);
+      const yAxisG = g.append("g")
+          .attr("class", "axis");
+      
+      function render(data){
+        xScale.domain(data.map(xValue));
+        yScale.domain([0, d3.max(data, yValue)]);
+        xAxisG.call(xAxis);
+        yAxisG.call(yAxis);
+        g.selectAll("rect").data(data)
+          .enter().append("rect")
+            .attr("x", d => xScale(xValue(d)))
+            .attr("y", d => yScale(yValue(d)))
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => innerHeight - yScale(yValue(d)));
+      }
+      
+      function type(d){
+        d.population = +d.population;
+        return d;
+      }
+      
+      d3.csv("data.csv", type, render);
+    </script>
+  </body>
+</html>
