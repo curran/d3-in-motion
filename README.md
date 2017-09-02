@@ -70,4 +70,24 @@ Code examples and references for the course "D3.js in Motion".
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/3f2ff2e32652397de94d406460e240ce/thumbnail.png"></a>
     </td>
   </tr>
+    <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/ba21316eafc6b84b22d1a5d49ad2a798">Line Chart with Circles
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/ba21316eafc6b84b22d1a5d49ad2a798/thumbnail.png"></a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/90240a6d88bdb1411467b21ea0769029">Line Chart of Temperature
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/90240a6d88bdb1411467b21ea0769029/thumbnail.png"></a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/74005576875677d78d73687e46fae030">Pie Chart
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/74005576875677d78d73687e46fae030/thumbnail.png"></a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/fe735c750f55491c1ea80f022ba7d7cd">Donut Chart
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/fe735c750f55491c1ea80f022ba7d7cd/thumbnail.png"></a>
+    </td>
+  </tr>
 </table>
