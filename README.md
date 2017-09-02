@@ -1,11 +1,12 @@
 # d3-in-motion
 Code examples and references for the course "D3.js in Motion".
 
+# Unit 1 - Scatter Plot Odyssey
+
 <table>
   <tr>
     <td>
-      <a href="http://bl.ocks.org/curran/42ecc75c88515b382bacda3a525b20b6">Loading CSV Data
-      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/42ecc75c88515b382bacda3a525b20b6/thumbnail.png"></a>
+      <a href="http://bl.ocks.org/curran/42ecc75c88515b382bacda3a525b20b6">Loading CSV Data</a>
     </td>
     <td>
       <a href="http://bl.ocks.org/curran/8c7538843c9ebd1330c347d332dc7f76">Basic Scatter Plot
@@ -34,6 +35,39 @@ Code examples and references for the course "D3.js in Motion".
     <td>
       <a href="http://bl.ocks.org/curran/ecb09f2605c7fbbadf0eeb75da5f0a6b">Stylized Scatter Plot with Color Legend
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/ecb09f2605c7fbbadf0eeb75da5f0a6b/thumbnail.png"></a>
+    </td>
+  </tr>
+</table>
+
+# Unit 2 - Visualization Idioms
+
+<table>
+  <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/76d8a075dee5420c01e35742f8598332">Scatter Plot with Ordinal Axis
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/76d8a075dee5420c01e35742f8598332/thumbnail.png"></a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/d867264d468b323c2e76886d44e7e8f9">Lollipop Chart
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/d867264d468b323c2e76886d44e7e8f9/thumbnail.png"></a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/372137cb593503f2f40a7aecc0f1cd4e">Bar Chart of Internet Users Per Country
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/372137cb593503f2f40a7aecc0f1cd4e/thumbnail.png"></a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/167495acd7fcca38f697b683436cf6a2">Tilted Labels
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/167495acd7fcca38f697b683436cf6a2/thumbnail.png"></a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/e842c1b64974666c60fc3e437f8c8cf9">Horizontal Bar Chart
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/e842c1b64974666c60fc3e437f8c8cf9/thumbnail.png"></a>
+    </td>
+    <td>
+      <a href="http://bl.ocks.org/curran/3f2ff2e32652397de94d406460e240ce">Scatter Plot with Time Axis
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/3f2ff2e32652397de94d406460e240ce/thumbnail.png"></a>
     </td>
   </tr>
 </table>
