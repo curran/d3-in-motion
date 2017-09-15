@@ -6,7 +6,8 @@ Code examples and references for the online video course ["D3.js in Motion"](htt
 <table>
   <tr>
     <td>
-      <a href="http://bl.ocks.org/curran/42ecc75c88515b382bacda3a525b20b6">Loading CSV Data</a>
+      <a href="http://bl.ocks.org/curran/42ecc75c88515b382bacda3a525b20b6">Loading CSV Data
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/42ecc75c88515b382bacda3a525b20b6/thumbnail.png"></a>
     </td>
     <td>
       <a href="http://bl.ocks.org/curran/8c7538843c9ebd1330c347d332dc7f76">Basic Scatter Plot
