@@ -1,5 +1,5 @@
-# d3-in-motion
-Code examples and references for the course "D3.js in Motion".
+# D3.js in Motion
+Code examples and references for the online video course ["D3.js in Motion"](https://www.manning.com/livevideo/d3-js-in-motion).
 
 # Unit 1 - Scatter Plot Odyssey
 
