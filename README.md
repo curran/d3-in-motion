@@ -34,7 +34,7 @@ Code examples and references for the online video course ["D3.js in Motion"](htt
   </tr>
   <tr>
     <td>
-      <a href="http://bl.ocks.org/curran/ecb09f2605c7fbbadf0eeb75da5f0a6b">Stylized Scatter Plot with Color Legend
+      <a href="http://bl.ocks.org/curran/ecb09f2605c7fbbadf0eeb75da5f0a6b">Scatter Plot with Color Legend
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/ecb09f2605c7fbbadf0eeb75da5f0a6b/thumbnail.png"></a>
     </td>
   </tr>
