@@ -1,1 +1,2 @@
- * `cars.csv` is derived from [UCI Machine Learning Repository: Auto MPG Data Set](https://archive.ics.uci.edu/ml/datasets/auto+mpg).
+* `iris.csv` is derived from [UCI Machine Learning Repository: Iris Data Set](https://archive.ics.uci.edu/ml/datasets/Iris), this small dataset from 1936 is often used for testing out machine learning algorithms and visualizations. Each row of the table represents an iris flower, including its species and dimensions of its botanical parts, sepal and petal, in centimeters.
+* `cars.csv` is derived from [UCI Machine Learning Repository: Auto MPG Data Set](https://archive.ics.uci.edu/ml/datasets/auto+mpg).
