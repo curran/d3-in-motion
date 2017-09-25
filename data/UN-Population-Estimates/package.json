@@ -1,0 +1,14 @@
+{
+  "name": "un-population-estimates",
+  "version": "1.0.0",
+  "description": "This directory contains historical population estimates data derived from the [United Nations World Population Prospects 2017](https://esa.un.org/unpd/wpp/Download/Standard/Population/).",
+  "main": "processAfrica.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^4.10.2"
+  }
+}
