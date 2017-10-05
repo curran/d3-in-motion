@@ -92,3 +92,15 @@ Code examples and references for the online video course ["D3.js in Motion"](htt
     </td>
   </tr>
 </table>
+
+
+# Unit 3 - Dynamic Data
+
+<table>
+  <tr>
+    <td>
+      <a href="http://bl.ocks.org/curran/bda8e668fd018b81b14abeb3599a03bd">Basic General Update Pattern
+      <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/bda8e668fd018b81b14abeb3599a03bd/thumbnail.png"></a>
+    </td>
+  </tr>
+</table>
