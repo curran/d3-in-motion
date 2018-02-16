@@ -102,14 +102,10 @@ Code examples and references for the online video course ["D3.js in Motion"](htt
       <a href="http://bl.ocks.org/curran/010687ccc371d1d417ce9f1f238178e1">Basic Text in SVG
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/010687ccc371d1d417ce9f1f238178e1/thumbnail.png"></a>
     </td>
-  </tr>
-  <tr>
     <td>
       <a href="http://bl.ocks.org/curran/2c4d5eccd668085b39e2c9015e916b98">Data Driven SVG Text
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/2c4d5eccd668085b39e2c9015e916b98/thumbnail.png"></a>
     </td>
-  </tr>
-  <tr>
     <td>
       <a href="http://bl.ocks.org/curran/76a970616923968b4d7cf9a5ab07cb5e">Render Function Concept
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/76a970616923968b4d7cf9a5ab07cb5e/thumbnail.png"></a>
@@ -120,14 +116,10 @@ Code examples and references for the online video course ["D3.js in Motion"](htt
       <a href="http://bl.ocks.org/curran/8e7835801fc37eb3635a3e022df8cc0e">General Update Pattern with Text
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/8e7835801fc37eb3635a3e022df8cc0e/thumbnail.png"></a>
     </td>
-  </tr>
-  <tr>
     <td>
       <a href="http://bl.ocks.org/curran/3c49f6d1ea969a2f4279dd09844baa38">Bar Chart with Text First Attempt
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/3c49f6d1ea969a2f4279dd09844baa38/thumbnail.png"></a>
     </td>
-  </tr>
-  <tr>
     <td>
       <a href="http://bl.ocks.org/curran/0b5c3711cb8772088179e56106fe1844">Nested General Update Pattern
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/0b5c3711cb8772088179e56106fe1844/thumbnail.png"></a>
@@ -138,14 +130,10 @@ Code examples and references for the online video course ["D3.js in Motion"](htt
       <a href="http://bl.ocks.org/curran/1d7e3ac809fffbb723834dabcfe1838a">Using Classes with the General Update Pattern
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/1d7e3ac809fffbb723834dabcfe1838a/thumbnail.png"></a>
     </td>
-  </tr>
-  <tr>
     <td>
       <a href="http://bl.ocks.org/curran/266399f3c1bd8b401413ba7dd149a451">Data Driven Changes
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/266399f3c1bd8b401413ba7dd149a451/thumbnail.png"></a>
     </td>
-  </tr>
-  <tr>
     <td>
       <a href="http://bl.ocks.org/curran/94de4605e4c3c91a50297669221764f1">Object Constancy in Animated Transitions
       <br><img width="230" height="120" src="http://bl.ocks.org/curran/raw/94de4605e4c3c91a50297669221764f1/thumbnail.png"></a>
